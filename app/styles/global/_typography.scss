@@ -1,0 +1,26 @@
+h1 {
+  font-size: 3.125rem;
+  font-size: clamp(3.125rem, 2.5892857142857144rem + 2.6785714285714284vw, 5rem);
+}
+
+h2 {
+  font-size: 3rem;
+  font-size: clamp(3rem, 2.7142857142857144rem + 1.4285714285714286vw, 4rem);
+}
+
+h3 {
+  font-size: 2.25rem;
+  font-size: clamp(2.25rem, 2.0357142857142856rem + 1.0714285714285714vw, 3rem);
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-size: clamp(1.25rem, 1.0357142857142856rem + 1.0714285714285714vw, 2rem);
+}
+
+p,
+li,
+a {
+  font-size: 0.75rem;
+  font-size: clamp(0.75rem, 0.6785714285714286rem + 0.35714285714285715vw, 1rem);
+}

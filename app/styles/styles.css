@@ -1,0 +1,59 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+h1 {
+  font-size: 3.125rem;
+  font-size: clamp(3.125rem, 2.5892857143rem + 2.6785714286vw, 5rem);
+}
+
+h2 {
+  font-size: 3rem;
+  font-size: clamp(3rem, 2.7142857143rem + 1.4285714286vw, 4rem);
+}
+
+h3 {
+  font-size: 2.25rem;
+  font-size: clamp(2.25rem, 2.0357142857rem + 1.0714285714vw, 3rem);
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-size: clamp(1.25rem, 1.0357142857rem + 1.0714285714vw, 2rem);
+}
+
+p,
+li,
+a {
+  font-size: 0.75rem;
+  font-size: clamp(0.75rem, 0.6785714286rem + 0.3571428571vw, 1rem);
+}/*# sourceMappingURL=styles.css.map */
