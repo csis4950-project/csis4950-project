@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <main>
-      <h1>NEXT.js</h1>
+      <h1>Wehabu</h1>
     </main>
   );
 }

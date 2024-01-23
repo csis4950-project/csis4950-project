@@ -56,4 +56,8 @@ li,
 a {
   font-size: 0.75rem;
   font-size: clamp(0.75rem, 0.6785714286rem + 0.3571428571vw, 1rem);
+}
+
+h1 {
+  background-color: #2B2B2B;
 }/*# sourceMappingURL=styles.css.map */
