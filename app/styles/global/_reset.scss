@@ -1,3 +1,6 @@
+@use "../colors" as *;
+
+
 *,
 ::after,
 ::before {
@@ -12,6 +15,7 @@ html {
 
 body {
   scroll-behavior: smooth;
+  //background-color: $bg;
 }
 
 .wrapper {
