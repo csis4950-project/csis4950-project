@@ -3,26 +3,35 @@ import Image from "next/image";
 export default function Navbar() {
 
   return (
-    <header className="horizontal-navbar">
-      <nav className="navbar">
-        <div className="logo">
-          <Image src="/wehabu.png"
-            alt="main_image1"
-            width={200}
-            height={100}
-            style={{ objectFit: "contain" }}
-          />
-        </div>
+    <header className="navbar">
+      <nav>
+        <Link href="/">
+          <div className="logo">
+            <Image src="/wehabu.png"
+              alt="main_image1"
+              width={80}
+              height={80}
+              style={{ objectFit: "contain" }}
+            />
+            <span>wehabu</span>
+          </div>
+        </Link>
         <ul>
-          <li>Home</li>
-          <li>Product</li>
-          <li>About</li>
-          <li>Contact</li>
+          <li>
+            <Link className="" href="">Home</Link>
+          </li>
+          <li>
+            <Link className="" href="/">Product</Link>
+          </li>
+          <li>
+            <Link className="" href="/">About</Link>
+          </li>
+          <li>
+            <Link className="" href="/">Contact</Link>
+          </li>
         </ul>
-        <div>
-          <Link className="landingpage" href="a">
-            Karlo
-          </Link>
+        <div className="">
+          <button>Login</button>
         </div>
       </nav>
     </header>
