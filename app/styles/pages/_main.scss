@@ -1,1 +1,53 @@
+@use "../utils/colors" as *;
+
 // For landing page
+.landing{
+h1{
+    padding: 5px;
+    text-align: center;
+}
+
+h2{
+    padding: 5px;
+    text-align: center;
+}
+p{
+    text-align: center;
+    padding-bottom: 15px;
+}
+.buttons{
+    display: flex;
+    justify-content: center;
+    button{
+        background-color: transparent;
+    padding: 15px 30px;
+    border: solid $white 1px;
+    margin: 5px;
+
+
+    &:hover {
+      background-color: $blue-500;
+    }
+
+    &:active {
+      background-color: $blue-200;
+    }
+    }
+
+}
+.randompic{
+    padding-top: 10px;
+    width: 100%;
+}
+
+.randompic2{
+    padding-top: 10px;
+    width: 100%;
+}
+.flexcontainer{
+    display: flex;
+    flex-direction: row;
+}
+
+}
+
