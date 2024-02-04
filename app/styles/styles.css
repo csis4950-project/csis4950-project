@@ -34,8 +34,14 @@ ul {
   list-style: none;
 }
 
-h1, h2, h3, h4, p, a, button {
+h1, h2, h3, h4, p, a, button, span {
   color: #F6F6F6;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 h1 {
@@ -66,7 +72,7 @@ a {
 }
 
 footer {
-  border: solid #F6F6F6 1px;
+  border-top: solid #F6F6F6 1px;
 }
 
 .navbar {
