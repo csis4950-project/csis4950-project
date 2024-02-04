@@ -89,6 +89,16 @@ export function Overview() {
     }
   ]
 
+  const availabilities = [
+    { "monday": ["all day"] },
+    { "tuesday": ["all day"] },
+    { "wednesday": ["all day"] },
+    { "thursday": ["all day"] },
+    { "friday": ["all day"] },
+    { "saturday": ["all day"] },
+    { "sunday": ["all day"] },
+  ]
+
   return (
     <section className="overview">
       <div className="head">
@@ -154,6 +164,22 @@ export function Overview() {
       <div className="availability p__v12h0">
         <div className="frame frame__vertical">
           <h4>Availability</h4>
+          <ul>
+            {
+              availabilities.map((availability, index) => {
+                const day = Object.keys(availability)[0]
+                return (
+                  <li key={index}>
+                    <span>{day[0].toUpperCase()+day.slice(1)}: {availability[day]}</span>
+                  </li>
+                )
+              })
+            }
+          </ul>
+          <span><b>NOTES</b></span>
+          <ul>
+            <li><span>2/22: not available</span></li>
+          </ul>
         </div>
       </div>
     </section>
