@@ -1,0 +1,56 @@
+@use "../utils//colors" as *;
+
+.calendar {
+  .selection {
+    display: flex;
+    gap: 48px;
+    margin: 16px 0;
+
+    button {
+      position: relative;
+      min-width: 150px;
+      border-bottom: solid $white 1px;
+    }
+
+    .triangle {
+      position: absolute;
+      right: 5px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 12px solid $white;
+    }
+  }
+
+  .background-white {
+    background-color: $white;
+    font-weight: 800;
+    text-align: center;
+
+    p,
+    span {
+      color: $black-950;
+    }
+
+    button {
+      width: 100%;
+      color: $black-950;
+      cursor: pointer;
+    }
+  }
+
+  .p {
+    &__v12h24 {
+      padding: 12px 24px;
+    }
+
+    &__v12h0 {
+      padding: 12px 24px;
+    }
+
+    &__v0h24 {
+      padding: 0px 24px;
+    }
+  }
+}
