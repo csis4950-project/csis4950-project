@@ -36,6 +36,12 @@ ul {
   list-style: none;
 }
 
-h1, h2, h3, h4, p, a, button {
+h1, h2, h3, h4, p, a, button, span {
   color: $white;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
