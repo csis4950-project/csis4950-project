@@ -1,0 +1,143 @@
+// * after create schemas, run `npx prisma migrate dev --name init`;
+// * above code runs `npx prisma generate` under the hood by default;
+// ! .env file should belong to root directory
+// * When the command does not work, check the privious migration file and directry change;
+
+// * commend for updating schema: npx prisma db push
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String @id @default(uuid())
+  firstName   String @db.String(25)
+  lastName    String @db.String(25)
+  email       String @unique
+  password    String @db.String(60)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+
+  // relations
+  ownerId Organization[] @relation("ownerId")
+  adminId Department[] @relation("adminId")
+  // employeeId[]
+}
+
+model Employee {
+  id String @id @default(uuid())
+
+  // relations
+  // userId
+  // departmentId
+  // roleId
+}
+
+model Organization {
+  id String @id @default(uuid())
+  ownerId String
+  name String @db.String(25)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+
+  // relations
+  owner User @relation("ownerId", fields: [ownerId], references: [id])
+  organizationId Department[] @relation("organizationId")
+  // userId: userId who created this organization
+
+}
+
+model Department {
+  id String @id @default(uuid())
+  organizationId String
+  adminId String?
+  name String @db.String(25)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+
+  // relations
+  organization Organization @relation("organizationId", fields: [organizationId], references: [id])
+  admin User? @relation("adminId", fields: [adminId], references: [id])
+}
+
+model Role {
+  id String @id @default(uuid())
+  name String @db.String(25)
+  description String @db.String(50)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+}
+
+model Request {
+  id String @id @default(uuid())
+  detail String @db.String(50)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+
+  // relations
+  // userId
+  // tagId[]
+  // statusId
+
+}
+
+model Schedule {
+  id String @id @default(uuid())
+  date DateTime
+  startTime DateTime
+  endTime DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+
+  // relations
+  // useId
+}
+
+model WorkTime {
+  id String @id @default(uuid())
+  date DateTime
+  hoursWorked Int
+
+  // relations
+  // userId
+
+}
+
+model Availability {
+  id String @id @default(uuid())
+  date DateTime
+  day DateTime
+  time DateTime
+
+  // relations
+  // userId
+}
+
+model Announcement {
+  id String @id @default(uuid())
+  title String @db.String(25)
+  detail String @db.String(100)
+
+  // relations
+  // userId
+  // tagId[]
+
+
+}
+
+model Tag {
+  id String @id @default(uuid())
+  name String @db.String(25)
+  description String @db.String(50)
+}
