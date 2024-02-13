@@ -30,8 +30,8 @@ export default function Navbar() {
             <Link className="" href="/">Contact</Link>
           </li>
         </ul>
-        <div className="">
-          <button>Login</button>
+        <div className="link">
+          <Link href="/login">Login</Link>
         </div>
       </nav>
     </header>
