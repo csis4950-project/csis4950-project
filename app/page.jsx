@@ -42,12 +42,18 @@ export default function Home() {
             </Image>
             </div>
             <div className="textcards">
+              <div className="card1">
               <h4>A single source of truth</h4>
               <p>When you add work to your Slate calendar we automatically calculate useful insights </p>
+              </div>
+              <div className="card2">
               <h4>Intuitive interface</h4>
               <p>When you add work to your Slate calendar we automatically calculate useful insights </p>
+              </div>
+              <div className="card3">
               <h4>Or with rules</h4>
               <p>When you add work to your Slate calendar we automatically calculate useful insights </p>
+              </div>
             </div>
             </div>
       </section>

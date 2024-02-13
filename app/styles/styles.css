@@ -155,6 +155,24 @@ footer {
   display: flex;
   flex-direction: row;
 }
+.landing .card1 {
+  width: 300px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 16px;
+}
+.landing .card2 {
+  width: 300px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 16px;
+}
+.landing .card3 {
+  width: 300px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 16px;
+}
 
 .dashboard {
   display: grid;
@@ -295,6 +313,51 @@ footer {
   width: 100%;
   color: #181818;
   cursor: pointer;
+}
+
+.container {
+  display: flex;
+}
+
+.usernameBox {
+  position: relative;
+  color: #6D6D6D;
+}
+
+.usernameImage {
+  position: absolute;
+  right: -1;
+  padding: 0;
+  margin: 0;
+}
+
+.loginForm {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.formLogo {
+  display: flex;
+  align-items: center;
+}
+
+.formLogo span {
+  font-size: 1rem; /* Adjust the font size as needed */
+  font-weight: bold;
+  color: #F6F6F6;
+}
+
+.passwordBox {
+  position: relative;
+  color: #6D6D6D;
+}
+
+.passwordImage {
+  position: absolute;
+  right: -1;
+  padding: 0;
+  margin: 0;
 }
 
 .calendar .selection {

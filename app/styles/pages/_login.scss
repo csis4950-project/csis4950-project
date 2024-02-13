@@ -1,0 +1,45 @@
+@use "../utils/colors" as *;
+.container{
+    display: flex;
+}
+
+.usernameBox{
+    position: relative;
+    color: $black-500
+}
+
+.usernameImage {
+    position: absolute;
+    right: -1;
+    padding: 0;
+    margin: 0;
+}
+
+.loginForm{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.formLogo{
+    display: flex;
+    align-items: center;
+}
+.formLogo span {
+    font-size: 1rem; /* Adjust the font size as needed */
+    font-weight: bold;
+    color: $white;
+  }
+
+  .passwordBox{
+    position: relative;
+    color: $black-500
+}
+
+.passwordImage {
+    position: absolute;
+    right: -1;
+    padding: 0;
+    margin: 0;
+}
+
