@@ -3,9 +3,6 @@ import moment from 'moment'
 
 const localizer = momentLocalizer(moment)
 
-
-
-
 export default function Calendar(props) {
 
   return (
