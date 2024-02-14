@@ -10,8 +10,7 @@ export default async function middleware(request) {
   const session = await getSession();
   if (path === "/") {
     if (session) {
-      const response = updateSession(session);
-      return response.redirect(new URL("/user/dashboard", request.url));
+      return NextResponse.redirect(new URL("/user/dashboard", request.url));
     }
   }
 
@@ -20,6 +19,6 @@ export default async function middleware(request) {
       return NextResponse.redirect(new URL("/", request.url));
     }
 
-    return updateSession(session);
+    return await updateSession(session);
   }
 }

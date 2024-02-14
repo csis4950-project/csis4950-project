@@ -1,7 +1,9 @@
 import { cookies } from "next/headers";
-import { encrypt, createPayload, isValidPassword, matchPassword } from "@/utils/utils";
+import { isValidPassword, matchPassword } from "@/utils/utils";
+import { createSession } from "./session";
+import { findUserByEmail, createUser, createOrganization, createDepartment } from "@/utils/db";
 
-export async function login(prevState, formData) {
+export async function login(formData) {
   try {
     const user = await findUserByEmail(formData.get("email"));
     if (user === null) {
@@ -12,12 +14,11 @@ export async function login(prevState, formData) {
       throw new Error("user does not exist or password not match");
     }
 
-    setUserToCookie(user);
-
-    return { message: "" }
+    const expires = new Date(Date.now() + (24 * 60 * 60 * 1000));
+    const session = await createSession(user, expires);
+    cookies().set("session", session, { expires, httpOnly: true });
   } catch (e) {
     console.log(e);
-    return { message: "e" }
   }
 }
 
@@ -40,10 +41,8 @@ export async function signUp(formData) {
     const createdOrganization = await createOrganization(createdUser.id, formData.get("organization"));
     const createdDepartment = await createDepartment(createdOrganization.id, formData.get("department"));
 
-    // create jwt
-    const payload = await createPayload(createdUser);
     const expires = new Date(Date.now() + (24 * 60 * 60 * 1000));
-    const session = await encrypt({ payload, expires });
+    const session = await createSession(createdUser, expires);
 
     cookies().set("session", session, { expires, httpOnly: true });
   } catch (e) {

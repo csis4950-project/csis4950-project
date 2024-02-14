@@ -1,7 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { permanentRedirect } from "next/navigation";
+import { login } from "@/utils/actions";
+import { getSession } from "@/utils/session";
 
-export default function Login() {
+export default async function Login() {
+  const session = await getSession();
+  if (session !== null) {
+    permanentRedirect("/user/dashboard", "replace");
+  }
   return (
     <div className="login-page">
       <div className="login-img">
@@ -23,9 +31,9 @@ export default function Login() {
             <div className="logo">
               <Image src="/wehabu.png"
                 alt="logo"
-                width={80}
-                height={80}
-                style={{ objectFit: "contain" }}
+                width={45}
+                height={60}
+                style={{ objectFit: "fill" }}
               />
               <span>Wehabu</span>
             </div>
@@ -33,9 +41,9 @@ export default function Login() {
               <span >Login into your account</span>
             </div>
           </div>
-          <form action={async () => {
+          <form action={async (formData) => {
             "use server";
-            console.log('action');
+            await login(formData);
           }}>
             <div className="input-field">
               <div className="mb-12">
