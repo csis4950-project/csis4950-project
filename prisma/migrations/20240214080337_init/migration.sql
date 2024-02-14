@@ -13,13 +13,6 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Employee" (
-    "id" STRING NOT NULL,
-
-    CONSTRAINT "Employee_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Organization" (
     "id" STRING NOT NULL,
     "ownerId" STRING NOT NULL,
@@ -35,7 +28,6 @@ CREATE TABLE "Organization" (
 CREATE TABLE "Department" (
     "id" STRING NOT NULL,
     "organizationId" STRING NOT NULL,
-    "adminId" STRING,
     "name" STRING(25) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -48,12 +40,22 @@ CREATE TABLE "Department" (
 CREATE TABLE "Role" (
     "id" STRING NOT NULL,
     "name" STRING(25) NOT NULL,
-    "description" STRING(50) NOT NULL,
+    "description" STRING(100) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "Role_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "DepartmentMember" (
+    "id" STRING NOT NULL,
+    "departmentId" STRING NOT NULL,
+    "memberId" STRING NOT NULL,
+    "roleId" STRING NOT NULL,
+
+    CONSTRAINT "DepartmentMember_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -120,6 +122,9 @@ CREATE TABLE "Tag" (
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Role_name_key" ON "Role"("name");
+
 -- AddForeignKey
 ALTER TABLE "Organization" ADD CONSTRAINT "Organization_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -127,4 +132,10 @@ ALTER TABLE "Organization" ADD CONSTRAINT "Organization_ownerId_fkey" FOREIGN KE
 ALTER TABLE "Department" ADD CONSTRAINT "Department_organizationId_fkey" FOREIGN KEY ("organizationId") REFERENCES "Organization"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Department" ADD CONSTRAINT "Department_adminId_fkey" FOREIGN KEY ("adminId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "DepartmentMember" ADD CONSTRAINT "DepartmentMember_departmentId_fkey" FOREIGN KEY ("departmentId") REFERENCES "Department"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "DepartmentMember" ADD CONSTRAINT "DepartmentMember_memberId_fkey" FOREIGN KEY ("memberId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "DepartmentMember" ADD CONSTRAINT "DepartmentMember_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

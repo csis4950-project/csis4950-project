@@ -26,55 +26,57 @@ model User {
 
   // relations
   ownerId Organization[] @relation("ownerId")
-  adminId Department[] @relation("adminId")
-  // employeeId[]
-}
-
-model Employee {
-  id String @id @default(uuid())
-
-  // relations
-  // userId
-  // departmentId
-  // roleId
+  memberId DepartmentMember[] @relation("memberId")
 }
 
 model Organization {
-  id String @id @default(uuid())
-  ownerId String
-  name String @db.String(25)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  deletedAt   DateTime?
+  id        String @id @default(uuid())
+  ownerId   String
+  name      String @db.String(25)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 
   // relations
   owner User @relation("ownerId", fields: [ownerId], references: [id])
   organizationId Department[] @relation("organizationId")
-  // userId: userId who created this organization
-
 }
 
 model Department {
-  id String @id @default(uuid())
+  id             String @id @default(uuid())
   organizationId String
-  adminId String?
-  name String @db.String(25)
+  name           String @db.String(25)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  deletedAt      DateTime?
+
+  // relations
+  organization Organization @relation("organizationId", fields: [organizationId], references: [id])
+  departmentId DepartmentMember[] @relation("departmentId")
+}
+
+model Role {
+  id          String @id @default(uuid())
+  name        String @unique @db.String(25)
+  description String @db.String(150)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   deletedAt   DateTime?
 
   // relations
-  organization Organization @relation("organizationId", fields: [organizationId], references: [id])
-  admin User? @relation("adminId", fields: [adminId], references: [id])
+  roleId DepartmentMember[] @relation("roleId")
 }
 
-model Role {
-  id String @id @default(uuid())
-  name String @db.String(25)
-  description String @db.String(50)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  deletedAt   DateTime?
+model DepartmentMember {
+  id           String @id @default(uuid())
+  departmentId String
+  memberId     String
+  roleId       String
+
+  //relations
+  department Department @relation("departmentId", fields: [departmentId], references: [id])
+  member User @relation("memberId", fields: [memberId], references: [id])
+  role Role @relation("roleId", fields: [roleId], references: [id])
 }
 
 model Request {
