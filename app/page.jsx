@@ -1,37 +1,46 @@
 import Image from "next/image";
-// Landing page
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="landing">
       <section>
-        <div>
-          <h1>Work at the speed </h1>
-          <h1>of thought</h1>
-          <p>Most calendars are designed for teams. Slate is designed for  freelancers who want a simple way to plan their schedule.</p>
+        <div className="title title__max-length">
+          <div>
+            <h1>Work at the speed of thought</h1>
+          </div>
+          <div>
+            <p>Most calendars are designed for teams. Slate is designed for  freelancers who want a simple way to plan their schedule.</p>
+          </div>
         </div>
-           <div className="buttons">
-              <button>Try For Free</button>
-              <button>Learn More</button>
-            </div>
-            <div className="randompic">
-            <Image src= "/randompicture.png"
-              width={100}
-              height={100}
-              sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}>
-            </Image>
-            </div>
+        <div className="buttons">
+          <Link className="link" href="/sign-up">Try for free</Link>
+          <Link className="link" href="/">Learn More</Link>
+        </div>
+        <div>
+          <Image src="/home_bg.png"
+            width={100}
+            height={100}
+            sizes="100vw"
+            style={{
+              width: '100%',
+              height: 'auto',
+            }}>
+          </Image>
+        </div>
       </section>
-      <section>
-        <h2>Features</h2>
-        <p>Most calendars are designed for teams. Slate is designed for
-          freelancers who want a simple way to plan their schedule.</p>
-          <div className="flexcontainer">
-          <div className="randompic2">
-            <Image src= "/randompic2.png"
+      <section className="features">
+        <div className="title title__max-length">
+          <div>
+            <h2>Features</h2>
+          </div>
+          <div>
+            <p>Most calendars are designed for teams. Slate is designed for freelancers who want a simple way to plan their schedule.</p>
+          </div>
+        </div>
+        <div className="content">
+          <div className="feature-image">
+            <Image src="/home_bg2.png"
               width={100}
               height={100}
               sizes="50vw"
@@ -40,22 +49,22 @@ export default function Home() {
                 height: 'auto',
               }}>
             </Image>
-            </div>
-            <div className="textcards">
-              <div className="card1">
+          </div>
+          <div className="text-cards">
+            <div className="card">
               <h4>A single source of truth</h4>
               <p>When you add work to your Slate calendar we automatically calculate useful insights </p>
-              </div>
-              <div className="card2">
+            </div>
+            <div className="card">
               <h4>Intuitive interface</h4>
               <p>When you add work to your Slate calendar we automatically calculate useful insights </p>
-              </div>
-              <div className="card3">
+            </div>
+            <div className="card">
               <h4>Or with rules</h4>
               <p>When you add work to your Slate calendar we automatically calculate useful insights </p>
-              </div>
             </div>
-            </div>
+          </div>
+        </div>
       </section>
     </main>
   );

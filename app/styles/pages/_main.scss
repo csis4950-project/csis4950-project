@@ -1,73 +1,62 @@
 @use "../utils/colors" as *;
 
 // For landing page
-.landing{
-h1{
-    padding: 5px;
+.landing {
+  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: auto;
     text-align: center;
-}
 
-h2{
-    padding: 5px;
-    text-align: center;
-}
-p{
-    text-align: center;
-    padding-bottom: 15px;
-}
-.buttons{
+    &__max-length {
+      max-width: 70%;
+    }
+  }
+
+  .buttons {
     display: flex;
     justify-content: center;
-    button{
-        background-color: transparent;
-    padding: 15px 30px;
-    border: solid $white 1px;
-    margin: 5px;
+    gap: 12px;
+    margin: 32px 0;
 
+    .link {
+      padding: 16px 32px;
+      border: solid $white 1px;
 
-    &:hover {
-      background-color: $blue-500;
+      &:hover {
+        background-color: $blue-500;
+      }
+
+      &:active {
+        background-color: $blue-200;
+      }
+    }
+  }
+  .features {
+    .content {
+      display: grid;
+      grid-template-rows: 1fr;
+      grid-template-columns: repeat(12, 1fr);
     }
 
-    &:active {
-      background-color: $blue-200;
+    .feature-image {
+      grid-column: 1/9;
     }
+
+    .text-cards {
+      grid-column: 9/13;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+
+      .card {
+        max-width: 300px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
     }
-
+  }
 }
-.randompic{
-    padding-top: 10px;
-    width: 100%;
-}
-
-.randompic2{
-    padding-top: 10px;
-    width: 100%;
-}
-.flexcontainer{
-    display: flex;
-    flex-direction: row;
-}
-.card1{
-    width: 300px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 16px;
-}
-.card2{
-    width: 300px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 16px;
-}
-
-.card3{
-    width: 300px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 16px;
-}
-
-
-}
-
