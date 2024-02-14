@@ -25,6 +25,7 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  padding: 0 24px;
 }
 
 a {
@@ -35,7 +36,15 @@ ul {
   list-style: none;
 }
 
-h1, h2, h3, h4, p, a, button, span {
+h1,
+h2,
+h3,
+h4,
+p,
+a,
+button,
+span,
+label {
   color: #F6F6F6;
 }
 
@@ -43,6 +52,10 @@ button {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+input:focus {
+  outline: none;
 }
 
 h1 {
@@ -67,12 +80,14 @@ h4 {
 
 p,
 li,
-a {
+a,
+span {
   font-size: 0.75rem;
   font-size: clamp(0.75rem, 0.6785714286rem + 0.3571428571vw, 1rem);
 }
 
 footer {
+  margin-top: 24px;
   border-top: solid #F6F6F6 1px;
 }
 
@@ -80,6 +95,7 @@ footer {
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-bottom: 24px;
 }
 .navbar nav {
   display: flex;
@@ -103,150 +119,97 @@ footer {
   -webkit-text-decoration: underline #F6F6F6;
           text-decoration: underline #F6F6F6;
 }
-.navbar nav button {
+.navbar nav .link a {
   background-color: transparent;
   padding: 16px 32px;
   border: solid #F6F6F6 1px;
 }
-.navbar nav button:hover {
+.navbar nav .link a:hover {
   background-color: #4F4F4F;
 }
-.navbar nav button:active {
+.navbar nav .link a:active {
   background-color: transparent;
 }
 
-.landing h1 {
-  padding: 5px;
+.landing .title {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: auto;
   text-align: center;
 }
-.landing h2 {
-  padding: 5px;
-  text-align: center;
-}
-.landing p {
-  text-align: center;
-  padding-bottom: 15px;
+.landing .title__max-length {
+  max-width: 70%;
 }
 .landing .buttons {
   display: flex;
   justify-content: center;
+  gap: 12px;
+  margin: 32px 0;
 }
-.landing .buttons button {
-  background-color: transparent;
-  padding: 15px 30px;
+.landing .buttons .link {
+  padding: 16px 32px;
   border: solid #F6F6F6 1px;
-  margin: 5px;
 }
-.landing .buttons button:hover {
+.landing .buttons .link:hover {
   background-color: #4452FE;
 }
-.landing .buttons button:active {
+.landing .buttons .link:active {
   background-color: #C2D2FF;
 }
-.landing .randompic {
-  padding-top: 10px;
-  width: 100%;
+.landing .features .content {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(12, 1fr);
 }
-.landing .randompic2 {
-  padding-top: 10px;
-  width: 100%;
+.landing .features .feature-image {
+  grid-column: 1/9;
 }
-.landing .flexcontainer {
+.landing .features .text-cards {
+  grid-column: 9/13;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
 }
-.landing .card1 {
-  width: 300px;
-  overflow: hidden;
+.landing .features .text-cards .card {
+  max-width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 16px;
-}
-.landing .card2 {
-  width: 300px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 16px;
-}
-.landing .card3 {
-  width: 300px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 16px;
 }
 
 .dashboard {
-  display: grid;
-  grid-template-rows: repeat(2, auto);
-  grid-template-columns: repeat(12, 1fr);
-}
-.dashboard .btn {
-  padding: 8px 12px;
-  border: solid #F6F6F6 1px;
-}
-.dashboard .btn__round {
-  border-radius: 50px;
-}
-.dashboard .btn__square {
-  border-radius: 8px;
-}
-.dashboard .top-bar {
-  grid-row: 1/2;
-  grid-column: 1/13;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 48px 12px 48px;
-  border-bottom: solid #F6F6F6 1px;
-}
-.dashboard .side-nav {
-  grid-row: 2;
-  grid-column: 1/3;
-  border-right: solid #F6F6F6 1px;
-}
-.dashboard .side-nav nav ul {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 12px 0;
-}
-.dashboard .side-nav nav ul li a {
-  padding-left: 12px;
-}
-.dashboard .side-nav nav ul li:hover {
-  text-decoration: underline;
-  text-decoration-color: #F6F6F6;
-}
-.dashboard .overview {
   grid-row: 2;
   grid-column: 3/13;
   display: grid;
   grid-template-rows: repeat(3, auto);
   grid-template-columns: repeat(12, 1fr);
 }
-.dashboard .overview .head {
+.dashboard .head {
   grid-row: 1/2;
   grid-column: 1/13;
   padding: 12px 24px;
 }
-.dashboard .overview .head .head-top {
+.dashboard .head .head-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.dashboard .overview .head .head-top .title__section {
+.dashboard .head .head-top .title__section {
   margin-bottom: 16px;
 }
-.dashboard .overview .head .head-bottom {
+.dashboard .head .head-bottom {
   display: flex;
   gap: 24px;
 }
-.dashboard .overview .head .head-bottom .select-department {
+.dashboard .head .head-bottom .select-department {
   position: relative;
 }
-.dashboard .overview .head .head-bottom .select-department button {
+.dashboard .head .head-bottom .select-department button {
   min-width: 150px;
   border-bottom: solid #F6F6F6 1px;
 }
-.dashboard .overview .head .head-bottom .select-department .triangle {
+.dashboard .head .head-bottom .select-department .triangle {
   position: absolute;
   right: 5px;
   width: 0;
@@ -255,109 +218,247 @@ footer {
   border-right: 6px solid transparent;
   border-top: 12px solid #F6F6F6;
 }
-.dashboard .overview .announcement {
+.dashboard .announcement {
   grid-row: 2/3;
   grid-column: 1/8;
 }
-.dashboard .overview .request-status {
+.dashboard .request-status {
   grid-row: 3/4;
   grid-column: 1/8;
 }
-.dashboard .overview .availability {
+.dashboard .availability {
   grid-row: 2/4;
   grid-column: 8/13;
 }
-.dashboard .frame {
+
+.frame {
   border: solid #F6F6F6 1px;
   border-radius: 16px;
   padding: 10px 10px;
 }
-.dashboard .frame__horizontal {
+.frame__horizontal {
   min-height: 200px;
 }
-.dashboard .frame__vertical {
+.frame__vertical {
   min-height: 100%;
 }
-.dashboard .frame ul {
+.frame ul {
   list-style: inside;
   padding: 12px 0;
 }
-.dashboard .frame ul li {
+.frame ul li {
   margin-bottom: 8px;
 }
-.dashboard .frame ul li::marker {
+.frame ul li::marker {
   color: #F6F6F6;
 }
-.dashboard .frame .show-all {
+.frame .show-all {
   border-radius: 0 0 8px 8px;
 }
-.dashboard .p__v12h24 {
+
+.p__v12h24 {
   padding: 12px 24px;
 }
-.dashboard .p__v12h0 {
+.p__v12h0 {
   padding: 12px 24px;
 }
-.dashboard .p__v0h24 {
+.p__v0h24 {
   padding: 0px 24px;
 }
-.dashboard .background-white {
+
+.background-white {
   background-color: #F6F6F6;
   font-weight: 800;
   text-align: center;
 }
-.dashboard .background-white p,
-.dashboard .background-white span {
+.background-white p,
+.background-white span {
   color: #181818;
 }
-.dashboard .background-white button {
+.background-white button {
   width: 100%;
   color: #181818;
   cursor: pointer;
 }
 
-.container {
+.login-page {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+.login-page .login-img {
+  grid-column: 1/8;
+}
+.login-page .mb-12 {
+  margin-bottom: 12px;
+}
+.login-page .mb-24 {
+  margin-bottom: 24px;
+}
+.login-page .flex {
   display: flex;
 }
-
-.usernameBox {
-  position: relative;
+.login-page .flex--right {
+  justify-content: end;
+}
+.login-page .flex--center {
+  justify-content: center;
+  align-items: center;
+}
+.login-page .link--black-500 {
   color: #6D6D6D;
 }
-
-.usernameImage {
-  position: absolute;
-  right: -1;
-  padding: 0;
-  margin: 0;
+.login-page .link--blue-500 {
+  color: #4452FE;
 }
-
-.loginForm {
+.login-page section {
+  grid-column: 8/13;
+  width: 100%;
+  padding: 0 24px;
+  margin: auto;
+}
+.login-page section .login-form .logo-frame {
+  margin-bottom: 48px;
+}
+.login-page section .login-form .logo-frame .logo {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+.login-page section .login-form .logo-frame .logo span {
+  font-size: 24px;
+}
+.login-page section .login-form .logo-frame .message {
+  text-align: center;
+}
+.login-page section .login-form .logo-frame .message span {
+  color: #6D6D6D;
+}
+.login-page section .login-form .input-field label {
+  color: #6D6D6D;
+}
+.login-page section .login-form .input-field input {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 48px;
+  border-radius: 8px;
+}
+.login-page .btn {
+  width: 100%;
+  background-color: #4452FE;
+  padding: 12px 0;
+  border-radius: 8px;
+}
+.login-page .btn--transparent {
+  background-color: transparent;
+  color: #4452FE;
+  border: solid #4452FE 1px;
+}
+.login-page .divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 24px 0;
+}
+.login-page .divider .horizontal-line {
+  width: 100%;
+  border-bottom: solid 0.5px #F6F6F6;
+}
+
+.sign-up-page {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+.sign-up-page section {
+  grid-column: 1/8;
+  width: 100%;
+  padding: 0 24px;
+  margin: auto;
+}
+.sign-up-page section .sign-up-form .logo-frame {
+  margin-bottom: 48px;
+}
+.sign-up-page section .sign-up-form .logo-frame .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sign-up-page section .sign-up-form .logo-frame .logo span {
+  font-size: 24px;
+}
+.sign-up-page section .sign-up-form .logo-frame .message {
+  text-align: center;
+}
+.sign-up-page section .sign-up-form .logo-frame .message span {
+  color: #6D6D6D;
+}
+.sign-up-page .sign-up-input-field {
+  display: flex;
   flex-direction: column;
-}
-
-.formLogo {
-  display: flex;
   align-items: center;
 }
-
-.formLogo span {
-  font-size: 1rem; /* Adjust the font size as needed */
-  font-weight: bold;
-  color: #F6F6F6;
+.sign-up-page .sign-up-input-field .input-field-layout {
+  width: 100%;
 }
-
-.passwordBox {
-  position: relative;
+.sign-up-page .sign-up-input-field .input-field-layout .field-row {
+  display: flex;
+  width: 100%;
+}
+.sign-up-page .sign-up-input-field .input-field-layout .field-row--one-item {
+  justify-content: start;
+}
+.sign-up-page .sign-up-input-field .input-field-layout .field-row--two-items {
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.sign-up-page .sign-up-input-field .input-field-layout .field-row .input-field {
+  width: 100%;
+  max-width: 300px;
+  min-width: 250px;
+}
+.sign-up-page .sign-up-input-field .input-field-layout .field-row .input-field label {
   color: #6D6D6D;
 }
-
-.passwordImage {
-  position: absolute;
-  right: -1;
-  padding: 0;
-  margin: 0;
+.sign-up-page .sign-up-input-field .input-field-layout .field-row .input-field input {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 48px;
+  border-radius: 8px;
+}
+.sign-up-page .sign-up-img {
+  grid-column: 8/13;
+  grid-row: 1/2;
+}
+.sign-up-page .bg-white {
+  background-color: #D1D1D1;
+}
+.sign-up-page .mb-12 {
+  margin-bottom: 12px;
+}
+.sign-up-page .mb-24 {
+  margin-bottom: 24px;
+}
+.sign-up-page .btns {
+  display: flex;
+  margin: 32px 0;
+  gap: 32px;
+}
+.sign-up-page .btns .btn {
+  border: solid 1px;
+  padding: 12px 24px;
+  border-radius: 8px;
+}
+.sign-up-page .btns .btn--next {
+  border-color: #4452FE;
+  background-color: #4452FE;
+}
+.sign-up-page .btns .btn--prev {
+  border-color: #888888;
+  background-color: #888888;
+}
+.sign-up-page .btns .btn--sign-up {
+  border-color: #41E7A6;
+  background-color: #41E7A6;
 }
 
 .calendar .selection {
@@ -1066,4 +1167,54 @@ button.rbc-input::-moz-focus-inner {
   height: 1px;
   background-color: #74ad31;
   pointer-events: none;
+}
+
+.grid {
+  display: grid;
+}
+.grid__dashboard-contents {
+  grid-row: 2;
+  grid-column: 3/13;
+}
+
+.user-page-layout {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-template-columns: repeat(12, 1fr);
+}
+.user-page-layout .btn {
+  padding: 8px 12px;
+  border: solid #F6F6F6 1px;
+}
+.user-page-layout .btn__round {
+  border-radius: 50px;
+}
+.user-page-layout .btn__square {
+  border-radius: 8px;
+}
+.user-page-layout .top-bar {
+  grid-row: 1/2;
+  grid-column: 1/13;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 48px 12px 48px;
+  border-bottom: solid #F6F6F6 1px;
+}
+.user-page-layout .side-nav {
+  grid-row: 2;
+  grid-column: 1/3;
+  border-right: solid #F6F6F6 1px;
+}
+.user-page-layout .side-nav nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 0;
+}
+.user-page-layout .side-nav nav ul li a {
+  padding-left: 12px;
+}
+.user-page-layout .side-nav nav ul li:hover {
+  text-decoration: underline;
+  text-decoration-color: #F6F6F6;
 }/*# sourceMappingURL=styles.css.map */
