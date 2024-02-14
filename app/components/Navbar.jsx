@@ -1,14 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 export default function Navbar() {
-
   return (
     <header className="navbar">
       <nav>
         <Link href="/">
           <div className="logo">
             <Image src="/wehabu.png"
-              alt="main_image1"
+              alt="logo"
               width={80}
               height={80}
               style={{ objectFit: "contain" }}

@@ -1,10 +1,5 @@
-"use server"
-import prismaClient from "@/utils/globalPrismaClient";
 import { cookies } from "next/headers";
-import bcrypt from "bcrypt";
-import { encrypt, decrypt, createPayload } from "@/utils/utils";
-
-
+import { encrypt, createPayload, isValidPassword, matchPassword } from "@/utils/utils";
 
 export async function login(prevState, formData) {
   try {
@@ -13,8 +8,7 @@ export async function login(prevState, formData) {
       throw new Error("user does not exist or password not match");
     }
 
-    const isValidPassword = await bcrypt.compare(formData.get("password"), user.password);
-    if (!isValidPassword) {
+    if (await !isValidPassword(formData.get("password"), user.password)) {
       throw new Error("user does not exist or password not match");
     }
 
@@ -32,10 +26,8 @@ export async function logout() {
 }
 
 export async function signUp(formData) {
-  console.log(formData);
   try {
-    const isValidPassword = await formData.get("password").match(formData.get("cPassword"));
-    if (!isValidPassword) {
+    if (!matchPassword(formData.get("password"), formData.get("cPassword"))) {
       throw Error("Password not match");
     }
 
@@ -58,52 +50,3 @@ export async function signUp(formData) {
     console.log(e);
   }
 }
-
-export async function findUserByEmail(email) {
-  const user = await prismaClient.user.findUnique({
-    where: {
-      email: email
-    }
-  })
-
-  return user;
-}
-
-export async function createUser(formData) {
-  const saltRound = 10;
-  const hashedPassword = await bcrypt.hash(formData.get("password"), saltRound);
-
-  const newUser = await prismaClient.user.create({
-    data: {
-      firstName: formData.get("fName"),
-      lastName: formData.get("lName"),
-      email: formData.get("email"),
-      password: hashedPassword
-    }
-  })
-
-  return newUser;
-}
-
-export async function createOrganization(userId, organizationName) {
-  const organization = await prismaClient.organization.create({
-    data: {
-      "ownerId": userId,
-      "name": organizationName
-    }
-  })
-
-  return organization;
-}
-
-export async function createDepartment(organizationId, departmentName) {
-  const department = await prismaClient.department.create({
-    data: {
-      "organizationId": organizationId,
-      "name": departmentName
-    }
-  })
-  return department;
-}
-
-

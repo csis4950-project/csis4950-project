@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getSession, updateSession } from '@/utils/utils';
+import { getSession, updateSession } from '@/utils/session';
 
 export const config = {
   matcher: ["/user/:path*", "/"]

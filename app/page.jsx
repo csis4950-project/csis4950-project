@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="landing">
+    <div className="landing">
       <section>
         <div className="title title__max-length">
           <div>
@@ -19,6 +19,7 @@ export default function Home() {
         </div>
         <div>
           <Image src="/home_bg.png"
+            alt="background image1"
             width={100}
             height={100}
             sizes="100vw"
@@ -41,6 +42,7 @@ export default function Home() {
         <div className="content">
           <div className="feature-image">
             <Image src="/home_bg2.png"
+              alt="background image2"
               width={100}
               height={100}
               sizes="50vw"
@@ -66,6 +68,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
