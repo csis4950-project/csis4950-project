@@ -37,7 +37,15 @@ ul {
   list-style: none;
 }
 
-h1, h2, h3, h4, p, a, button, span, label {
+h1,
+h2,
+h3,
+h4,
+p,
+a,
+button,
+span,
+label {
   color: $white;
 }
 
@@ -45,4 +53,10 @@ button {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+input {
+  &:focus {
+    outline: none;
+  }
 }

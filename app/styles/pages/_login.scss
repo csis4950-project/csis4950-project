@@ -1,45 +1,112 @@
 @use "../utils/colors" as *;
-.container{
-    display: flex;
-}
 
-.usernameBox{
-    position: relative;
-    color: $black-500
-}
+.login-page {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
 
-.usernameImage {
-    position: absolute;
-    right: -1;
-    padding: 0;
-    margin: 0;
-}
-
-.loginForm{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.formLogo{
-    display: flex;
-    align-items: center;
-}
-.formLogo span {
-    font-size: 1rem; /* Adjust the font size as needed */
-    font-weight: bold;
-    color: $white;
+  .login-img {
+    grid-column: 1/8;
   }
 
-  .passwordBox{
-    position: relative;
-    color: $black-500
-}
+  .mb-12 {
+    margin-bottom: 12px;
+  }
 
-.passwordImage {
-    position: absolute;
-    right: -1;
-    padding: 0;
-    margin: 0;
-}
+  .mb-24 {
+    margin-bottom: 24px;
+  }
 
+  .flex {
+    display: flex;
+
+    &--right {
+      justify-content: end;
+    }
+
+    &--center {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .link {
+    &__forget-password {
+    }
+
+    &--black-500 {
+      color: $black-500;
+    }
+
+    &--blue-500 {
+      color: $blue-500;
+    }
+  }
+
+  section {
+    grid-column: 8/13;
+    width: 100%;
+    padding: 0 24px;
+    margin: auto;
+
+    .login-form {
+      .logo-frame {
+        margin-bottom: 48px;
+
+        .logo {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          span {
+            font-size: 24px;
+          }
+        }
+
+        .message {
+          text-align: center;
+          span {
+            color: $black-500;
+          }
+        }
+      }
+
+      .input-field {
+        label {
+          color: $black-500;
+        }
+
+        input {
+          width: 100%;
+          padding: 8px 12px;
+          margin-bottom: 48px;
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+
+  .btn {
+    width: 100%;
+    background-color: $blue-500;
+    padding: 12px 0;
+    border-radius: 8px;
+
+    &--transparent {
+      background-color: transparent;
+      color: $blue-500;
+      border: solid $blue-500 1px;
+    }
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 24px 0;
+
+    .horizontal-line {
+      width: 100%;
+      border-bottom: solid 0.5px $white;
+    }
+  }
+}

@@ -20,7 +20,8 @@ h4 {
 
 p,
 li,
-a {
+a,
+span {
   font-size: 0.75rem;
   font-size: clamp(0.75rem, 0.6785714285714286rem + 0.35714285714285715vw, 1rem);
 }
