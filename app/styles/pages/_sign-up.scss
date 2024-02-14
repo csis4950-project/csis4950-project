@@ -1,0 +1,118 @@
+@use "../utils/colors" as *;
+
+.sign-up-page {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+
+  section {
+    grid-column: 1/8;
+    width: 100%;
+    padding: 0 24px;
+    margin: auto;
+
+    .sign-up-form {
+      .logo-frame {
+        margin-bottom: 48px;
+
+        .logo {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          span {
+            font-size: 24px;
+          }
+        }
+
+        .message {
+          text-align: center;
+          span {
+            color: $black-500;
+          }
+        }
+      }
+    }
+  }
+
+  .sign-up-input-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .input-field-layout {
+      width: 100%;
+
+      .field-row {
+        display: flex;
+        width: 100%;
+
+        &--one-item {
+          justify-content: start;
+        }
+
+        &--two-items {
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+
+        .input-field {
+          width: 100%;
+          max-width: 300px;
+          min-width: 250px;
+
+          label {
+            color: $black-500;
+          }
+
+          input {
+            width: 100%;
+            padding: 8px 12px;
+            margin-bottom: 48px;
+            border-radius: 8px;
+          }
+        }
+      }
+    }
+  }
+  .sign-up-img {
+    grid-column: 8/13;
+    grid-row: 1/2;
+  }
+
+  .bg-white {
+    background-color: $black-200;
+  }
+
+  .mb-12 {
+    margin-bottom: 12px;
+  }
+
+  .mb-24 {
+    margin-bottom: 24px;
+  }
+
+  .btns {
+    display: flex;
+    margin: 32px 0;
+    gap: 32px;
+    .btn {
+      border: solid 1px;
+      padding: 12px 24px;
+      border-radius: 8px;
+
+      &--next {
+        border-color: $blue-500;
+        background-color: $blue-500;
+      }
+
+      &--prev {
+        border-color: $black-400;
+        background-color: $black-400;
+      }
+
+      &--sign-up {
+        border-color: $green-400;
+        background-color: $green-400;
+      }
+    }
+  }
+}

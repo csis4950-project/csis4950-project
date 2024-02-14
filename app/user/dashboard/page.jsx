@@ -6,7 +6,7 @@ export default async function Dashboard(params) {
   // console.log("params: ", params);
   const currentDepartment = "Cleaning";
   const user = "admin";
-  const session = await getSession();
+  // const session = await getSession();
   // console.log(session);
 
   return (
