@@ -1,6 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-export default function Navbar() {
+import { getSession } from "@/utils/session";
+import { logout } from "@/utils/actions";
+import { redirect } from "next/navigation";
+
+export default async function Navbar() {
+  const session = await getSession();
+
   return (
     <header className="navbar">
       <nav>
@@ -12,7 +18,7 @@ export default function Navbar() {
               height={80}
               style={{ objectFit: "contain" }}
             />
-            <span>wehabu</span>
+            <span>Wehabu</span>
           </div>
         </Link>
         <ul>
@@ -30,7 +36,16 @@ export default function Navbar() {
           </li>
         </ul>
         <div className="link">
-          <Link href="/login">Login</Link>
+
+          {session
+            ? <form action={async () => {
+              "use server"
+              await logout();
+              redirect("/login", "replace");
+            }}>
+              <button type="submit">Logout</button>
+            </form>
+            : <Link href="/login">Login</Link>}
         </div>
       </nav>
     </header>
