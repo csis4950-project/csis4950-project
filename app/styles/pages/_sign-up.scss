@@ -62,11 +62,13 @@
           label {
             color: $black-500;
           }
+          .input {
+            margin-bottom: 48px;
+          }
 
           input {
             width: 100%;
             padding: 8px 12px;
-            margin-bottom: 48px;
             border-radius: 8px;
           }
         }
@@ -114,5 +116,9 @@
         background-color: $green-400;
       }
     }
+  }
+
+  .error-message {
+    color: $red-500;
   }
 }

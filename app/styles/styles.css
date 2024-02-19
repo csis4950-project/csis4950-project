@@ -364,6 +364,9 @@ footer {
   width: 100%;
   border-bottom: solid 0.5px #F6F6F6;
 }
+.login-page .error-message {
+  color: #ef4444;
+}
 
 .sign-up-page {
   display: grid;
@@ -419,10 +422,12 @@ footer {
 .sign-up-page .sign-up-input-field .input-field-layout .field-row .input-field label {
   color: #6D6D6D;
 }
+.sign-up-page .sign-up-input-field .input-field-layout .field-row .input-field .input {
+  margin-bottom: 48px;
+}
 .sign-up-page .sign-up-input-field .input-field-layout .field-row .input-field input {
   width: 100%;
   padding: 8px 12px;
-  margin-bottom: 48px;
   border-radius: 8px;
 }
 .sign-up-page .sign-up-img {
@@ -459,6 +464,9 @@ footer {
 .sign-up-page .btns .btn--sign-up {
   border-color: #41E7A6;
   background-color: #41E7A6;
+}
+.sign-up-page .error-message {
+  color: #ef4444;
 }
 
 .calendar .selection {
