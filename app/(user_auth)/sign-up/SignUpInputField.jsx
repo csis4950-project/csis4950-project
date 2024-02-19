@@ -1,10 +1,11 @@
 "use client"
 import { useState } from "react"
 
-export default function SignUpInputField() {
+export default function SignUpInputField({ error }) {
   const [pages, setPages] = useState(0);
   const visible = { display: "block" }
   const invisible = { display: "none" }
+
   return (
     <div className="sign-up-input-field">
       {pages === 0
@@ -22,7 +23,8 @@ export default function SignUpInputField() {
               <label htmlFor="firstName">First Name</label>
             </div>
             <div className="input">
-              <input type="text" id="firstName" name="firstName" required></input>
+              <input type="text" id="firstName" name="firstName" />
+              {error && <span className="error-message">{error.firstName}</span>}
             </div>
           </div>
           <div className="input-field" style={pages === 0 ? visible : invisible}>
@@ -30,7 +32,8 @@ export default function SignUpInputField() {
               <label htmlFor="lastName">Last Name</label>
             </div>
             <div className="input">
-              <input type="text" id="lastName" name="lastName" required></input>
+              <input type="text" id="lastName" name="lastName"></input>
+              {error && <span className="error-message">{error.firstName}</span>}
             </div>
           </div>
         </div>
@@ -40,7 +43,8 @@ export default function SignUpInputField() {
               <label htmlFor="email">Email</label>
             </div>
             <div className="input">
-              <input type="email" id="email" name="email" required></input>
+              <input type="email" id="email" name="email"></input>
+              {error && <span className="error-message">{error?.email}</span>}
             </div>
           </div>
         </div>
@@ -50,7 +54,8 @@ export default function SignUpInputField() {
               <label htmlFor="password">Password</label>
             </div>
             <div className="input">
-              <input type="password" id="password" name="password" required></input>
+              <input type="password" id="password" name="password"></input>
+              {error && <span className="error-message">{error?.password}</span>}
             </div>
           </div>
           <div className="input-field" style={pages === 0 ? visible : invisible}>
@@ -58,7 +63,7 @@ export default function SignUpInputField() {
               <label htmlFor="cPassword">Confirm Password</label>
             </div>
             <div className="input">
-              <input type="password" id="cPassword" name="cPassword" required></input>
+              <input type="password" id="cPassword" name="cPassword"></input>
             </div>
           </div>
         </div>
@@ -68,7 +73,8 @@ export default function SignUpInputField() {
               <label htmlFor="organization">Organization Name</label>
             </div>
             <div className="input">
-              <input type="text" id="organization" name="organization" required></input>
+              <input type="text" id="organization" name="organization"></input>
+              {error && <span className="error-message">{error?.organization}</span>}
             </div>
           </div>
         </div>
@@ -80,6 +86,8 @@ export default function SignUpInputField() {
         }
         {pages === 1 && <button type='submit' className="btn btn--sign-up">Submit</button>}
       </div>
+      {error && <div><span className="error-message">{error?.message}</span></div>}
+      {/* {error && <span className="error-message">{error?.message}</span>} */}
     </div>
   )
 }

@@ -1,36 +1,46 @@
-import { cookies } from "next/headers";
-import { isValidPassword, matchPassword } from "@/utils/utils";
-import { createSession } from "./session";
-import { findUserByEmail, createUser, createOrganization, createDepartment } from "@/utils/db";
+import { isValidPassword } from "@/utils/utils";
+import { deleteSession, setErrorSession, setSession } from "./session";
+import { findUserByEmail, createUser, createOrganization, createDepartment, createDepartmentMember } from "@/utils/db";
+import { validateName, validateEmail, validatePassword } from "@/utils/validation";
+
 
 export async function login(formData) {
   try {
     const user = await findUserByEmail(formData.get("email"));
     if (user === null) {
-      throw new Error("user does not exist or password not match");
+      throw new Error("User does not exist or the password provided is incorrect");
     }
 
-    if (await !isValidPassword(formData.get("password"), user.password)) {
-      throw new Error("user does not exist or password not match");
+    if (!await isValidPassword(formData.get("password"), user.password)) {
+      throw new Error("User does not exist or the password provided is incorrect");
     }
 
-    const expires = new Date(Date.now() + (24 * 60 * 60 * 1000));
-    const session = await createSession(user, expires);
-    cookies().set("session", session, { expires, httpOnly: true });
+    setSession(user);
   } catch (e) {
-    console.log(e);
+    setErrorSession(e);
   }
 }
 
 export async function logout() {
-  cookies().set("session", "", { expires: new Date(0) });
+  await deleteSession();
 }
 
-export async function signUp(formData) {
+export async function signUpOwner(formData) {
   try {
-    if (!matchPassword(formData.get("password"), formData.get("cPassword"))) {
-      throw Error("Password not match");
-    }
+    const inputValidationResults = {
+      firstName: validateName(formData.get("firstName")),
+      lastName: validateName(formData.get("lastName")),
+      email: validateEmail(formData.get("email")),
+      password: validatePassword(formData.get("password"), formData.get("cPassword")),
+      organization: validateName(formData.get("organization"))
+    };
+
+    Object.values(inputValidationResults).forEach((error) => {
+      if (error) {
+        throw Error("Several fields seem to have error information. Please fill them in.", { cause: inputValidationResults });
+      }
+    })
+
 
     const user = await findUserByEmail(formData.get("email"));
     if (user !== null) {
@@ -39,13 +49,11 @@ export async function signUp(formData) {
 
     const createdUser = await createUser(formData);
     const createdOrganization = await createOrganization(createdUser.id, formData.get("organization"));
-    const createdDepartment = await createDepartment(createdOrganization.id, formData.get("department"));
+    const createdDepartment = await createDepartment(createdOrganization.id, "__Owner");
+    await createDepartmentMember(createdDepartment.id, createdUser.id, "owner");
 
-    const expires = new Date(Date.now() + (24 * 60 * 60 * 1000));
-    const session = await createSession(createdUser, expires);
-
-    cookies().set("session", session, { expires, httpOnly: true });
+    setSession(createdUser);
   } catch (e) {
-    console.log(e);
+    setErrorSession(e);
   }
 }

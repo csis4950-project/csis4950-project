@@ -1,15 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { permanentRedirect } from "next/navigation";
 import { login } from "@/utils/actions";
-import { getSession } from "@/utils/session";
+import { getSession, getErrorSession } from "@/utils/session";
 
 export default async function Login() {
-  const session = await getSession();
-  if (session !== null) {
-    permanentRedirect("/user/dashboard", "replace");
-  }
+  const errorSession = await getErrorSession();
+
   return (
     <div className="login-page">
       <div className="login-img">
@@ -44,6 +41,10 @@ export default async function Login() {
           <form action={async (formData) => {
             "use server";
             await login(formData);
+            const session = await getSession();
+            const errorSession = await getErrorSession();
+
+            permanentRedirect("/login");
           }}>
             <div className="input-field">
               <div className="mb-12">
@@ -64,6 +65,7 @@ export default async function Login() {
             <div className="flex flex--right mb-24">
               <Link className="link link__forget-password link--black-500" href="/">Forgot password?</Link>
             </div>
+            {errorSession && <span className="error-message">{errorSession.payload.message}</span>}
             <button className="btn" type="submit"><span>Login</span></button>
           </form>
         </div>
@@ -73,7 +75,7 @@ export default async function Login() {
           <span className="horizontal-line"></span>
         </div>
         <button className="btn btn--transparent">
-          <Link className="link link--blue-500" href="/sign-up">Signup now</Link>
+          <Link className="link link--blue-500" href="/sign-up">Sign up now</Link>
         </button>
       </section>
     </div>

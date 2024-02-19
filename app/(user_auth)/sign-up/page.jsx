@@ -1,14 +1,12 @@
-import { signUp } from '@/utils/actions';
 import { permanentRedirect } from "next/navigation";
-import { cookies } from 'next/headers';
 import SignUpInputField from './SignUpInputField';
 import Image from "next/image";
+import { signUpOwner } from "@/utils/actions";
+import { getSession, getErrorSession } from "@/utils/session";
 
-export default function SignUp() {
-  const c = cookies().get('session');
-  if (c) {
-    permanentRedirect("/user/dashboard", "replace");
-  }
+export default async function SignUp() {
+  const errorSession = await getErrorSession();
+
   return (
     <div className='sign-up-page'>
       <section>
@@ -29,10 +27,12 @@ export default function SignUp() {
           </div>
           <form action={async (formData) => {
             'use server';
-            // await signUp(formData);
-            console.log(formData);
+            await signUpOwner(formData);
+            const session = await getSession();
+            const errorSession = await getErrorSession();
+            permanentRedirect("/sign-up");
           }}>
-            <SignUpInputField />
+            <SignUpInputField error={errorSession ? errorSession.payload : null} />
           </form>
         </div>
       </section>
