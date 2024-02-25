@@ -27,15 +27,17 @@ model User {
   // relations
   ownerId Organization[] @relation("ownerId")
   memberId DepartmentMember[] @relation("memberId")
+  announcementOwner Announcement[] @relation("ownerId")
+  requestOwner Request[] @relation("ownerId")
 }
 
 model Organization {
-  id        String @id @default(uuid())
-  ownerId   String
-  name      String @db.String(25)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  deletedAt DateTime?
+  id          String @id @default(uuid())
+  ownerId     String
+  name        String @db.String(25)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
 
   // relations
   owner User @relation("ownerId", fields: [ownerId], references: [id])
@@ -43,35 +45,36 @@ model Organization {
 }
 
 model Department {
-  id             String @id @default(uuid())
-  organizationId String
-  name           String @db.String(25)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  deletedAt      DateTime?
+  id               String @id @default(uuid())
+  organizationId   String
+  name             String @db.String(25)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  deletedAt        DateTime?
 
   // relations
   organization Organization @relation("organizationId", fields: [organizationId], references: [id])
   departmentId DepartmentMember[] @relation("departmentId")
+  announcedDepartment Announcement[] @relation("departmentId")
 }
 
 model Role {
-  id          String @id @default(uuid())
-  name        String @unique @db.String(25)
-  description String @db.String(150)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  deletedAt   DateTime?
+  id            String @id @default(uuid())
+  name          String @unique @db.String(25)
+  description   String @db.String(150)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?
 
   // relations
   roleId DepartmentMember[] @relation("roleId")
 }
 
 model DepartmentMember {
-  id           String @id @default(uuid())
-  departmentId String
-  memberId     String
-  roleId       String
+  id             String @id @default(uuid())
+  departmentId   String
+  memberId       String
+  roleId         String
 
   //relations
   department Department @relation("departmentId", fields: [departmentId], references: [id])
@@ -80,24 +83,28 @@ model DepartmentMember {
 }
 
 model Request {
-  id String @id @default(uuid())
-  detail String @db.String(50)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  deletedAt   DateTime?
+  id             String @id @default(uuid())
+  ownerId        String
+  departmentId   String
+  typeTagId      String
+  statusTagId    String
+  detail         String @db.String(50)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  deletedAt      DateTime?
 
   // relations
-  // userId
-  // tagId[]
-  // statusId
+  requestOwner User @relation("ownerId", fields: [ownerId], references: [id])
+  requestType Tag @relation("typeTagId", fields: [typeTagId], references: [id])
+  status Tag @relation("statusTagId", fields: [statusTagId], references: [id])
 
 }
 
 model Schedule {
-  id String @id @default(uuid())
-  date DateTime
-  startTime DateTime
-  endTime DateTime
+  id          String @id @default(uuid())
+  date        DateTime
+  startTime   DateTime
+  endTime     DateTime
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   deletedAt   DateTime?
@@ -107,39 +114,71 @@ model Schedule {
 }
 
 model WorkTime {
-  id String @id @default(uuid())
-  date DateTime
-  hoursWorked Int
-
+  id            String @id @default(uuid())
+  date          DateTime
+  hoursWorked   Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?
   // relations
   // userId
 
 }
 
 model Availability {
-  id String @id @default(uuid())
-  date DateTime
-  day DateTime
-  time DateTime
-
+  id          String @id @default(uuid())
+  date        DateTime
+  day         DateTime
+  time        DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
   // relations
   // userId
 }
 
 model Announcement {
-  id String @id @default(uuid())
-  title String @db.String(25)
-  detail String @db.String(100)
+  id               String @id @default(uuid())
+  ownerId          String
+  departmentId     String
+  typeTagId        String
+  title            String @db.String(25)
+  detail           String @db.String(250)
+  expirationTime   DateTime
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  deletedAt        DateTime?
 
   // relations
-  // userId
-  // tagId[]
-
-
+  announcedDepartment Department @relation("departmentId", fields: [departmentId], references: [id])
+  announcementOwner User @relation("ownerId", fields: [ownerId], references: [id])
+  announcementType Tag @relation("typeTagId", fields: [typeTagId], references: [id])
 }
 
 model Tag {
-  id String @id @default(uuid())
-  name String @db.String(25)
-  description String @db.String(50)
+  id            String @id @default(uuid())
+  tagTypeId     String
+  name          String @db.String(25)
+  description   String @db.String(100)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?
+
+  // relations
+  announcementType Announcement[] @relation("typeTagId")
+  requestType Request[] @relation("typeTagId")
+  statusType Request[] @relation("statusTagId")
+  tagType TagType @relation("tagTypeId", fields: [tagTypeId], references: [id])
+
+}
+
+model TagType {
+  id          String @id @default(uuid())
+  name        String @db.String(25)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+
+  // relations
+  tagType Tag[] @relation("tagTypeId")
 }
