@@ -4,8 +4,6 @@ import { createResponse } from "../createResponse";
 export async function POST(request, response) {
   try {
     const { action, payload } = await request.json();
-    console.log('action: ', action);
-    console.log('payload: ', payload);
     if (action === "isValid") {
       const result = await isValidPassword(payload.password, payload.encryptedPassword)
       return createResponse(result, "success");

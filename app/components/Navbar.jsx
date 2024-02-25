@@ -17,6 +17,7 @@ export default async function Navbar() {
               width={80}
               height={80}
               style={{ objectFit: "contain" }}
+              priority={true}
             />
             <span>Wehabu</span>
           </div>
