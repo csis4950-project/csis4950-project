@@ -29,26 +29,48 @@ export async function getSession() {
   return await decrypt(session);
 }
 
-export async function setSession(payload) {
+export async function setSession(userSessionData) {
   const expires = new Date(Date.now() + (24 * 60 * 60 * 1000));
-  const session = await createSession(payload, expires);
+  const session = await createSession(userSessionData, expires);
   cookies().set(COOKIE_SESSION, session, { expires, httpOnly: true });
 }
 
-export async function createSession(user, expires) {
-  const payload = await createPayload(user);
+export async function createSession(userSessionData, expires) {
+  const payload = await createPayload(userSessionData);
   const session = await encrypt({ payload, expires });
 
   return session;
 }
 
-export async function createPayload(user) {
+export async function createPayload(userSessionData) {
+  const { memberId: departmentMember } = userSessionData;
+  const orgSet = new Set();
+  const organizations = [];
+  const departments = []
+  departmentMember.map(({ department, role }) => {
+    if (!orgSet.has(department.organization.id)) {
+      orgSet.add(department.organization.id);
+      organizations.push(department.organization)
+    }
+    departments.push({
+      organizationId: department.organization.id,
+      departmentId: department.id,
+      departmentName: department.name,
+      role: role.name
+    });
+  })
+
   const payload = {
-    "userId": user.id,
-    "firstName": user.firstName,
-    "lastName": user.lastName,
-    "email": user.email
+    "userId": userSessionData.id,
+    "fullName": userSessionData.firstName + " " + userSessionData.lastName,
+    "firstName": userSessionData.firstName,
+    "lastName": userSessionData.lastName,
+    "email": userSessionData.email,
+    "currentOrganization": organizations[0],
+    "organizations": organizations,
+    "departments": departments,
   }
+
   return payload;
 }
 
@@ -76,7 +98,7 @@ export async function getErrorSession() {
 }
 
 export async function setErrorSession(error) {
-  const expires = new Date(Date.now() + (30 * 1000));
+  const expires = new Date(Date.now() + (10 * 1000));
   const errorSession = await createErrorSession(error, expires);
   cookies().set(COOKIE_SESSION_ERROR, errorSession, { expires, httpOnly: true });
 }

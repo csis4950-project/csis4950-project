@@ -44,7 +44,9 @@ p,
 a,
 button,
 span,
-label {
+label,
+th,
+td {
   color: #F6F6F6;
 }
 
@@ -131,51 +133,114 @@ footer {
   background-color: transparent;
 }
 
-.landing .title {
+.announcement {
+  padding: 0 24px;
+}
+.announcement__head {
+  padding: 12px 0;
+}
+.announcement__title {
+  color: #F6F6F6;
+}
+.announcement .form {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  margin: auto;
+  padding: 16px 0;
+  gap: 16px;
+}
+.announcement .form__label {
+  margin-right: 16px;
+}
+.announcement .form__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+.announcement .form__detail {
+  display: flex;
+  flex-direction: column;
+}
+.announcement .form__detail--size {
+  min-height: 100px;
+}
+.announcement .form__select--multiple {
+  display: flex;
+  align-items: center;
+}
+.announcement .form__select--size-multiple {
+  width: 150px;
+}
+.announcement .form__btn {
+  padding: 8px 12px;
+  margin: 16px 0 16px auto;
+  border: solid 1px #F6F6F6;
+}
+.announcement table,
+.announcement th,
+.announcement td {
+  border: solid 1px #F6F6F6;
+}
+.announcement table {
+  height: auto;
+}
+.announcement .table {
+  width: 100%;
+  padding: 16px 0;
+  border: solid 1px #F6F6F6;
+  border-collapse: collapse;
+}
+.announcement .table__row--size-head {
+  height: 50px;
+}
+.announcement .table__row--size-body {
+  height: 100px;
+}
+.announcement .table__cel {
   text-align: center;
 }
-.landing .title__max-length {
-  max-width: 70%;
-}
-.landing .buttons {
+
+.calendar .selection {
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin: 32px 0;
+  gap: 48px;
+  margin: 16px 0;
 }
-.landing .buttons .link {
-  padding: 16px 32px;
-  border: solid #F6F6F6 1px;
+.calendar .selection button {
+  position: relative;
+  min-width: 150px;
+  border-bottom: solid #F6F6F6 1px;
 }
-.landing .buttons .link:hover {
-  background-color: #4452FE;
+.calendar .selection .triangle {
+  position: absolute;
+  right: 5px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 12px solid #F6F6F6;
 }
-.landing .buttons .link:active {
-  background-color: #C2D2FF;
+.calendar .background-white {
+  background-color: #F6F6F6;
+  font-weight: 800;
+  text-align: center;
 }
-.landing .features .content {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: repeat(12, 1fr);
+.calendar .background-white p,
+.calendar .background-white span {
+  color: #181818;
 }
-.landing .features .feature-image {
-  grid-column: 1/9;
+.calendar .background-white button {
+  width: 100%;
+  color: #181818;
+  cursor: pointer;
 }
-.landing .features .text-cards {
-  grid-column: 9/13;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
+.calendar .p__v12h24 {
+  padding: 12px 24px;
 }
-.landing .features .text-cards .card {
-  max-width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.calendar .p__v12h0 {
+  padding: 12px 24px;
+}
+.calendar .p__v0h24 {
+  padding: 0px 24px;
 }
 
 .dashboard {
@@ -185,38 +250,16 @@ footer {
   grid-template-rows: repeat(3, auto);
   grid-template-columns: repeat(12, 1fr);
 }
-.dashboard .head {
+.dashboard .header {
   grid-row: 1/2;
   grid-column: 1/13;
   padding: 12px 24px;
-}
-.dashboard .head .head-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.dashboard .head .head-top .title__section {
+.dashboard .header__title {
   margin-bottom: 16px;
-}
-.dashboard .head .head-bottom {
-  display: flex;
-  gap: 24px;
-}
-.dashboard .head .head-bottom .select-department {
-  position: relative;
-}
-.dashboard .head .head-bottom .select-department button {
-  min-width: 150px;
-  border-bottom: solid #F6F6F6 1px;
-}
-.dashboard .head .head-bottom .select-department .triangle {
-  position: absolute;
-  right: 5px;
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 12px solid #F6F6F6;
 }
 .dashboard .announcement {
   grid-row: 2/3;
@@ -230,30 +273,42 @@ footer {
   grid-row: 2/4;
   grid-column: 8/13;
 }
-
-.frame {
+.dashboard .btn {
+  width: 100%;
+  background-color: #F6F6F6;
+  text-align: center;
+}
+.dashboard .btn--invitation-link {
+  background-color: transparent;
+  border-radius: 50px;
+}
+.dashboard .btn--show-all {
+  border-radius: 0 0 8px 8px;
+}
+.dashboard .btn--show-all__text {
+  width: 100%;
+  color: #181818;
+  cursor: pointer;
+}
+.dashboard .frame {
   border: solid #F6F6F6 1px;
   border-radius: 16px;
   padding: 10px 10px;
 }
-.frame__horizontal {
-  min-height: 200px;
-}
-.frame__vertical {
+.dashboard .frame--vertical {
   min-height: 100%;
 }
-.frame ul {
-  list-style: inside;
-  padding: 12px 0;
+.dashboard .list {
+  padding: 12px 0 12px 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  list-style: square;
 }
-.frame ul li {
+.dashboard .list__item {
   margin-bottom: 8px;
 }
-.frame ul li::marker {
+.dashboard .list__item::marker {
   color: #F6F6F6;
-}
-.frame .show-all {
-  border-radius: 0 0 8px 8px;
 }
 
 .p__v12h24 {
@@ -264,21 +319,6 @@ footer {
 }
 .p__v0h24 {
   padding: 0px 24px;
-}
-
-.background-white {
-  background-color: #F6F6F6;
-  font-weight: 800;
-  text-align: center;
-}
-.background-white p,
-.background-white span {
-  color: #181818;
-}
-.background-white button {
-  width: 100%;
-  color: #181818;
-  cursor: pointer;
 }
 
 .login-page {
@@ -366,6 +406,53 @@ footer {
 }
 .login-page .error-message {
   color: #ef4444;
+}
+
+.landing .title {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: auto;
+  text-align: center;
+}
+.landing .title__max-length {
+  max-width: 70%;
+}
+.landing .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 32px 0;
+}
+.landing .buttons .link {
+  padding: 16px 32px;
+  border: solid #F6F6F6 1px;
+}
+.landing .buttons .link:hover {
+  background-color: #4452FE;
+}
+.landing .buttons .link:active {
+  background-color: #C2D2FF;
+}
+.landing .features .content {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(12, 1fr);
+}
+.landing .features .feature-image {
+  grid-column: 1/9;
+}
+.landing .features .text-cards {
+  grid-column: 9/13;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+.landing .features .text-cards .card {
+  max-width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .sign-up-page {
@@ -467,49 +554,6 @@ footer {
 }
 .sign-up-page .error-message {
   color: #ef4444;
-}
-
-.calendar .selection {
-  display: flex;
-  gap: 48px;
-  margin: 16px 0;
-}
-.calendar .selection button {
-  position: relative;
-  min-width: 150px;
-  border-bottom: solid #F6F6F6 1px;
-}
-.calendar .selection .triangle {
-  position: absolute;
-  right: 5px;
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 12px solid #F6F6F6;
-}
-.calendar .background-white {
-  background-color: #F6F6F6;
-  font-weight: 800;
-  text-align: center;
-}
-.calendar .background-white p,
-.calendar .background-white span {
-  color: #181818;
-}
-.calendar .background-white button {
-  width: 100%;
-  color: #181818;
-  cursor: pointer;
-}
-.calendar .p__v12h24 {
-  padding: 12px 24px;
-}
-.calendar .p__v12h0 {
-  padding: 12px 24px;
-}
-.calendar .p__v0h24 {
-  padding: 0px 24px;
 }
 
 .rbc-btn {
@@ -1213,16 +1257,25 @@ button.rbc-input::-moz-focus-inner {
   grid-column: 1/3;
   border-right: solid #F6F6F6 1px;
 }
-.user-page-layout .side-nav nav ul {
+.user-page-layout .side-nav .nav__title {
+  background-color: #F6F6F6;
+  text-align: center;
+}
+.user-page-layout .side-nav .nav__title__text {
+  padding: 6px 0;
+  font-weight: 800;
+  color: #181818;
+}
+.user-page-layout .side-nav .nav__list {
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding: 12px 0;
 }
-.user-page-layout .side-nav nav ul li a {
+.user-page-layout .side-nav .nav__list__item__text {
   padding-left: 12px;
 }
-.user-page-layout .side-nav nav ul li:hover {
+.user-page-layout .side-nav .nav__list__item__text:hover {
   text-decoration: underline;
   text-decoration-color: #F6F6F6;
 }/*# sourceMappingURL=styles.css.map */

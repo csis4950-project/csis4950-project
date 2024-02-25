@@ -1,8 +1,19 @@
-import { isValidPassword } from "@/utils/utils";
-import { deleteSession, setErrorSession, setSession } from "./session";
-import { findUserByEmail, createUser, createOrganization, createDepartment, createDepartmentMember } from "@/utils/db";
-import { validateName, validateEmail, validatePassword } from "@/utils/validation";
+"use server"
 
+import { deleteSession, setErrorSession, setSession } from "./session";
+import {
+  createDepartment,
+  createDepartmentMember,
+  createOrganization,
+  createUser,
+  createAnnouncements,
+  findUserByEmail,
+  getUserSessionData,
+  deleteAnnouncementById
+} from "@/utils/db";
+import { validateName, validateEmail, validatePassword } from "@/utils/validation";
+import { fetchIsValid } from "@/utils/utils";
+import { revalidatePath } from "next/cache";
 
 export async function login(formData) {
   try {
@@ -11,12 +22,14 @@ export async function login(formData) {
       throw new Error("User does not exist or the password provided is incorrect");
     }
 
-    if (!await isValidPassword(formData.get("password"), user.password)) {
+    if (!await fetchIsValid(formData.get("password"), user.password)) {
       throw new Error("User does not exist or the password provided is incorrect");
     }
 
-    setSession(user);
+    const userSessionData = await getUserSessionData(user.email);
+    setSession(userSessionData);
   } catch (e) {
+    console.log(e);
     setErrorSession(e);
   }
 }
@@ -52,8 +65,52 @@ export async function signUpOwner(formData) {
     const createdDepartment = await createDepartment(createdOrganization.id, "__Owner");
     await createDepartmentMember(createdDepartment.id, createdUser.id, "owner");
 
-    setSession(createdUser);
+    const userSessionData = await getUserSessionData(createdUser.email);
+    setSession(userSessionData);
   } catch (e) {
     setErrorSession(e);
   }
+}
+
+export async function publishNewAnnouncement(formData) {
+  validateAnnouncementForm(formData);
+  const announcementData = formatAnnouncementData(formData);
+  const newAnnouncement = await createAnnouncements(announcementData);
+
+  revalidatePath("/user/dashboard/announcement");
+}
+
+function validateAnnouncementForm(formData) {
+  const departmentId = formData.get("department");
+  const typeTagId = formData.get("type");
+  const title = formData.get("title");
+  const detail = formData.get("detail");
+  const expirationTime = formData.get("expirationTime");
+
+  if (!departmentId || !typeTagId || !title || !detail || !expirationTime) {
+    throw new Error("Please fill all fields and choose at least one option and department.");
+  }
+};
+
+function formatAnnouncementData(formData) {
+  const formattedData = [];
+  const departments = formData.getAll("department");
+  departments.forEach((department) => {
+    const data = {
+      ownerId: formData.get("userId"),
+      departmentId: department,
+      typeTagId: formData.get("type"),
+      title: formData.get("title"),
+      detail: formData.get("detail"),
+      expirationTime: new Date(formData.get("expirationTime"))
+    }
+    formattedData.push(data);
+  })
+  return formattedData;
+}
+
+export async function deleteAnnouncement(formData) {
+  const announcementId = formData.get("announcementId");
+  await deleteAnnouncementById(announcementId);
+  revalidatePath("user/dashboard/announcement");
 }
