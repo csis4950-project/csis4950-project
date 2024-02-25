@@ -1,11 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { permanentRedirect } from "next/navigation";
-import { login } from "@/utils/actions";
-import { getSession, getErrorSession } from "@/utils/session";
+import LoginFrom from "./LoginForm";
+
 
 export default async function Login() {
-  const errorSession = await getErrorSession();
+
 
   return (
     <div className="login-page">
@@ -38,13 +37,17 @@ export default async function Login() {
               <span >Login into your account</span>
             </div>
           </div>
-          <form action={async (formData) => {
+          <LoginFrom />
+          {/* <form action={async (formData) => {
             "use server";
             await login(formData);
             const session = await getSession();
-            const errorSession = await getErrorSession();
-
-            permanentRedirect("/login");
+            if (session) {
+              revalidatePath("/login");
+              // redirect("/user/dashboard", "replace");
+            } else {
+              redirect("/login", "replace");
+            }
           }}>
             <div className="input-field">
               <div className="mb-12">
@@ -67,7 +70,7 @@ export default async function Login() {
             </div>
             {errorSession && <span className="error-message">{errorSession.payload.message}</span>}
             <button className="btn" type="submit"><span>Login</span></button>
-          </form>
+          </form> */}
         </div>
         <div className="divider">
           <div className="horizontal-line"></div>

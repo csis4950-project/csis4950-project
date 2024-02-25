@@ -14,24 +14,21 @@ import {
 import { validateName, validateEmail, validatePassword } from "@/utils/validation";
 import { fetchIsValid } from "@/utils/utils";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function login(formData) {
-  try {
-    const user = await findUserByEmail(formData.get("email"));
-    if (user === null) {
-      throw new Error("User does not exist or the password provided is incorrect");
-    }
-
-    if (!await fetchIsValid(formData.get("password"), user.password)) {
-      throw new Error("User does not exist or the password provided is incorrect");
-    }
-
-    const userSessionData = await getUserSessionData(user.email);
-    setSession(userSessionData);
-  } catch (e) {
-    console.log(e);
-    setErrorSession(e);
+  const user = await findUserByEmail(formData.get("email"));
+  if (user === null) {
+    throw new Error("User does not exist or the password provided is incorrect");
   }
+
+  if (!await fetchIsValid(formData.get("password"), user.password)) {
+    throw new Error("User does not exist or the password provided is incorrect");
+  }
+
+  const userSessionData = await getUserSessionData(user.email);
+  setSession(userSessionData);
+  redirect("user/dashboard");
 }
 
 export async function logout() {
