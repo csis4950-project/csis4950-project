@@ -29,6 +29,8 @@ model User {
   memberId DepartmentMember[] @relation("memberId")
   announcementOwner Announcement[] @relation("ownerId")
   requestOwner Request[] @relation("ownerId")
+  assignedUser Shift[] @relation("userId")
+  workedUser WorkTime[] @relation("userId")
 }
 
 model Organization {
@@ -56,6 +58,7 @@ model Department {
   organization Organization @relation("organizationId", fields: [organizationId], references: [id])
   departmentId DepartmentMember[] @relation("departmentId")
   announcedDepartment Announcement[] @relation("departmentId")
+  shiftDepartment Shift[] @relation("departmentId")
 }
 
 model Role {
@@ -100,29 +103,35 @@ model Request {
 
 }
 
-model Schedule {
-  id          String @id @default(uuid())
-  date        DateTime
-  startTime   DateTime
-  endTime     DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  deletedAt   DateTime?
+model Shift {
+  id             String @id @default(uuid())
+  userId         String
+  departmentId   String
+  tagId          String
+  startTime      DateTime
+  endTime        DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  deletedAt      DateTime?
 
   // relations
-  // useId
+  assignedUser User @relation("userId", fields: [userId], references: [id])
+  shiftDepartment Department @relation("departmentId", fields: [departmentId], references: [id])
+  shiftTag Tag @relation("tagId", fields: [tagId], references: [id])
 }
 
 model WorkTime {
-  id            String @id @default(uuid())
-  date          DateTime
-  hoursWorked   Int
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  deletedAt     DateTime?
-  // relations
-  // userId
+  id             String @id @default(uuid())
+  userId         String
+  departmentId   String
+  startTime      DateTime
+  endTime        DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  deletedAt      DateTime?
 
+  // relations
+  workedUser User @relation("userId", fields: [userId], references: [id])
 }
 
 model Availability {
@@ -168,8 +177,8 @@ model Tag {
   announcementType Announcement[] @relation("typeTagId")
   requestType Request[] @relation("typeTagId")
   statusType Request[] @relation("statusTagId")
+  shiftTag Shift[] @relation("tagId")
   tagType TagType @relation("tagTypeId", fields: [tagTypeId], references: [id])
-
 }
 
 model TagType {
