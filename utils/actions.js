@@ -28,6 +28,8 @@ export async function login(formData) {
 
   const userSessionData = await getUserSessionData(user.email);
   await setSession(userSessionData);
+
+  redirect("/user/dashboard", "replace");
 }
 
 export async function logout() {
