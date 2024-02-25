@@ -97,12 +97,6 @@ export async function getErrorSession() {
   return await decrypt(session);
 }
 
-export async function setErrorSession(error) {
-  const expires = new Date(Date.now() + (10 * 1000));
-  const errorSession = await createErrorSession(error, expires);
-  cookies().set(COOKIE_SESSION_ERROR, errorSession, { expires, httpOnly: true });
-}
-
 export async function createErrorSession(error, expires) {
   const payload = await createErrorPayload(error);
   const errorSession = await encrypt({ payload, expires });

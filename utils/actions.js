@@ -1,6 +1,6 @@
 "use server"
 
-import { deleteSession, setErrorSession, setSession } from "./session";
+import { deleteSession, setSession } from "./session";
 import {
   createDepartment,
   createDepartmentMember,
@@ -27,8 +27,7 @@ export async function login(formData) {
   }
 
   const userSessionData = await getUserSessionData(user.email);
-  setSession(userSessionData);
-  redirect("user/dashboard");
+  await setSession(userSessionData);
 }
 
 export async function logout() {
@@ -36,37 +35,43 @@ export async function logout() {
 }
 
 export async function signUpOwner(formData) {
-  try {
-    const inputValidationResults = {
-      firstName: validateName(formData.get("firstName")),
-      lastName: validateName(formData.get("lastName")),
-      email: validateEmail(formData.get("email")),
-      password: validatePassword(formData.get("password"), formData.get("cPassword")),
-      organization: validateName(formData.get("organization"))
-    };
+  const inputValidationResults = {
+    firstName: validateName(formData.get("firstName")),
+    lastName: validateName(formData.get("lastName")),
+    email: validateEmail(formData.get("email")),
+    password: validatePassword(formData.get("password"), formData.get("cPassword")),
+    organization: validateName(formData.get("organization"))
+  };
 
-    Object.values(inputValidationResults).forEach((error) => {
-      if (error) {
-        throw Error("Several fields seem to have error information. Please fill them in.", { cause: inputValidationResults });
+  Object.values(inputValidationResults).forEach((error) => {
+    if (error) {
+      const error = {
+        message: "Several fields seem to have error information. Please fill them in.",
+        cause: inputValidationResults
       }
-    })
-
-
-    const user = await findUserByEmail(formData.get("email"));
-    if (user !== null) {
-      throw Error("The email address is already registered. Try again with other email address");
+      throw new Error(JSON.stringify(error));
     }
+  })
 
-    const createdUser = await createUser(formData);
-    const createdOrganization = await createOrganization(createdUser.id, formData.get("organization"));
-    const createdDepartment = await createDepartment(createdOrganization.id, "__Owner");
-    await createDepartmentMember(createdDepartment.id, createdUser.id, "owner");
 
-    const userSessionData = await getUserSessionData(createdUser.email);
-    setSession(userSessionData);
-  } catch (e) {
-    setErrorSession(e);
+  const user = await findUserByEmail(formData.get("email"));
+  if (user !== null) {
+    const error = {
+      message: "The email address is already registered. Try again with other email address",
+      cause: {}
+    }
+    throw new Error(JSON.stringify(error));
   }
+
+  const createdUser = await createUser(formData);
+  const createdOrganization = await createOrganization(createdUser.id, formData.get("organization"));
+  const createdDepartment = await createDepartment(createdOrganization.id, "__Owner");
+  await createDepartmentMember(createdDepartment.id, createdUser.id, "owner");
+
+  const userSessionData = await getUserSessionData(createdUser.email);
+  await setSession(userSessionData);
+
+  redirect("/user/dashboard", "replace");
 }
 
 export async function publishNewAnnouncement(formData) {
