@@ -17,7 +17,6 @@ export default function SignUpForm() {
   return (
     <form action={async (formData) => {
       try {
-        console.log('FIRED');
         await signUpOwner(formData);
       } catch (e) {
         const error = JSON.parse(e.message);

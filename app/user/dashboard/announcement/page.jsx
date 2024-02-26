@@ -10,8 +10,7 @@ export default async function Announcement() {
   const announcementTypes = await getTagsByTagType("announcement");
   const announcements = await getAnnouncementsOfAffiliatedDepartments(currentOrganization, departments);
   const adminDepartments = getDepartmentsIfAdmin(session.departments);
-  console.log('a', adminDepartments);
-  console.log(session);
+
   return (
     <section className="announcement">
       <div className="announcement__head">
