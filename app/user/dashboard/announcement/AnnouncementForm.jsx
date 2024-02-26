@@ -5,9 +5,8 @@ import { useState } from "react";
 
 const ERROR_MESSAGE = "Please fill all fields and choose at least one option and department.";
 
-export default function AnnouncementForm({ session, announcementTypes }) {
+export default function AnnouncementForm({ userId, departments, announcementTypes }) {
   const [error, setError] = useState(false);
-  const { userId, departments } = session;
 
   return (
     <form className="form" action={async (formData) => {
