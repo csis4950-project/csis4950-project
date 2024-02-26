@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { createResponse } from "../createResponse";
+import { createResponse } from "@/app/api/api_utils/createResponse";
 
 export async function POST(request, response) {
   try {

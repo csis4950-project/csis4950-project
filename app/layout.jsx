@@ -10,8 +10,8 @@ export const metadata = {
   description: "Project",
 };
 
-export default function RootLayout({ children }) {
-  
+export default async function RootLayout({ children }) {
+
   return (
     <html lang="en">
       <body className={inter.className}>
