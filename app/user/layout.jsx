@@ -48,7 +48,10 @@ export function SideNav({ currentOrganization, departments }) {
             <Link className="nav__list__item__text" href="/user/dashboard">Dashboard</Link>
           </li>
           <li className="nav__list__item">
-            <Link className="nav__list__item__text" href="/user/dashboard/announcement">Announcements</Link>
+            <Link className="nav__list__item__text" href="/user/dashboard/announcement">Announcement</Link>
+          </li>
+          <li className="nav__list__item">
+            <Link className="nav__list__item__text" href="/user/dashboard/request">Request</Link>
           </li>
         </ul>
         <div className="nav__title">
@@ -59,10 +62,10 @@ export function SideNav({ currentOrganization, departments }) {
             <Link className="nav__list__item__text" href="/user/calendar">Calendar</Link>
           </li>
           <li className="nav__list__item">
-            <Link className="nav__list__item__text" href="/">Summary</Link>
+            <Link className="nav__list__item__text" href="/summary">Summary</Link>
           </li>
           <li className="nav__list__item">
-            <Link className="nav__list__item__text" href="/">Work</Link>
+            <Link className="nav__list__item__text" href="/work">Work</Link>
           </li>
         </ul>
         {isAdmin &&
@@ -72,10 +75,13 @@ export function SideNav({ currentOrganization, departments }) {
             </div>
             <ul className="nav__list">
               <li className="nav__list__item">
-                <Link className="nav__list__item__text" href="/">Employees</Link>
+                <Link className="nav__list__item__text" href="/departments">Departments</Link>
               </li>
               <li className="nav__list__item">
-                <Link className="nav__list__item__text" href="/">Permissions</Link>
+                <Link className="nav__list__item__text" href="/employees">Employees</Link>
+              </li>
+              <li className="nav__list__item">
+                <Link className="nav__list__item__text" href="/permissions">Permissions</Link>
               </li>
             </ul>
           </>

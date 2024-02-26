@@ -2,6 +2,7 @@ import Link from "next/link";
 import { announceData, availabilities } from "@/data/testData";
 import { getSession } from "@/utils/session";
 import { getAnnouncementsOfAffiliatedDepartments } from "@/utils/db";
+import AnnouncementFrame from "./AnnouncementFrame";
 
 export default async function Dashboard() {
   const { payload: session } = await getSession();
@@ -20,43 +21,23 @@ export default async function Dashboard() {
           {userRoles.includes("user") && <button className="btn btn--invitation-link">Create Report</button>}
         </div>
       </div>
-      <div className="announcement p__v12h24">
-        <div className="frame">
-          <h4>Announcements</h4>
-          <ul className="list">
-            {
-              announcements.slice(0, 4).map(({ title, detail, createdAt, announcementType }, index) => {
-                return (
-                  <li key={index} className="list__item">
-                    <p>{announcementType.name}: {new Date(createdAt).toLocaleDateString()}...{title} : {detail}</p>
-                  </li>
-                )
-              })
-            }
-          </ul>
-          {announcements.length > 4 &&
-            <div className="btn btn--show-all">
-              <Link className="btn--show-all__text" href="/user/dashboard/announcement">SHOW ALL</Link>
-            </div>
-          }
-        </div>
-      </div>
+      <AnnouncementFrame announcements={announcements} />
       <div className="request-status p__v12h24">
         <div className="frame">
           <h4>Request Status</h4>
-          <ul>
+          <ul className="list">
             {
               announceData.map((data, index) => {
                 return (
-                  <li key={index}>
-                    <span>{data.tag}: {new Date(data.date).toLocaleDateString()}...{data.description}</span>
+                  <li key={index} className="list__item">
+                    <p>{data.tag}: {new Date(data.date).toLocaleDateString()}...{data.description}</p>
                   </li>
                 )
               })
             }
           </ul>
           <div className="btn btn--show-all">
-            <Link className="btn--show-all__text" href="/user/dashboard">SHOW ALL</Link>
+            <Link className="btn--show-all__text" href="/user/dashboard/request">SHOW ALL</Link>
           </div>
         </div>
       </div>
