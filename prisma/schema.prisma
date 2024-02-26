@@ -91,13 +91,17 @@ model Request {
   departmentId   String
   typeTagId      String
   statusTagId    String
-  detail         String @db.String(50)
+  shiftId        String?
+  startTime      DateTime?
+  endTime        DateTime?
+  detail         String @db.String(150)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   deletedAt      DateTime?
 
   // relations
   requestOwner User @relation("ownerId", fields: [ownerId], references: [id])
+  shiftRequest Shift? @relation("shiftId", fields: [shiftId], references: [id])
   requestType Tag @relation("typeTagId", fields: [typeTagId], references: [id])
   status Tag @relation("statusTagId", fields: [statusTagId], references: [id])
 
@@ -118,6 +122,7 @@ model Shift {
   assignedUser User @relation("userId", fields: [userId], references: [id])
   shiftDepartment Department @relation("departmentId", fields: [departmentId], references: [id])
   shiftTag Tag @relation("tagId", fields: [tagId], references: [id])
+  shiftRequest Request[] @relation("shiftId")
 }
 
 model WorkTime {
