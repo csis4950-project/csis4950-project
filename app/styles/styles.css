@@ -580,6 +580,73 @@ footer {
   color: #ef4444;
 }
 
+.request {
+  padding: 0 24px;
+}
+.request__head {
+  padding: 12px 0;
+}
+.request__title {
+  color: #F6F6F6;
+}
+.request .form {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  gap: 16px;
+}
+.request .form__label {
+  margin-right: 16px;
+}
+.request .form__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+.request .form__detail {
+  display: flex;
+  flex-direction: column;
+}
+.request .form__detail--size {
+  min-height: 100px;
+}
+.request .form__select--multiple {
+  display: flex;
+  align-items: center;
+}
+.request .form__select--size-multiple {
+  width: 150px;
+}
+.request .form__btn {
+  padding: 8px 12px;
+  margin: 16px 0 16px auto;
+  border: solid 1px #F6F6F6;
+}
+.request table,
+.request th,
+.request td {
+  border: solid 1px #F6F6F6;
+}
+.request table {
+  height: auto;
+}
+.request .table {
+  width: 100%;
+  padding: 16px 0;
+  border: solid 1px #F6F6F6;
+  border-collapse: collapse;
+}
+.request .table__row--size-head {
+  height: 50px;
+}
+.request .table__row--size-body {
+  height: 100px;
+}
+.request .table__cel {
+  text-align: center;
+}
+
 .rbc-btn {
   color: inherit;
   font: inherit;

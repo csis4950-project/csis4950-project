@@ -228,14 +228,51 @@ export async function getShiftsByUserDepartments(departments) {
 
 function createOrFilterByDepartmentId(departments) {
   const filters = [];
-  departments.forEach((department) => {
-    if (!department.departmentName.startsWith("__")) {
+  departments.forEach(({ departmentName, departmentId }) => {
+    if (!departmentName.startsWith("__")) {
       const filter = {
-        departmentId: department.departmentId
+        departmentId: departmentId
       }
       filters.push(filter);
     }
   })
 
   return filters;
+}
+
+export async function getShiftsByUserId(userId) {
+  const shifts = await prismaClient.shift.findMany({
+    where: {
+      userId: userId,
+      deletedAt: null,
+      startTime: {
+        gte: new Date()
+      },
+    },
+    select: {
+      id: true,
+      userId: true,
+      departmentId: true,
+      tagId: true,
+      startTime: true,
+      endTime: true,
+      shiftDepartment: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      shiftTag: {
+        select: {
+          id: true,
+          name: true
+        }
+      }
+    },
+    orderBy: {
+      startTime: "asc"
+    }
+  })
+
+  return shifts;
 }

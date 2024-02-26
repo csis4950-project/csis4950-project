@@ -1,0 +1,90 @@
+@use "../utils/colors" as *;
+
+.request {
+  padding: 0 24px;
+
+  &__head {
+    padding: 12px 0;
+  }
+
+  &__title {
+    color: $white;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    gap: 16px;
+
+    &__label {
+      margin-right: 16px;
+    }
+
+    &__group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    &__detail {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__detail--size {
+      min-height: 100px;
+    }
+
+    &__select {
+    }
+
+    &__select--multiple{
+      display: flex;
+      align-items: center;
+    }
+
+    &__select--size-multiple {
+      width: 150px;
+    }
+
+    &__btn {
+      padding: 8px 12px;
+      margin: 16px 0 16px auto;
+      border: solid 1px $white;
+    }
+  }
+
+  table,
+  th,
+  td {
+    border: solid 1px $white;
+  }
+
+  table {
+    height: auto;
+  }
+
+  .table {
+    width: 100%;
+    padding: 16px 0;
+    border: solid 1px $white;
+    border-collapse: collapse;
+
+    &__row {
+    }
+
+    &__row--size-head {
+      height: 50px;
+    }
+
+    &__row--size-body {
+      height: 100px;
+    }
+
+    &__cel {
+      text-align: center;
+    }
+  }
+}
