@@ -21,11 +21,13 @@ export default function AnnouncementForm({ userId, departments, announcementType
           <label className="form__label" htmlFor="type">Type:</label>
           <select id="type" name="type" >
             <option value="">Select an option</option>
-            {announcementTypes.map((announcementType, index) => {
-              return (
-                <option key={index} value={announcementType.id}>{announcementType.name}</option>
-              )
-            })}
+            {
+              announcementTypes.map(({ id, name }, index) => {
+                return (
+                  <option key={index} value={id}>{name}</option>
+                )
+              })
+            }
           </select>
         </div>
         <div>
@@ -39,16 +41,18 @@ export default function AnnouncementForm({ userId, departments, announcementType
       </div>
       <div className="form__group">
         <div>
-          {departments.map((department, index) => {
-            if (!department.departmentName.startsWith("__")) {
-              return (
-                <div key={index}>
-                  <input type="checkbox" name="department" value={department.departmentId} />
-                  <label>{department.departmentName}</label>
-                </div>
-              )
-            }
-          })}
+          {
+            departments.map(({ departmentId, departmentName }, index) => {
+              if (!departmentName.startsWith("__")) {
+                return (
+                  <div key={index}>
+                    <input type="checkbox" name="department" value={departmentId} />
+                    <label>{departmentName}</label>
+                  </div>
+                )
+              }
+            })
+          }
         </div>
       </div>
       <div className="form__detail">
