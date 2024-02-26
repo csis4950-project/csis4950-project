@@ -37,11 +37,11 @@
 }
 
 .rbc-off-range {
-  color: $white;
+  color: $out-of-range-color;
 }
 
 .rbc-off-range-bg {
-  background: $black-400;
+  background: $out-of-range-bg-color;
 }
 
 .rbc-header {

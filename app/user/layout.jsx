@@ -56,7 +56,7 @@ export function SideNav({ currentOrganization, departments }) {
         </div>
         <ul className="nav__list">
           <li className="nav__list__item">
-            <Link className="nav__list__item__text" href="/">Calendar</Link>
+            <Link className="nav__list__item__text" href="/user/calendar">Calendar</Link>
           </li>
           <li className="nav__list__item">
             <Link className="nav__list__item__text" href="/">Summary</Link>

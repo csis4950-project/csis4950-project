@@ -1,18 +1,23 @@
 @use "../utils//colors" as *;
 
 .calendar {
-  .selection {
-    display: flex;
-    gap: 48px;
-    margin: 16px 0;
+  grid-row: 2;
+  grid-column: 3/13;
+  padding: 16px 24px;
 
-    button {
+  .selection {
+    &__btn {
       position: relative;
       min-width: 150px;
       border-bottom: solid $white 1px;
+      text-align: center;
     }
 
-    .triangle {
+    &--size {
+      width: 100%;
+    }
+
+    & &__btn--triangle {
       position: absolute;
       right: 5px;
       width: 0;
@@ -23,20 +28,44 @@
     }
   }
 
-  .background-white {
-    background-color: $white;
-    font-weight: 800;
-    text-align: center;
+  .form {
+    padding: 16px 24px;
 
-    p,
-    span {
+    &__label {
+      display: grid;
+      place-items: center;
+      padding: 8px 24px;
+      background-color: $white;
+      font-weight: 800;
+    }
+
+    &__label--black {
       color: $black-950;
     }
 
-    button {
-      width: 100%;
-      color: $black-950;
-      cursor: pointer;
+    &__selection {
+      display: flex;
+      flex-wrap: wrap;
+      text-align: center;
+      gap: 32px;
+    }
+
+    &__input {
+      padding: 8px 12px;
+      background-color: transparent;
+      color: $white;
+      border: none;
+    }
+
+    &__input--select {
+      border-bottom: solid 1px $white;
+      width: 150px;
+      text-align: center;
+    }
+
+    &__input--submit {
+      width: 120px;
+      border: solid 1px $white;
     }
   }
 

@@ -200,17 +200,21 @@ footer {
   text-align: center;
 }
 
-.calendar .selection {
-  display: flex;
-  gap: 48px;
-  margin: 16px 0;
+.calendar {
+  grid-row: 2;
+  grid-column: 3/13;
+  padding: 16px 24px;
 }
-.calendar .selection button {
+.calendar .selection__btn {
   position: relative;
   min-width: 150px;
   border-bottom: solid #F6F6F6 1px;
+  text-align: center;
 }
-.calendar .selection .triangle {
+.calendar .selection--size {
+  width: 100%;
+}
+.calendar .selection .calendar .selection__btn--triangle {
   position: absolute;
   right: 5px;
   width: 0;
@@ -219,19 +223,39 @@ footer {
   border-right: 6px solid transparent;
   border-top: 12px solid #F6F6F6;
 }
-.calendar .background-white {
+.calendar .form {
+  padding: 16px 24px;
+}
+.calendar .form__label {
+  display: grid;
+  place-items: center;
+  padding: 8px 24px;
   background-color: #F6F6F6;
   font-weight: 800;
+}
+.calendar .form__label--black {
+  color: #181818;
+}
+.calendar .form__selection {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  gap: 32px;
+}
+.calendar .form__input {
+  padding: 8px 12px;
+  background-color: transparent;
+  color: #F6F6F6;
+  border: none;
+}
+.calendar .form__input--select {
+  border-bottom: solid 1px #F6F6F6;
+  width: 150px;
   text-align: center;
 }
-.calendar .background-white p,
-.calendar .background-white span {
-  color: #181818;
-}
-.calendar .background-white button {
-  width: 100%;
-  color: #181818;
-  cursor: pointer;
+.calendar .form__input--submit {
+  width: 120px;
+  border: solid 1px #F6F6F6;
 }
 .calendar .p__v12h24 {
   padding: 12px 24px;
@@ -613,11 +637,11 @@ button.rbc-input::-moz-focus-inner {
 }
 
 .rbc-off-range {
-  color: #F6F6F6;
+  color: #454545;
 }
 
 .rbc-off-range-bg {
-  background: #888888;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .rbc-header {
@@ -682,7 +706,7 @@ button.rbc-input::-moz-focus-inner {
 }
 
 .rbc-today {
-  background-color: #eaf6ff;
+  background-color: #4f4f4f;
 }
 
 .rbc-toolbar {
@@ -796,6 +820,7 @@ button.rbc-input::-moz-focus-inner {
 
 .rbc-event-label {
   font-size: 80%;
+  text-wrap: wrap;
 }
 
 .rbc-event-overlaps {
@@ -835,7 +860,6 @@ button.rbc-input::-moz-focus-inner {
 }
 
 .rbc-show-more {
-  background-color: rgba(255, 255, 255, 0.3);
   z-index: 4;
   font-weight: bold;
   font-size: 85%;
@@ -1028,7 +1052,6 @@ button.rbc-input::-moz-focus-inner {
   right: 0;
 }
 .rbc-day-slot .rbc-event, .rbc-day-slot .rbc-background-event {
-  border: 1px solid #265985;
   display: flex;
   max-height: 100%;
   min-height: 20px;

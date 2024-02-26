@@ -186,3 +186,56 @@ export async function deleteAnnouncementById(id) {
     }
   })
 }
+
+export async function getShiftsByUserDepartments(departments) {
+  const OrFilter = createOrFilterByDepartmentId(departments);
+  const shifts = await prismaClient.shift.findMany({
+    where: {
+      deletedAt: null,
+      OR: OrFilter,
+    },
+    select: {
+      id: true,
+      userId: true,
+      departmentId: true,
+      tagId: true,
+      startTime: true,
+      endTime: true,
+      assignedUser: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true
+        }
+      },
+      shiftDepartment: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      shiftTag: {
+        select: {
+          id: true,
+          name: true
+        }
+      }
+    }
+  })
+
+  return shifts;
+}
+
+function createOrFilterByDepartmentId(departments) {
+  const filters = [];
+  departments.forEach((department) => {
+    if (!department.departmentName.startsWith("__")) {
+      const filter = {
+        departmentId: department.departmentId
+      }
+      filters.push(filter);
+    }
+  })
+
+  return filters;
+}

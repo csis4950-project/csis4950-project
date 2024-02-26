@@ -30,6 +30,7 @@
 .rbc-event-label {
   @extend .rbc-ellipsis;
   font-size: 80%;
+  text-wrap: wrap;
 }
 
 .rbc-event-overlaps {
