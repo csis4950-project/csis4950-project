@@ -59,6 +59,7 @@ model Department {
   departmentId DepartmentMember[] @relation("departmentId")
   announcedDepartment Announcement[] @relation("departmentId")
   shiftDepartment Shift[] @relation("departmentId")
+  requestDepartment Request[] @relation("departmentId")
 }
 
 model Role {
@@ -101,6 +102,7 @@ model Request {
 
   // relations
   requestOwner User @relation("ownerId", fields: [ownerId], references: [id])
+  requestDepartment Department @relation("departmentId", fields: [departmentId], references: [id])
   shiftRequest Shift? @relation("shiftId", fields: [shiftId], references: [id])
   requestType Tag @relation("typeTagId", fields: [typeTagId], references: [id])
   status Tag @relation("statusTagId", fields: [statusTagId], references: [id])
