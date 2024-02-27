@@ -1,13 +1,15 @@
 import Link from "next/link";
-import { announceData, availabilities } from "@/data/testData";
+import { availabilities } from "@/data/testData";
 import { getSession } from "@/utils/session";
-import { getAnnouncementsOfAffiliatedDepartments } from "@/utils/db";
+import { getAnnouncementsOfAffiliatedDepartments, getRequestsOfAffiliatedDepartments } from "@/utils/db";
 import AnnouncementFrame from "./AnnouncementFrame";
+import RequestFrame from "./RequestFrame";
 
 export default async function Dashboard() {
   const { payload: session } = await getSession();
   const { currentOrganization, departments } = session;
   const announcements = await getAnnouncementsOfAffiliatedDepartments(currentOrganization, departments);
+  const requests = await getRequestsOfAffiliatedDepartments(currentOrganization, departments);
   const userRoles = getUserRoles(currentOrganization, departments);;
 
   return (
@@ -22,25 +24,7 @@ export default async function Dashboard() {
         </div>
       </div>
       <AnnouncementFrame announcements={announcements} />
-      <div className="request-status p__v12h24">
-        <div className="frame">
-          <h4>Request Status</h4>
-          <ul className="list">
-            {
-              announceData.map((data, index) => {
-                return (
-                  <li key={index} className="list__item">
-                    <p>{data.tag}: {new Date(data.date).toLocaleDateString()}...{data.description}</p>
-                  </li>
-                )
-              })
-            }
-          </ul>
-          <div className="btn btn--show-all">
-            <Link className="btn--show-all__text" href="/user/dashboard/request">SHOW ALL</Link>
-          </div>
-        </div>
-      </div>
+      <RequestFrame requests={requests} />
       <div className="availability p__v12h0">
         <div className="frame frame--vertical">
           <h4>Availability</h4>
