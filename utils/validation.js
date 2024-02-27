@@ -1,4 +1,4 @@
-export  function validateName(name) {
+export function validateName(name) {
   if (!name || name.trim() === "") {
     return "name cannot be empty.";
   }
@@ -60,4 +60,28 @@ export function validatePassword(password, cPassword) {
   }
 
   return "";
+}
+
+export function isValidRequest(userInput) {
+  const { typeName } = userInput;
+  if (typeName === "cancel") {
+
+  }
+
+  if (typeName === "change") {
+
+  }
+
+  if (typeName === "vacation") {
+
+  }
+
+  if (typeName === "offer-admin") {
+
+  }
+
+  if (typeName === "offer-user") {
+
+  }
+  return false
 }

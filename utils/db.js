@@ -276,3 +276,71 @@ export async function getShiftsByUserId(userId) {
 
   return shifts;
 }
+
+export async function getRequestsOfAffiliatedDepartments(currentOrg, departments) {
+  const { id: currentOrgId } = currentOrg;
+  if (isOwner(currentOrgId, departments)) {
+    return await findRequestsByOrgId(currentOrgId);;
+  }
+
+  // return await findRequestsByDepartments(departments);
+  return [];
+}
+
+export async function findRequestsByOrgId(orgId) {
+  return await prismaClient.request.findMany({
+    where: {
+      deletedAt: null,
+      requestDepartment: {
+        organizationId: orgId
+      }
+    },
+    select: {
+      id: true,
+      shiftId: true,
+      startTime: true,
+      endTime: true,
+      detail: true,
+      createdAt: true,
+      requestOwner: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        }
+      },
+      requestDepartment: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      shiftRequest: {
+        select: {
+          id: true,
+          userId: true,
+          departmentId: true,
+          tagId: true,
+          startTime: true,
+          endTime: true,
+        }
+      },
+      requestType: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      status: {
+        select: {
+          id: true,
+          name: true,
+        }
+      }
+    }
+  })
+}
+
+export async function findRequestsByDepartments(departments) {
+
+}

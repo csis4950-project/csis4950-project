@@ -118,3 +118,24 @@ export async function deleteAnnouncement(formData) {
   await deleteAnnouncementById(announcementId);
   revalidatePath("user/dashboard/announcement");
 }
+
+export async function submitRequest(formData) {
+  const userInput = {
+    userId: formData.get("userId"),
+    department: formData.get("department"),
+    type: formData.get("type"),
+    typeName: formData.get("type"),
+    shift: formData.get("shift"),
+    startDate: formData.get("startDate"),
+    startTime: formData.get("startTime"),
+    endDate: formData.get("endDate"),
+    endTime: formData.get("endTime"),
+    detail: formData.get("detail")
+  }
+
+
+  console.log(formData);
+
+  // validateInput
+  throw new Error("input error");
+}
