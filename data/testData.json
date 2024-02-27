@@ -1,0 +1,90 @@
+{
+  "announceData": [
+    {
+      "tag": "TASK",
+      "date": "2024/02/01",
+      "description": "check the broken wall on the 6 floor"
+    },
+    {
+      "tag": "ANNOUNCE",
+      "date": "2024/02/02",
+      "description": "check the broken wall on the 6 floor"
+    },
+    {
+      "tag": "CAUTION",
+      "date": "2024/02/03",
+      "description": "check the broken wall on the 6 floor"
+    },
+    {
+      "tag": "TASK",
+      "date": "2024/02/04",
+      "description": "check the broken wall on the 6 floor"
+    }
+  ],
+  "availabilities": [
+    { "monday": ["all day"] },
+    { "tuesday": ["all day"] },
+    { "wednesday": ["all day"] },
+    { "thursday": ["all day"] },
+    { "friday": ["all day"] },
+    { "saturday": ["all day"] },
+    { "sunday": ["all day"] }
+  ],
+  "users": [
+    {
+      "firstName": "Karlo",
+      "lastName": "Justo",
+      "email": "admin@admin.com",
+      "password": "admin"
+    },
+    {
+      "firstName": "Test",
+      "lastName": "Admin",
+      "email": "test-admin@admin.com",
+      "password": "admin"
+    }
+  ],
+  "organizations": [
+    {
+      "ownerId": 1,
+      "name": "KarloWorld"
+    },
+    {
+      "ownerId": 3,
+      "name": "wehabu"
+    }
+  ],
+  "departments": [
+    {
+      "organizationId": 1,
+      "adminId": 1,
+      "name": "Cleaning"
+    },
+    {
+      "organizationId": 1,
+      "name": "Tower1"
+    },
+    {
+      "organizationId": 1,
+      "name": "Tower2"
+    },
+    {
+      "organizationId": 1,
+      "name": "Tower2"
+    }
+  ],
+  "roles": [
+    {
+      "name": "owner",
+      "description": "All permissions for its organization"
+    },
+    {
+      "name": "admin",
+      "description": "All permissions for assigned department"
+    },
+    {
+      "name": "user",
+      "description": "Limited permissions for assigned department: view scedule, request for changing schedule and vacation, create availabilities, report, etc."
+    }
+  ]
+}

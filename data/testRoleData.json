@@ -1,0 +1,14 @@
+[
+  {
+    "name": "owner",
+    "description": "All permissions for its organization"
+  },
+  {
+    "name": "admin",
+    "description": "All permissions for assigned department"
+  },
+  {
+    "name": "user",
+    "description": "Limited permissions for assigned department: view scedule, request for changing schedule and vacation, create availabilities, report, etc."
+  }
+]

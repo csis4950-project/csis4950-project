@@ -1,0 +1,97 @@
+[
+  {
+    "tagTypeId": "announcement",
+    "name": "general",
+    "description": "announcement for all employees"
+  },
+  {
+    "tagTypeId": "announcement",
+    "name": "important",
+    "description": "important or emergency announcement"
+  },
+  {
+    "tagTypeId": "announcement",
+    "name": "operation",
+    "description": "announcement for tasks that have to be complete within specified time"
+  },
+  {
+    "tagTypeId": "announcement",
+    "name": "update",
+    "description": "announcement for updated information"
+  },
+  {
+    "tagTypeId": "announcement",
+    "name": "reminder",
+    "description": "announcement for reminders"
+  },
+  {
+    "tagTypeId": "announcement",
+    "name": "feedback",
+    "description": "announcement for feedbacks"
+  },
+  {
+    "tagTypeId": "announcement",
+    "name": "other",
+    "description": "announcement for anything that doesn't fit to other tags"
+  },
+  {
+    "tagTypeId": "request",
+    "name": "change",
+    "description": "request for changing shift"
+  },
+  {
+    "tagTypeId": "request",
+    "name": "cancel",
+    "description": "request for canceling shift"
+  },
+  {
+    "tagTypeId": "request",
+    "name": "vacation",
+    "description": "request for vacation"
+  },
+  {
+    "tagTypeId": "request",
+    "name": "offer-admin",
+    "description": "request for asking to take a shift to employees"
+  },
+  {
+    "tagTypeId": "request",
+    "name": "offer-user",
+    "description": "request for offering to take a shift requested by admin users"
+  },
+  {
+    "tagTypeId": "status",
+    "name": "pending",
+    "description": "the request status of pending"
+  },
+  {
+    "tagTypeId": "status",
+    "name": "denyed",
+    "description": "the request status of denyed"
+  },
+  {
+    "tagTypeId": "status",
+    "name": "approved",
+    "description": "the request status of approved"
+  },
+  {
+    "tagTypeId": "shift",
+    "name": "morning",
+    "description": "From 8 am to 4 pm"
+  },
+  {
+    "tagTypeId": "shift",
+    "name": "evening",
+    "description": "From 4 am to 0 am"
+  },
+  {
+    "tagTypeId": "shift",
+    "name": "night",
+    "description": "From 0 am to 8 pm"
+  },
+  {
+    "tagTypeId": "shift",
+    "name": "other",
+    "description": "optional tag"
+  }
+]

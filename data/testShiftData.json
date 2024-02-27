@@ -1,0 +1,30 @@
+[
+  {
+    "userId": "",
+    "departmentId": "",
+    "tagId": "morning",
+    "startTime": "8am",
+    "endTime": "4pm"
+  },
+  {
+    "userId": "",
+    "departmentId": "",
+    "tagId": "evening",
+    "startTime": "8am",
+    "endTime": "4pm"
+  },
+  {
+    "userId": "",
+    "departmentId": "",
+    "tagId": "night",
+    "startTime": "8am",
+    "endTime": "4pm"
+  },
+  {
+    "userId": "",
+    "departmentId": "",
+    "tagId": "other",
+    "startTime": "random",
+    "endTime": "random"
+  }
+]

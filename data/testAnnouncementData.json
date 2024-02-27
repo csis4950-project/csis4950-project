@@ -1,0 +1,74 @@
+[
+  {
+    "ownerId": "owner1@owner.com",
+    "departmentId": "Department1",
+    "typeTagId": "general",
+    "title": "Annonucement1",
+    "detail": "this is detail. upto 250 letters",
+    "expirationTime": ""
+  },
+  {
+    "ownerId": "owner1@owner.com",
+    "departmentId": "Department2",
+    "typeTagId": "general",
+    "title": "Annonucement1",
+    "detail": "this is detail. upto 250 letters",
+    "expirationTime": ""
+  },
+  {
+    "ownerId": "owner1@owner.com",
+    "departmentId": "Department3",
+    "typeTagId": "general",
+    "title": "Annonucement1",
+    "detail": "this is detail. upto 250 letters",
+    "expirationTime": ""
+  },
+  {
+    "ownerId": "owner1@owner.com",
+    "departmentId": "Department1",
+    "typeTagId": "important",
+    "title": "Annonucement2",
+    "detail": "this is detail. upto 250 letters",
+    "expirationTime": ""
+  },
+  {
+    "ownerId": "owner1@owner.com",
+    "departmentId": "Department1",
+    "typeTagId": "operation",
+    "title": "Annonucement3",
+    "detail": "this is detail. upto 250 letters",
+    "expirationTime": ""
+  },
+  {
+    "ownerId": "owner1@owner.com",
+    "departmentId": "Department1",
+    "typeTagId": "feedback",
+    "title": "Annonucement4",
+    "detail": "this is detail. upto 250 letters",
+    "expirationTime": ""
+  },
+  {
+    "ownerId": "owner1@owner.com",
+    "departmentId": "Department1",
+    "typeTagId": "update",
+    "title": "Annonucement5",
+    "detail": "this is detail. upto 250 letters",
+    "expirationTime": ""
+  },
+  {
+    "ownerId": "owner1@owner.com",
+    "departmentId": "Department1",
+    "typeTagId": "reminder",
+    "title": "Annonucement6",
+    "detail": "this is detail. upto 250 letters",
+    "expirationTime": ""
+  },
+  {
+    "ownerId": "owner1@owner.com",
+    "departmentId": "Department1",
+    "typeTagId": "other",
+    "title": "Annonucement7",
+    "detail": "this is detail. upto 250 letters",
+    "expirationTime": ""
+  }
+]
