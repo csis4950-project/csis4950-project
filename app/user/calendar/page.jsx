@@ -43,7 +43,7 @@ export default function Calendar() {
     const loadData = async () => {
 
       const userSession = await fetchSession();
-      const initialSelectedDepartment = userSession.departments[0];
+      const initialSelectedDepartment = getInitialDepartment(userSession.departments);
       const shiftData = await fetchShiftsByUserDepartments(userSession.departments);
       const eventData = createEventData(shiftData, initialSelectedDepartment);
 
@@ -150,6 +150,14 @@ function createEventData(shifts, selectedDepartment) {
   }
 
   return events;
+}
+
+function getInitialDepartment(departments) {
+  for (const department of departments) {
+    if (!department.departmentName.startsWith("__")) {
+      return department;
+    }
+  }
 }
 
 function isSelectedDepartment(department, selectedDepartment) {
