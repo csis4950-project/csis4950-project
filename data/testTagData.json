@@ -66,8 +66,8 @@
   },
   {
     "tagTypeId": "status",
-    "name": "denyed",
-    "description": "the request status of denyed"
+    "name": "denied",
+    "description": "the request status of denied"
   },
   {
     "tagTypeId": "status",
