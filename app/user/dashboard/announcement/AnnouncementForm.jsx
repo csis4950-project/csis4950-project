@@ -1,19 +1,25 @@
 "use client"
 
 import { publishNewAnnouncement } from "@/utils/actions";
-import { useState } from "react";
+import { useState, useRef, use } from "react";
 
 const ERROR_MESSAGE = "Please fill all fields and choose at least one option and department.";
-
+const SUCCESS_MESSAGE = "Successfully published the announcement";
 export default function AnnouncementForm({ userId, departments, announcementTypes }) {
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const ref = useRef();
 
   return (
-    <form className="form" action={async (formData) => {
+    <form ref={ref} className="form" action={async (formData) => {
       try {
         await publishNewAnnouncement(formData);
+        ref.current?.reset();
+        setError(false);
+        setSuccess(true);
       } catch (e) {
         setError(true);
+        setSuccess(false);
       }
     }}>
       <div className="form__group">
@@ -60,6 +66,7 @@ export default function AnnouncementForm({ userId, departments, announcementType
         <textarea id="detail" className="form__detail--size" type="text" name="detail"></textarea>
       </div>
       {error && <span className="form__text--error-message">{ERROR_MESSAGE}</span>}
+      {success && <span className="form__text--success-message">{SUCCESS_MESSAGE}</span>}
       <input type="hidden" name="userId" value={userId} />
       <button className="form__btn" type="submit">Announce</button>
     </form>

@@ -154,6 +154,12 @@ footer {
 .announcement .form__label {
   margin-right: 16px;
 }
+.announcement .form__text--error-message {
+  color: #ef4444;
+}
+.announcement .form__text--success-message {
+  color: #7FF6C7;
+}
 .announcement .form__group {
   display: flex;
   flex-wrap: wrap;

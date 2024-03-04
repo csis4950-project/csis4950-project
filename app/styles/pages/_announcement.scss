@@ -21,6 +21,14 @@
       margin-right: 16px;
     }
 
+    &__text--error-message {
+      color: $red-500;
+    }
+
+    &__text--success-message {
+      color: $green-300;
+    }
+
     &__group {
       display: flex;
       flex-wrap: wrap;
@@ -37,10 +45,10 @@
       min-height: 100px;
     }
 
-    &__select {
-    }
+    // &__select {
+    // }
 
-    &__select--multiple{
+    &__select--multiple {
       display: flex;
       align-items: center;
     }
@@ -72,8 +80,8 @@
     border: solid 1px $white;
     border-collapse: collapse;
 
-    &__row {
-    }
+    // &__row {
+    // }
 
     &__row--size-head {
       height: 50px;

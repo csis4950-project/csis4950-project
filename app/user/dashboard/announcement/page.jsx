@@ -36,7 +36,8 @@ export default async function Announcement() {
             {
               announcements.map((announcement, index) => {
                 const { announcedDepartment, id: announcementId, title, detail, createdAt, announcementType, expirationTime } = announcement;
-                const isExpired = isNotExpiredAnnouncement(expirationTime);
+                const adjustedExpirationTime = moment(expirationTime).add(8, 'hours');
+                const isExpired = isExpiredAnnouncement(adjustedExpirationTime);
                 return (
                   <tr key={index} className="table__row table__row--size-body">
                     <td className="table__cel">{index + 1}</td>
@@ -45,7 +46,11 @@ export default async function Announcement() {
                     <td className="table__cel">{announcementType.name}</td>
                     <td className="table__cel">{title}</td>
                     <td className="table__cel">{detail}</td>
-                    {isExpired ? <td className="table__cel">{moment(expirationTime).format("MM/DD")}</td> : <td className="table__cel">EXPIRED</td>}
+                    {
+                      isExpired
+                        ? <td className="table__cel">EXPIRED</td>
+                        : <td className="table__cel">{adjustedExpirationTime.format("MM/DD")}</td>
+                    }
                     {(isOwner || adminRoleDepartmentIds.includes(announcedDepartment.id))
                       && <td className="table__cel">
                         <DeleteButton announcementId={announcementId} />
@@ -85,10 +90,6 @@ function getAdminRoleDepartments(departments) {
 }
 
 function isExpiredAnnouncement(expirationTime) {
-  const now = moment().utcOffset(-8);
-  return moment(expirationTime).isSameOrBefore(now);
-}
-
-function isNotExpiredAnnouncement(expirationTime) {
-  return !isExpiredAnnouncement(expirationTime);
+  const now = moment().startOf('days');
+  return now.isAfter(expirationTime);
 }
