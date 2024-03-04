@@ -1,7 +1,7 @@
 "use client"
 
 import { publishNewAnnouncement } from "@/utils/actions";
-import { useState, useRef, use } from "react";
+import { useState, useRef } from "react";
 
 const ERROR_MESSAGE = "Please fill all fields and choose at least one option and department.";
 const SUCCESS_MESSAGE = "Successfully published the announcement";
@@ -14,9 +14,9 @@ export default function AnnouncementForm({ userId, departments, announcementType
     <form ref={ref} className="form" action={async (formData) => {
       try {
         await publishNewAnnouncement(formData);
-        ref.current?.reset();
         setError(false);
         setSuccess(true);
+        ref.current?.reset();
       } catch (e) {
         setError(true);
         setSuccess(false);
