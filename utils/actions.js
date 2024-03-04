@@ -9,12 +9,14 @@ import {
   createAnnouncements,
   findUserByEmail,
   getUserSessionData,
-  deleteAnnouncementById
+  deleteAnnouncementById,
+  createRequest
 } from "@/utils/db";
-import { validateName, validateEmail, validatePassword } from "@/utils/validation";
+import { validateName, validateEmail, validatePassword, validateRequestInput } from "@/utils/validation";
 import { fetchIsValid } from "@/utils/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+
 
 export async function login(formData) {
   const user = await findUserByEmail(formData.get("email"));
@@ -90,7 +92,6 @@ function validateAnnouncementForm(formData) {
   const title = formData.get("title");
   const detail = formData.get("detail");
   const expirationTime = formData.get("expirationTime");
-
   if (!departmentId || !typeTagId || !title || !detail || !expirationTime) {
     throw new Error("Please fill all fields and choose at least one option and department.");
   }
@@ -124,7 +125,7 @@ export async function submitRequest(formData) {
     userId: formData.get("userId"),
     department: formData.get("department"),
     type: formData.get("type"),
-    typeName: formData.get("type"),
+    typeName: formData.get("typeName"),
     shift: formData.get("shift"),
     startDate: formData.get("startDate"),
     startTime: formData.get("startTime"),
@@ -132,10 +133,9 @@ export async function submitRequest(formData) {
     endTime: formData.get("endTime"),
     detail: formData.get("detail")
   }
+  console.log(userInput);
+  validateRequestInput(userInput);
+  await createRequest(userInput);
 
-
-  console.log(formData);
-
-  // validateInput
-  throw new Error("input error");
+  revalidatePath("/user/dashboard/request");
 }

@@ -1,5 +1,5 @@
 import prismaClient from "@/utils/globalPrismaClient";
-import { fetchHashPassword } from "@/utils/utils";
+import { fetchHashPassword, toDate } from "@/utils/utils";
 
 export async function findUserByEmail(email) {
   const user = await prismaClient.user.findUnique({
@@ -343,4 +343,79 @@ export async function findRequestsByOrgId(orgId) {
 
 export async function findRequestsByDepartments(departments) {
 
+}
+
+export async function createRequest(userInput) {
+  const formattedRequest = await formatByRequestType(userInput);
+  const createdRequest = await prismaClient.request.create({ data: formattedRequest })
+
+  console.log('createdRequest', createdRequest);
+  return createdRequest;
+}
+
+async function formatByRequestType(userInput) {
+  const { typeName: requestType } = userInput;
+  if (requestType === "cancel" || requestType === "offer-user") {
+    return await createRequestObjectWithNoTime(userInput);
+  }
+
+  if (requestType === "change") {
+    return await createRequestObject(userInput);
+  }
+
+  if (requestType === "vacation") {
+    return await createRequestObjectWithNoShift(userInput);
+  }
+
+  if (requestType === "offer-admin") {
+    if (userInput.shift) {
+      return await createRequestObjectWithNoTime(userInput);
+    } else {
+      return await createRequestObjectWithNoShift(userInput);
+    }
+  }
+
+  throw new Error("Invalid request type");
+}
+
+async function createRequestObject(userInput) {
+  const pendingTag = await prismaClient.tag.findFirst({ where: { name: "pending" } });
+  return {
+    ownerId: userInput.userId,
+    departmentId: userInput.department,
+    typeTagId: userInput.type,
+    statusTagId: pendingTag.id,
+    shiftId: userInput.shift,
+    startTime: toDate(userInput.startDate, userInput.startTime),
+    endTime: toDate(userInput.endDate, userInput.endTime),
+    detail: userInput.detail
+  }
+}
+
+async function createRequestObjectWithNoShift(userInput) {
+  const pendingTag = await prismaClient.tag.findFirst({ where: { name: "pending" } });
+  return {
+    ownerId: userInput.userId,
+    departmentId: userInput.department,
+    typeTagId: userInput.type,
+    statusTagId: pendingTag.id,
+    shiftId: null,
+    startTime: toDate(userInput.startDate, userInput.startTime),
+    endTime: toDate(userInput.endDate, userInput.endTime),
+    detail: userInput.detail
+  }
+}
+
+async function createRequestObjectWithNoTime(userInput) {
+  const pendingTag = await prismaClient.tag.findFirst({ where: { name: "pending" } });
+  return {
+    ownerId: userInput.userId,
+    departmentId: userInput.department,
+    typeTagId: userInput.type,
+    statusTagId: pendingTag.id,
+    shiftId: userInput.shift,
+    startTime: null,
+    endTime: null,
+    detail: userInput.detail
+  }
 }

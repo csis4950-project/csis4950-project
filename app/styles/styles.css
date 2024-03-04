@@ -607,11 +607,24 @@ footer {
 .request .form__label {
   margin-right: 16px;
 }
+.request .form__text--error-message {
+  color: #ef4444;
+}
+.request .form__text--success-message {
+  color: #7FF6C7;
+}
 .request .form__group {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
   margin-bottom: 16px;
+}
+.request .form__group--column {
+  flex-direction: column;
+}
+.request .form__group__date {
+  display: flex;
+  gap: 24px;
 }
 .request .form__detail {
   display: flex;

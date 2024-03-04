@@ -21,11 +21,28 @@
       margin-right: 16px;
     }
 
+    &__text--error-message {
+      color: $red-500;
+    }
+
+    &__text--success-message {
+      color: $green-300;
+    }
+
     &__group {
       display: flex;
       flex-wrap: wrap;
       gap: 24px;
       margin-bottom: 16px;
+    }
+
+    &__group--column {
+      flex-direction: column;
+    }
+
+    &__group__date {
+      display: flex;
+      gap: 24px;
     }
 
     &__detail {
@@ -40,7 +57,7 @@
     &__select {
     }
 
-    &__select--multiple{
+    &__select--multiple {
       display: flex;
       align-items: center;
     }

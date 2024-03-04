@@ -1,3 +1,5 @@
+import { toDate } from "./utils";
+
 export function validateName(name) {
   if (!name || name.trim() === "") {
     return "name cannot be empty.";
@@ -62,26 +64,49 @@ export function validatePassword(password, cPassword) {
   return "";
 }
 
-export function isValidRequest(userInput) {
+export function validateRequestInput(userInput) {
+  if (!userInput.userId) throw new Error("Invalid User ID. Please log out and then log in again.");
+  if (!userInput.department) throw new Error("Please select at least one department from the list.");
+  if (!userInput.typeName) throw new Error("Please select at least one request type from the list.");
+  if (!userInput.detail) throw new Error("Please explain the purpose of your request.");
+
   const { typeName } = userInput;
   if (typeName === "cancel") {
-
+    if (!userInput.shift) throw new Error("Please select a shift from the list.");
   }
 
   if (typeName === "change") {
-
+    if (!userInput.shift) throw new Error("Please select a shift from the list.");
+    checkTimeInput(userInput);
   }
 
   if (typeName === "vacation") {
-
+    checkTimeInput(userInput);
   }
 
   if (typeName === "offer-admin") {
+    try {
+      if (!userInput.shift) {
+        checkTimeInput(userInput);
+      }
 
+      if (typeName === "offer-user") {
+        if (!userInput.shift) throw new Error("Please select a shift from the list.");
+      }
+    } catch (e) {
+      throw new Error(
+        `Either selecting a shift or filling all shift time is required. we found an error based on your input: ${e.message}`
+      )
+    }
   }
+}
 
-  if (typeName === "offer-user") {
-
-  }
-  return false
+function checkTimeInput(userInput) {
+  const start = toDate(userInput.startDate, userInput.startTime);
+  const end = toDate(userInput.endDate, userInput.endTime);
+  if (!userInput.startDate) throw new Error("Please fill start date.");
+  if (!userInput.startTime) throw new Error("Please fill start time.");
+  if (!userInput.endDate) throw new Error("Please fill end date.");
+  if (!userInput.endTime) throw new Error("Please fill end time.");
+  if (start.getTime() >= end.getTime()) throw new Error("Start time should be earlier time than end time");
 }
