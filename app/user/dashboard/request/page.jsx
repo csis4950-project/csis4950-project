@@ -82,7 +82,7 @@ async function PendingRequestList({ requests, isOwner }) {
                     <td className="table__cel">{requestType.name}</td>
                     <td className="table__cel">{`${requestOwner.firstName} ${requestOwner.lastName}`}</td>
                     <td className="table__cel">{requestDepartment.name}</td>
-                    <td className="table__cel"><div className="table__cel--detail"><span>{`department: ${shiftRequest.shiftDepartment.name} | status: ${status.name} | shiftId: ${shiftRequest?.id}`}</span></div></td>
+                    <td className="table__cel"><div className="table__cel--detail"><span>{`department: ${shiftRequest?.shiftDepartment.name} | status: ${status.name} | shiftId: ${shiftRequest?.id}`}</span></div></td>
                     <td className="table__cel">
                       {requestType.name === "offer-admin" && <CancelButton requestId={id} />}
                       {requestType.name !== "offer-admin" && <ApproveButton requestId={id} />}
