@@ -7,10 +7,15 @@ import {
   createOrganization,
   createUser,
   createAnnouncements,
+  createRequest,
+  deleteAnnouncementById,
+  deleteUnassignedShift,
   findUserByEmail,
   getUserSessionData,
-  deleteAnnouncementById,
-  createRequest
+  updateRequestsWithDenyTag,
+  updateRequestWithApproveTag,
+  updateRequestWithCancelTag,
+  updateUserOfferRequestsWithDenyTag
 } from "@/utils/db";
 import { validateName, validateEmail, validatePassword, validateRequestInput } from "@/utils/validation";
 import { fetchIsValid } from "@/utils/utils";
@@ -133,9 +138,32 @@ export async function submitRequest(formData) {
     endTime: formData.get("endTime"),
     detail: formData.get("detail")
   }
-  console.log(userInput);
+
   validateRequestInput(userInput);
   await createRequest(userInput);
+
+  revalidatePath("/user/dashboard/request");
+}
+
+export async function approveRequest(formData) {
+  const requestId = formData.get("requestId");
+  const updatedRequest = await updateRequestWithApproveTag(requestId);
+
+  revalidatePath("/user/dashboard/request");
+}
+
+export async function denyRequest(formData) {
+  const requestId = formData.get("requestId");
+  const updatedRequest = await updateRequestsWithDenyTag(requestId);
+
+  revalidatePath("/user/dashboard/request");
+}
+
+export async function cancelRequest(formData) {
+  const requestId = formData.get("requestId");
+  const updatedRequest = await updateRequestWithCancelTag(requestId);
+  const deletedUnassignedShift = await deleteUnassignedShift(requestId);
+  const deniedOfferUserRequests = await updateUserOfferRequestsWithDenyTag(requestId);
 
   revalidatePath("/user/dashboard/request");
 }

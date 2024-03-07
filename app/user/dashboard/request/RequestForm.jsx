@@ -3,12 +3,13 @@
 import { useState, useRef } from "react"
 import { submitRequest } from "@/utils/actions";
 
-export default function RequestForm({ userId, departments, requestTypes, shifts }) {
+export default function RequestForm({ requests, userId, departments, requestTypes, userShifts }) {
+  const ref = useRef();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const ref = useRef();
   const [selectedType, setSelectedType] = useState("");
   const [selectedDepartmentId, setSelectedDepartmentId] = useState("");
+  const offeredRequests = findOfferAdminRequests(requests);
 
   const handleSelectedDepartmentId = (event) => {
     setSelectedDepartmentId(event.target.value);
@@ -71,12 +72,19 @@ export default function RequestForm({ userId, departments, requestTypes, shifts 
             <select id="shift" name="shift" >
               <option value="">Select a shift</option>
               {
-                shifts.map((shift, index) => {
-                  if (shift.departmentId === selectedDepartmentId) {
-                    return (
-                      <option key={index} value={shift.id}>{toShiftString(shift)}</option>
-                    )
-                  }
+                selectedType === "offer-user"
+                && offeredRequests.map((request, index) => {
+                  const { shiftRequest: shift, requestDepartment: department } = request;
+                  if (department.id !== selectedDepartmentId) return;
+                  return <option key={index} value={shift.id}>{toShiftString(shift)}</option>;
+                })
+              }
+              {
+                selectedType && selectedType !== "offer-user"
+                && userShifts.map((shift, index) => {
+                  console.log('shift', shift);
+                  if (shift.departmentId !== selectedDepartmentId) return;
+                  return shift.shiftTag.name !== "unassigned" && <option key={index} value={shift.id}>{toShiftString(shift)}</option>;
                 })
               }
             </select>
@@ -136,7 +144,17 @@ function toShiftString(shift) {
   const startDateString = new Date(startTime).toLocaleDateString();
   const startTimeString = new Date(startTime).toLocaleTimeString();
   const endTimeString = new Date(endTime).toLocaleTimeString();
-  const shiftString = `${startDateString}: ${shiftTag.name} <${startTimeString} - ${endTimeString}>`;
+  const shiftString = `${startDateString}: ${shiftTag.name} <${startTimeString} - ${endTimeString}> | shift ID: ${id}`;
   return shiftString;
 }
 
+function findOfferAdminRequests(requests) {
+  const offeredRequests = [];
+  requests.forEach((request) => {
+    const { requestType, status } = request;
+    if (requestType.name === "offer-admin" && status.name === "pending") {
+      offeredRequests.push(request);
+    }
+  })
+  return offeredRequests;
+}

@@ -29,6 +29,10 @@
       color: $green-300;
     }
 
+    &__text--canceled {
+      color: $yellow-200;
+    }
+
     &__group {
       display: flex;
       flex-wrap: wrap;
@@ -102,6 +106,20 @@
 
     &__cel {
       text-align: center;
+      padding: 0 12px;
     }
+
+    &__cel--date {
+      width: 100px;
+    }
+
+    &__cel--detail {
+      max-width: 300px;
+      width: 100%;
+    }
+  }
+
+  .btn {
+    margin: 8px 0;
   }
 }

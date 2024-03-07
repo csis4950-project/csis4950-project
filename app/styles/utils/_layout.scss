@@ -25,6 +25,28 @@
     &__square {
       border-radius: 8px;
     }
+
+    &--no-border {
+      border: none;
+    }
+
+    &--approve {
+      background-color: $green-200;
+      color: $black-950;
+      border-radius: 6px;
+    }
+
+    &--deny {
+      background-color: $red-500;
+      color: $black-950;
+      border-radius: 6px;
+    }
+
+    &--cancel {
+      background-color: $yellow-200;
+      color: $black-950;
+      border-radius: 6px;
+    }
   }
 
   .top-bar {
@@ -70,15 +92,6 @@
         &:hover {
           text-decoration: underline;
           text-decoration-color: $white;
-        }
-      }
-    }
-
-    nav {
-      ul {
-        li {
-          a {
-          }
         }
       }
     }

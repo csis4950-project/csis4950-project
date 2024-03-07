@@ -75,6 +75,11 @@
     "description": "the request status of approved"
   },
   {
+    "tagTypeId": "status",
+    "name": "canceled",
+    "description": "the request status of approved"
+  },
+  {
     "tagTypeId": "shift",
     "name": "morning",
     "description": "From 8 am to 4 pm"
