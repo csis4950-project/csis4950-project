@@ -91,6 +91,11 @@
   },
   {
     "tagTypeId": "shift",
+    "name": "unassigned",
+    "description": "shift request pending"
+  },
+  {
+    "tagTypeId": "shift",
     "name": "other",
     "description": "optional tag"
   }
