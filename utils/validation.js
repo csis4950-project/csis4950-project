@@ -110,3 +110,20 @@ function checkTimeInput(userInput) {
   if (!userInput.endTime) throw new Error("Please fill end time.");
   if (start.getTime() >= end.getTime()) throw new Error("Start time should be earlier time than end time");
 }
+
+export function validateAvailabilityFormInput(userInput) {
+
+  if (userInput.selectedDayOfWeek === "Select a day of week") throw new Error("Please select a day of week");
+  if (userInput.selectedDayOfWeek !== "Other") {
+    if (!userInput.startTime) throw new Error("Please fill start time.");
+    if (!userInput.endTime) throw new Error("Please fill end time.");
+    const startTime = toDate("2024-1-1", userInput.startTime);
+    const endTime = toDate("2024-1-1", userInput.endTime);
+    if (startTime.getTime() >= endTime.getTime()) {
+      throw new Error("Start time should be earlier than end time");
+    }
+  }
+  if (userInput.selectedDayOfWeek === "Other") {
+    if (!userInput.note) throw new Error("Please write time you available to notify your manager");
+  }
+}

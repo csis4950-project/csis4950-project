@@ -16,6 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     &__title {
       margin-bottom: 16px;
     }
@@ -55,23 +56,26 @@
       color: $black-950;
       cursor: pointer;
     }
+
+    &--edit {
+      border-radius: 0 0 8px 8px;
+    }
   }
 
   .frame {
     border: solid $white 1px;
     border-radius: 16px;
     padding: 10px 10px;
-
-    &--vertical {
-      min-height: 100%;
-    }
   }
 
   .list {
     padding: 12px 0 12px 12px;
-    overflow: hidden;
-    white-space: nowrap;
     list-style: square;
+
+    &--no-wrap {
+      overflow: hidden;
+      white-space: nowrap;
+    }
 
     &__item {
       margin-bottom: 8px;

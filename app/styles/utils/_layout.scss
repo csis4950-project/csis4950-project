@@ -47,6 +47,13 @@
       color: $black-950;
       border-radius: 6px;
     }
+
+    &--unavailable {
+      font-size: 12px;
+      background-color: $yellow-200;
+      color: $black-950;
+      border-radius: 6px;
+    }
   }
 
   .top-bar {

@@ -8,16 +8,19 @@ import {
   createUser,
   createAnnouncements,
   createRequest,
+  createUserAvailability,
   deleteAnnouncementById,
   deleteUnassignedShift,
+  deleteUserAvailability,
   findUserByEmail,
   getUserSessionData,
   updateRequestsWithDenyTag,
   updateRequestWithApproveTag,
   updateRequestWithCancelTag,
-  updateUserOfferRequestsWithDenyTag
+  updateUserOfferRequestsWithDenyTag,
+  updateUserAvailability
 } from "@/utils/db";
-import { validateName, validateEmail, validatePassword, validateRequestInput } from "@/utils/validation";
+import { validateName, validateEmail, validatePassword, validateRequestInput, validateAvailabilityFormInput } from "@/utils/validation";
 import { fetchIsValid } from "@/utils/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -166,4 +169,36 @@ export async function cancelRequest(formData) {
   const deniedOfferUserRequests = await updateUserOfferRequestsWithDenyTag(requestId);
 
   revalidatePath("/user/dashboard/request");
+}
+
+export async function submitAvailability(formData) {
+  const userInput = {
+    userId: formData.get("userId"),
+    selectedDayOfWeek: formData.get("selectedDayOfWeek"),
+    dayOfWeekTagId: formData.get("dayOfWeekId"),
+    availabilityOfDayOfWeek: formData.get("availabilityOfDayOfWeek"),
+    startTime: formData.get("startTime") !== "" ? formData.get("startTime") : null,
+    endTime: formData.get("endTime") !== "" ? formData.get("endTime") : null,
+    note: formData.get("note") !== "" ? formData.get("note") : null
+  }
+  console.log('userInput', userInput);
+  validateAvailabilityFormInput(userInput);
+
+  if (userInput.availabilityOfDayOfWeek === "no-data" || userInput.selectedDayOfWeek === "Other") {
+    const availability = await createUserAvailability(userInput);
+    console.log('created', availability);
+  } else {
+    const availability = await updateUserAvailability(userInput);
+    console.log('updated', availability);
+  }
+
+  revalidatePath("/user/dashboard/edit-availability");
+}
+
+export async function deleteAvailability(formData) {
+  if (formData.get("availabilityId") === "no-data") return;
+  const availability = await deleteUserAvailability(formData.get("availabilityId"));
+  console.log('deleted', availability);
+
+  revalidatePath("/user/dashboard/availability");
 }

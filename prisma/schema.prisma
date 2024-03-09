@@ -31,6 +31,7 @@ model User {
   requestOwner Request[] @relation("ownerId")
   assignedUser Shift[] @relation("userId")
   workedUser WorkTime[] @relation("userId")
+  userAvailability Availability[] @relation("userId")
 }
 
 model Organization {
@@ -106,7 +107,6 @@ model Request {
   shiftRequest Shift? @relation("shiftId", fields: [shiftId], references: [id])
   requestType Tag @relation("typeTagId", fields: [typeTagId], references: [id])
   status Tag @relation("statusTagId", fields: [statusTagId], references: [id])
-
 }
 
 model Shift {
@@ -143,14 +143,18 @@ model WorkTime {
 
 model Availability {
   id          String @id @default(uuid())
-  date        DateTime
-  day         DateTime
-  time        DateTime
+  userId      String
+  tagId       String
+  startTime   String?
+  endTime     String?
+  note        String? @db.String(250)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   deletedAt   DateTime?
+
   // relations
-  // userId
+  userAvailability User @relation("userId", fields: [userId], references: [id])
+  tagAvailability Tag @relation("tagId", fields: [tagId], references: [id])
 }
 
 model Announcement {
@@ -180,17 +184,21 @@ model Tag {
   updatedAt     DateTime @updatedAt
   deletedAt     DateTime?
 
+  // constraints
+  @@unique(name: "tag", [tagTypeId, name])
+
   // relations
   announcementType Announcement[] @relation("typeTagId")
   requestType Request[] @relation("typeTagId")
   statusType Request[] @relation("statusTagId")
   shiftTag Shift[] @relation("tagId")
+  tagAvailability Availability[] @relation("tagId")
   tagType TagType @relation("tagTypeId", fields: [tagTypeId], references: [id])
 }
 
 model TagType {
   id          String @id @default(uuid())
-  name        String @db.String(25)
+  name        String @unique @db.String(25)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   deletedAt   DateTime?

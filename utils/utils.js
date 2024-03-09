@@ -52,3 +52,61 @@ export function toDate(stringDate, stringTime) {
   return date;
 }
 
+export function sortAvailabilitiesByDayOfWeek(availabilities) {
+  const dayOfWeek = {
+    "monday": 0,
+    "tuesday": 1,
+    "wednesday": 2,
+    "thursday": 3,
+    "friday": 4,
+    "saturday": 5,
+    "sunday": 6,
+    "other": null
+  }
+
+  const sortedAvailabilities = new Array(7);
+  const others = []
+  availabilities.forEach((availability) => {
+    const { tagAvailability: tag } = availability;
+    const dayNumber = dayOfWeek[tag.name]
+    if (dayNumber !== null) {
+      sortedAvailabilities[dayNumber] = availability;
+    } else {
+      others.push(availability);
+    }
+  })
+  return [...sortedAvailabilities, ...others];
+}
+
+export function sortDayOfWeekTags(tags) {
+  const dayOfWeek = {
+    "monday": 0,
+    "tuesday": 1,
+    "wednesday": 2,
+    "thursday": 3,
+    "friday": 4,
+    "saturday": 5,
+    "sunday": 6,
+    "other": 7
+  }
+
+  const sortedTags = new Array(7);
+  tags.forEach((tag) => {
+    sortedTags[dayOfWeek[tag.name]] = tag;
+  })
+  return sortedTags;
+}
+
+export function formatTimeToHHMMAString(timeString) {
+  const hourMinutes = timeString.split(":");
+  let date = new Date();
+  date.setHours(hourMinutes[0]);
+  date.setMinutes(hourMinutes[1]);
+
+  return new Intl.DateTimeFormat('default',
+    {
+      hour12: true,
+      hour: 'numeric',
+      minute: 'numeric'
+    }).format(date);
+}

@@ -1,5 +1,5 @@
 import prismaClient from "@/utils/globalPrismaClient";
-import { fetchHashPassword, toDate } from "@/utils/utils";
+import { fetchHashPassword, toDate, formatTimeToHHMMAString } from "@/utils/utils";
 
 export async function findUserByEmail(email) {
   const user = await prismaClient.user.findUnique({
@@ -690,4 +690,59 @@ export async function deleteUnassignedShift(requestId) {
       }
     })
   }
+}
+
+export async function getAvailabilitiesByUserId(userId) {
+  return await prismaClient.availability.findMany({
+    where: {
+      userId: userId,
+      deletedAt: null
+    },
+    include: {
+      tagAvailability: true
+    }
+  })
+}
+
+export async function getDayOfWeekTags() {
+  return await prismaClient.tag.findMany({
+    where: {
+      tagType: {
+        name: "availability",
+        deletedAt: null
+      }
+    },
+  })
+}
+export async function createUserAvailability(userInput) {
+  return await prismaClient.availability.create({
+    data: {
+      userId: userInput.userId,
+      tagId: userInput.dayOfWeekTagId,
+      startTime: userInput.startTime ? formatTimeToHHMMAString(userInput.startTime) : null,
+      endTime: userInput.endTime ? formatTimeToHHMMAString(userInput.endTime) : null,
+      note: userInput.note
+    }
+  })
+}
+
+export async function updateUserAvailability(userInput) {
+  return await prismaClient.availability.update({
+    where: {
+      id: userInput.availabilityOfDayOfWeek
+    },
+    data: {
+      startTime: formatTimeToHHMMAString(userInput.startTime),
+      endTime: formatTimeToHHMMAString(userInput.endTime),
+      note: userInput.note
+    }
+  })
+};
+
+export async function deleteUserAvailability(availabilityId) {
+  return await prismaClient.availability.delete({
+    where: {
+      id: availabilityId
+    }
+  });
 }

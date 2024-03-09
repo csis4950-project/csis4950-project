@@ -53,6 +53,9 @@ export function SideNav({ currentOrganization, departments }) {
           <li className="nav__list__item">
             <Link className="nav__list__item__text" href="/user/dashboard/request">Request</Link>
           </li>
+          <li className="nav__list__item">
+            <Link className="nav__list__item__text" href="/user/dashboard/availability">Availability</Link>
+          </li>
         </ul>
         <div className="nav__title">
           <p className="nav__title__text">SERVICES</p>

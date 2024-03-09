@@ -276,6 +276,77 @@ footer {
   padding: 0px 24px;
 }
 
+.edit-availability {
+  padding: 0 24px;
+}
+.edit-availability .header {
+  padding: 12px 0;
+}
+.edit-availability .header__title {
+  margin-bottom: 16px;
+}
+.edit-availability table,
+.edit-availability th,
+.edit-availability td {
+  border: solid 1px #F6F6F6;
+}
+.edit-availability table {
+  height: auto;
+}
+.edit-availability .table {
+  width: 100%;
+  padding: 16px 0;
+  border: solid 1px #F6F6F6;
+  border-collapse: collapse;
+}
+.edit-availability .table__row--size-head {
+  height: 50px;
+}
+.edit-availability .table__row--size-body {
+  height: 70px;
+}
+.edit-availability .table__cel {
+  text-align: center;
+}
+.edit-availability .table__cel--small {
+  width: 120px;
+}
+.edit-availability .table__cel--action {
+  width: 130px;
+}
+.edit-availability .form {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  gap: 16px;
+}
+.edit-availability .form__text--error-message {
+  color: #ef4444;
+}
+.edit-availability .form__text--success-message {
+  color: #7FF6C7;
+}
+.edit-availability .form__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+.edit-availability .form__group__date {
+  display: flex;
+  gap: 24px;
+}
+.edit-availability .form__group__note {
+  max-width: 400px;
+  width: 100%;
+  height: 80px;
+}
+.edit-availability .form__btn {
+  padding: 8px 12px;
+  margin: 16px 0 16px auto;
+  border: solid 1px #F6F6F6;
+}
+
 .dashboard {
   grid-row: 2;
   grid-column: 3/13;
@@ -323,19 +394,21 @@ footer {
   color: #181818;
   cursor: pointer;
 }
+.dashboard .btn--edit {
+  border-radius: 0 0 8px 8px;
+}
 .dashboard .frame {
   border: solid #F6F6F6 1px;
   border-radius: 16px;
   padding: 10px 10px;
 }
-.dashboard .frame--vertical {
-  min-height: 100%;
-}
 .dashboard .list {
   padding: 12px 0 12px 12px;
+  list-style: square;
+}
+.dashboard .list--no-wrap {
   overflow: hidden;
   white-space: nowrap;
-  list-style: square;
 }
 .dashboard .list__item {
   margin-bottom: 8px;
@@ -1384,6 +1457,12 @@ button.rbc-input::-moz-focus-inner {
   border-radius: 6px;
 }
 .user-page-layout .btn--cancel {
+  background-color: #FDDD8A;
+  color: #181818;
+  border-radius: 6px;
+}
+.user-page-layout .btn--unavailable {
+  font-size: 12px;
   background-color: #FDDD8A;
   color: #181818;
   border-radius: 6px;
