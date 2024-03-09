@@ -5,7 +5,7 @@ export default async function AnnouncementFrame({ announcements }) {
     <div className="announcement p__v12h24">
       <div className="frame">
         <h4>Announcements</h4>
-        <ul className="list">
+        <ul className="list list--no-wrap">
           {
             announcements.slice(0, 4).map(({ title, detail, createdAt, announcementType }, index) => {
               return (

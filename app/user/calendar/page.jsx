@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import ReactBigCalendar from "./ReactBigCalendar";
 import moment from 'moment';
-import { revalidatePath } from "next/cache"
 
 const handleNavigate = {
   "NEXT": (e) => {
