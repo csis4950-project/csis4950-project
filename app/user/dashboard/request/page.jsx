@@ -1,4 +1,4 @@
-import { getTagsByTagType, getShiftsByUserId, getRequestsOfAffiliatedDepartments } from "@/utils/db";
+import { getTagsByTagType, getShiftsByUserId, getRequestsOfAffiliatedDepartments, checkIfOwner } from "@/utils/db";
 import { getSession } from "@/utils/session";
 import RequestForm from "./RequestForm";
 import moment from "moment";
@@ -10,7 +10,7 @@ export default async function Request() {
   const { payload: session } = await getSession();
   const { userId, currentOrganization, departments } = session;
   const requestTypes = await getTagsByTagType("request");
-  const { isOwner, userRoleDepartments, userRoleDepartmentIds } = getUserRoleDepartments(departments);
+  const isOwner = checkIfOwner(currentOrganization.id, userId);
   const userShifts = await getShiftsByUserId(userId);
   const requests = await getRequestsOfAffiliatedDepartments(currentOrganization, departments);
 
@@ -21,40 +21,14 @@ export default async function Request() {
       </div>
       <RequestForm requests={requests} userId={userId} departments={departments} requestTypes={requestTypes} userShifts={userShifts} />
       {
-        isOwner && <PendingRequestList requests={requests} isOwner={isOwner} />
+        isOwner && <PendingRequestList requests={requests} />
       }
       <ProcessedRequestList requests={requests} />
     </section >
   )
 }
 
-function getUserRoleDepartments(departments) {
-
-  let isOwner = false;
-  let userRoleDepartments = [];
-  let userRoleDepartmentIds = [];
-
-  for (const department of departments) {
-    if (department.role === "owner") {
-      isOwner = true;
-      userRoleDepartments = [];
-      userRoleDepartmentIds = [];
-      break;
-    }
-    if (department.role === "user") {
-      userRoleDepartments.push(department);
-      userRoleDepartmentIds.push(department.departmentId);
-    }
-  }
-
-  return {
-    isOwner: isOwner,
-    userRoleDepartments: userRoleDepartments,
-    userRoleDepartmentIds: userRoleDepartmentIds
-  };
-}
-
-async function PendingRequestList({ requests, isOwner }) {
+async function PendingRequestList({ requests }) {
   return (
     <div>
       <h3>Pending Requests</h3>

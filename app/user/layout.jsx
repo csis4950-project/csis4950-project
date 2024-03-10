@@ -31,7 +31,7 @@ export function TopBar({ organizations, fullName }) {
 export function SideNav({ currentOrganization, departments }) {
   const roles = departments.map(department => {
     if (currentOrganization.id === department.organizationId) {
-      return department.role;
+      return department.role.name;
     }
   })
 
@@ -65,10 +65,10 @@ export function SideNav({ currentOrganization, departments }) {
             <Link className="nav__list__item__text" href="/user/calendar">Calendar</Link>
           </li>
           <li className="nav__list__item">
-            <Link className="nav__list__item__text" href="/summary">Summary</Link>
+            <Link className="nav__list__item__text" href="/user/summary">Summary</Link>
           </li>
           <li className="nav__list__item">
-            <Link className="nav__list__item__text" href="/work">Work</Link>
+            <Link className="nav__list__item__text" href="/user/work">Work</Link>
           </li>
         </ul>
         {isAdmin &&
@@ -78,13 +78,10 @@ export function SideNav({ currentOrganization, departments }) {
             </div>
             <ul className="nav__list">
               <li className="nav__list__item">
-                <Link className="nav__list__item__text" href="/departments">Departments</Link>
+                <Link className="nav__list__item__text" href="/user/departments">Departments</Link>
               </li>
               <li className="nav__list__item">
-                <Link className="nav__list__item__text" href="/employees">Employees</Link>
-              </li>
-              <li className="nav__list__item">
-                <Link className="nav__list__item__text" href="/permissions">Permissions</Link>
+                <Link className="nav__list__item__text" href="/user/permissions">Permissions</Link>
               </li>
             </ul>
           </>

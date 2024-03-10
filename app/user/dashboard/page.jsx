@@ -10,11 +10,12 @@ export default async function Dashboard() {
   const { currentOrganization, departments } = session;
   const announcements = await getAnnouncementsOfAffiliatedDepartments(currentOrganization, departments);
   const requests = await getRequestsOfAffiliatedDepartments(currentOrganization, departments);
-  const userRoles = getUserRoles(currentOrganization, departments);;
+  const userRoles = getUserRoles(currentOrganization, departments);
   let availabilities = await getAvailabilitiesByUserId(session.userId);
   availabilities = sortAvailabilitiesByDayOfWeek(availabilities);
   let dayOfWeekTags = await getDayOfWeekTags();
   dayOfWeekTags = sortDayOfWeekTags(dayOfWeekTags);
+
   return (
     <section className="dashboard">
       <div className="header">
@@ -37,9 +38,9 @@ function getUserRoles(currentOrganization, departments) {
   const roles = new Set();
   departments.forEach((department) => {
     if (currentOrganization.id === department.organizationId) {
-      roles.add(department.role);
+      roles.add(department.role.name);
     }
   })
 
-  return Array.from(roles);
+  return [...roles];
 }

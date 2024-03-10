@@ -82,10 +82,10 @@ export default function Calendar() {
           </div>
           <select id="departmentSelection" className='form__input form__input--select' name="selectedDepartment" type="text">
             {session && session.departments.map((department, index) => {
-              const { departmentId, departmentName } = department;
-              if (!departmentName.startsWith("__")) {
+              const { id, name } = department;
+              if (!name.startsWith("__")) {
                 return (
-                  <option key={index} value={index}>{departmentName}</option>
+                  <option key={index} value={index}>{name}</option>
                 )
               }
             })}
@@ -93,7 +93,7 @@ export default function Calendar() {
           <input className="form__input form__input--submit" type="submit" value="APPLY" />
         </form>
         {/* from here */}
-        <span>{selectedDepartment.departments[selectedDepartment.currentIndex]?.departmentName}</span>
+        <span>{selectedDepartment.departments[selectedDepartment.currentIndex]?.name}</span>
       </div>
       <ReactBigCalendar
         view={view}
@@ -153,14 +153,14 @@ function createEventData(shifts, selectedDepartment) {
 
 function getInitialDepartment(departments) {
   for (const department of departments) {
-    if (!department.departmentName.startsWith("__")) {
+    if (!department.name.startsWith("__")) {
       return department;
     }
   }
 }
 
 function isSelectedDepartment(department, selectedDepartment) {
-  return department.id === selectedDepartment.departmentId
+  return department.id === selectedDepartment.id
 }
 
 function formatEvent(shift) {

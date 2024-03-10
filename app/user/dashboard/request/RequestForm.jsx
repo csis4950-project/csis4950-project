@@ -39,10 +39,10 @@ export default function RequestForm({ requests, userId, departments, requestType
           <select id="department" name="department" onChange={(event) => handleSelectedDepartmentId(event)}>
             <option value="">Select a department</option>
             {
-              departments.map(({ departmentId, departmentName }, index) => {
-                if (!departmentName.startsWith("__")) {
+              departments.map(({ id, name }, index) => {
+                if (!name.startsWith("__")) {
                   return (
-                    <option key={index} value={departmentId}>{departmentName}</option>
+                    <option key={index} value={id}>{name}</option>
                   )
                 }
               })

@@ -48,12 +48,12 @@ export default function AnnouncementForm({ userId, departments, announcementType
       <div className="form__group">
         <div>
           {
-            departments.map(({ departmentId, departmentName }, index) => {
-              if (!departmentName.startsWith("__")) {
+            departments.map(({ id, name }, index) => {
+              if (!name.startsWith("__")) {
                 return (
                   <div key={index}>
-                    <input type="checkbox" name="department" value={departmentId} />
-                    <label>{departmentName}</label>
+                    <input type="checkbox" name="department" value={id} />
+                    <label>{name}</label>
                   </div>
                 )
               }
