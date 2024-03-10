@@ -120,16 +120,16 @@ export async function getTagsByTagType(tagType) {
 export async function getAnnouncementsOfAffiliatedDepartments(currentOrg, departments) {
   const { id: currentOrgId } = currentOrg;
   const announcements = await findAnnouncementsByOrgId(currentOrgId);
-  if (isOwner(currentOrgId, departments)) {
+  if (checkIfOwnerByDepartments(currentOrgId, departments)) {
     return announcements;
   }
 
   return filterAnnouncementsByAffiliatedDepartments(announcements, departments);
 }
 
-function isOwner(currentOrgId, departments) {
+function checkIfOwnerByDepartments(currentOrgId, departments) {
   for (const department of departments) {
-    if (department.role === "owner" && department.organizationId === currentOrgId) {
+    if (department.role.name === "owner" && department.organizationId === currentOrgId) {
       return true;
     }
   }
@@ -158,7 +158,7 @@ export async function findAnnouncementsByOrgId(orgId) {
 function filterAnnouncementsByAffiliatedDepartments(announcements, departments) {
   const affiliatedDepartments = new Set();
   departments.forEach((department) => {
-    affiliatedDepartments.add(department.departmentId);
+    affiliatedDepartments.add(department.id);
   })
 
   const filteredAnnouncements = [];
@@ -188,7 +188,7 @@ export async function deleteAnnouncementById(id) {
 }
 
 export async function getShiftsByUserDepartments(departments) {
-  const OrFilter = createOrFilterByDepartmentId(departments);
+  const OrFilter = createORFilterByDepartmentId(departments);
   const shifts = await prismaClient.shift.findMany({
     where: {
       deletedAt: null,
@@ -226,12 +226,12 @@ export async function getShiftsByUserDepartments(departments) {
   return shifts;
 }
 
-function createOrFilterByDepartmentId(departments) {
+function createORFilterByDepartmentId(departments) {
   const filters = [];
-  departments.forEach(({ departmentName, departmentId }) => {
-    if (!departmentName.startsWith("__")) {
+  departments.forEach(({ id, name }) => {
+    if (!name.startsWith("__")) {
       const filter = {
-        departmentId: departmentId
+        departmentId: id
       }
       filters.push(filter);
     }
@@ -280,7 +280,7 @@ export async function getShiftsByUserId(userId) {
 
 export async function getRequestsOfAffiliatedDepartments(currentOrg, departments) {
   const { id: currentOrgId } = currentOrg;
-  if (isOwner(currentOrgId, departments)) {
+  if (checkIfOwnerByDepartments(currentOrgId, departments)) {
     return await findRequestsByOrgId(currentOrgId);;
   }
 
@@ -714,6 +714,7 @@ export async function getDayOfWeekTags() {
     },
   })
 }
+
 export async function createUserAvailability(userInput) {
   return await prismaClient.availability.create({
     data: {
@@ -745,4 +746,103 @@ export async function deleteUserAvailability(availabilityId) {
       id: availabilityId
     }
   });
+}
+
+export async function checkIfOwner(orgId, userId) {
+  const organization = await prismaClient.organization.findUnique({
+    where: {
+      id: orgId
+    }
+  });
+
+  return organization.ownerId === userId;
+}
+
+export async function getDepartmentsByOrgId(orgId) {
+  return await prismaClient.department.findMany({
+    where: {
+      organizationId: orgId,
+      name: {
+        not: "__Owner"
+      },
+      deletedAt: null,
+    },
+    select: {
+      id: true,
+      organizationId: true,
+      name: true
+    },
+    orderBy: [
+      { name: "asc" }
+    ]
+  });
+}
+
+export async function getDepartmentsByUserId(userId) {
+  return await prismaClient.departmentMember.findMany({
+    where: {
+      memberId: userId,
+      name: {
+        not: "__Owner"
+      },
+      deletedAt: null
+    },
+    select: {
+      department: {
+        select: {
+          id: true,
+          organizationId: true,
+          name: true
+        }
+      }
+    },
+    orderBy: [
+      { name: "asc" }
+    ]
+  });
+}
+
+export async function getDepartmentMemberByDepartments(departments) {
+  const ORFilter = retrieveIds(departments);
+  const users = await prismaClient.departmentMember.findMany({
+    where: {
+      departmentId: {
+        in: ORFilter
+      }
+    },
+    include: {
+      member: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true
+        }
+      },
+      department: {
+        select: {
+          id: true,
+          organizationId: true,
+          name: true
+        }
+      },
+      role: {
+        select: {
+          id: true,
+          name: true
+        }
+      }
+    },
+    orderBy: [
+      { member: { firstName: "asc" } },
+      { member: { lastName: "asc" } }
+    ]
+  });
+
+  return users;
+}
+
+function retrieveIds(array) {
+  return array.map(el => el.id)
+
 }

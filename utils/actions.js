@@ -202,3 +202,11 @@ export async function deleteAvailability(formData) {
 
   revalidatePath("/user/dashboard/availability");
 }
+
+export async function submitCreateDepartmentForm(formData) {
+  // const orgId = formData.get("orgId");
+  // const departmentName = formData.get("name");
+  // const createdDepartment = await createDepartment(orgId, departmentName);
+
+  revalidatePath("/user/departments");
+}
