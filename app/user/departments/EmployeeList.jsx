@@ -1,12 +1,10 @@
 "use client"
 
 import { useState } from "react";
+import InviteUserButton from "./InviteUserButton";
 
-export default function EmployeeList({ departments, employees }) {
+export default function EmployeeList({ curOrg, departments, employees }) {
   const [department, setDepartment] = useState(departments[0]?.name);
-  // console.log(departments);
-  // console.log(employees);
-
 
   return (
     <div>
@@ -23,9 +21,7 @@ export default function EmployeeList({ departments, employees }) {
             }
           </select>
         </div>
-        <div>
-          <button className="btn">INVITE</button>
-        </div>
+        <InviteUserButton curOrg={curOrg} departments={departments} />
       </div>
       <table className="table">
         <thead>

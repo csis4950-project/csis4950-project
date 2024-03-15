@@ -450,6 +450,9 @@ footer {
 .departments .form__label {
   margin-right: 16px;
 }
+.departments .form__label--error {
+  color: #ef4444;
+}
 .departments .form__btns {
   margin-top: 24px;
   display: flex;
@@ -759,6 +762,13 @@ footer {
   flex-direction: column;
   align-items: center;
 }
+.sign-up-page .sign-up-input-field .company-info {
+  display: grid;
+  row-gap: 16px;
+  justify-content: start;
+  width: 100%;
+  margin-bottom: 24px;
+}
 .sign-up-page .sign-up-input-field .input-field-layout {
   width: 100%;
 }
@@ -804,8 +814,15 @@ footer {
 }
 .sign-up-page .btns {
   display: flex;
-  margin: 32px 0;
+  margin-top: 32px 0;
   gap: 32px;
+}
+.sign-up-page .btns--margin-narrow {
+  margin: 16px 0;
+}
+.sign-up-page .btns--right {
+  width: 100%;
+  justify-content: end;
 }
 .sign-up-page .btns .btn {
   border: solid 1px;

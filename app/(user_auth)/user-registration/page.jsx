@@ -1,7 +1,22 @@
 import Image from "next/image";
-import OwnerSignUpForm from "./OwnerSignUpForm";
+import UserSignUpForm from "./UserSignUpForm";
+import { decrypt } from "@/utils/session";
+import { redirect } from "next/navigation";
 
-export default async function SignUp() {
+export default async function UserRegistration({ searchParams }) {
+  const { payload } = searchParams;
+  let invitationData;
+  try {
+    invitationData = await decrypt(payload);
+  } catch (e) {
+    redirect("/invitation-expired");
+  }
+
+  const now = new Date().getTime();
+  const expiration = new Date(invitationData.exp * 1000)
+  if (expiration < now) {
+    redirect("/invitation-expired");
+  }
 
   return (
     <div className='sign-up-page'>
@@ -21,7 +36,7 @@ export default async function SignUp() {
               <span >Sign up into your account</span>
             </div>
           </div>
-          <OwnerSignUpForm />
+          <UserSignUpForm invitationData={invitationData} />
         </div>
       </section>
       <div className="sign-up-img bg-white">

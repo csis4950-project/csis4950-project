@@ -27,6 +27,10 @@
       margin-right: 16px;
     }
 
+    &__label--error {
+      color: $red-500;
+    }
+
     &__btns {
       margin-top: 24px;
       display: flex;

@@ -3,9 +3,11 @@
 import { submitCreateDepartmentForm } from "@/utils/actions";
 import { useState, useRef } from "react";
 
-export default function CreateDepartmentFrom({ curOrgId }) {
+export default function CreateDepartmentFrom({ curOrg }) {
   const [visibility, setVisibility] = useState(false);
+  const [error, setError] = useState("");
   const ref = useRef();
+
   return (
     <div className="form-container">
       <div className={visibility ? "fullscreen fullscreen--center" : "hidden"}>
@@ -16,14 +18,18 @@ export default function CreateDepartmentFrom({ curOrgId }) {
             setVisibility(false);
           } catch (e) {
             console.log('e', e);
+            setError(e.message);
           }
         }}>
-          <div className="">
-            <label className="form__label" htmlFor="name">Department Name:</label>
-            <input id="name" name="name" />
+          <div>
+            <div>
+              <label className="form__label" htmlFor="name">Department Name:</label>
+              <input id="name" name="name" />
+            </div>
+            {error && <span className="form__label--error">{error}</span>}
           </div>
           <div className="form__btns">
-            <input type="hidden" name="curOrgId" value={curOrgId} />
+            <input type="hidden" name="orgId" value={curOrg.id} />
             <button className="btn" type="submit">CREATE</button>
             <button className="btn" type="button" onClick={() => setVisibility(false)}>CANCEL</button>
           </div>

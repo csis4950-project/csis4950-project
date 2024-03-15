@@ -2,27 +2,23 @@ import prismaClient from "@/utils/globalPrismaClient";
 import { fetchHashPassword, toDate, formatTimeToHHMMAString } from "@/utils/utils";
 
 export async function findUserByEmail(email) {
-  const user = await prismaClient.user.findUnique({
+  return await prismaClient.user.findUnique({
     where: {
       email: email
     }
-  })
-
-  return user;
+  });
 }
 
 export async function createUser(formData) {
   const hashedPassword = await fetchHashPassword(formData.get("password"));
-  const newUser = await prismaClient.user.create({
+  return await prismaClient.user.create({
     data: {
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
       email: formData.get("email"),
       password: hashedPassword
     }
-  })
-
-  return newUser;
+  });
 }
 
 export async function createOrganization(userId, organizationName) {
@@ -54,15 +50,13 @@ export async function createDepartmentMember(departmentId, userId, roleName = "u
     }
   });
 
-  const newDepartmentMember = await prismaClient.departmentMember.create({
+  return await prismaClient.departmentMember.create({
     data: {
       departmentId: departmentId,
       memberId: userId,
       roleId: role.id
     }
-  })
-
-  return newDepartmentMember;
+  });
 };
 
 export async function getUserSessionData(email) {

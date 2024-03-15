@@ -1,6 +1,6 @@
 "use server"
 
-import { deleteSession, setSession } from "./session";
+import { deleteSession, encrypt, setSession } from "./session";
 import {
   createDepartment,
   createDepartmentMember,
@@ -20,10 +20,11 @@ import {
   updateUserOfferRequestsWithDenyTag,
   updateUserAvailability
 } from "@/utils/db";
-import { validateName, validateEmail, validatePassword, validateRequestInput, validateAvailabilityFormInput } from "@/utils/validation";
+import { validateName, validateEmail, validatePassword, validateRequestInput, validateAvailabilityFormInput, validateInvitationForm, verifyName, verifyEmail, verifyPassword } from "@/utils/validation";
 import { fetchIsValid } from "@/utils/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { send, sendEmail } from "./email";
 
 
 export async function login(formData) {
@@ -81,6 +82,55 @@ export async function signUpOwner(formData) {
   await createDepartmentMember(createdDepartment.id, createdUser.id, "owner");
 
   const userSessionData = await getUserSessionData(createdUser.email);
+  await setSession(userSessionData);
+
+  redirect("/user/dashboard", "replace");
+}
+
+export async function signUpUser(formData) {
+  const userInput = {
+    departmentId: formData.get("departmentId"),
+    firstName: formData.get("firstName"),
+    lastName: formData.get("lastName"),
+    email: formData.get("email"),
+    password: formData.get("password"),
+    cPassword: formData.get("cPassword")
+  };
+
+  verifyName(userInput.firstName);
+  verifyName(userInput.lastName);
+  verifyEmail(userInput.email);
+  verifyPassword(userInput.password, userInput.cPassword);
+
+  const user = await findUserByEmail(userInput.email);
+  if (user !== null) {
+    throw new Error("The email address is already registered. Try again with other email address or login with your account");
+  }
+
+  const createdUser = await createUser(formData);
+  await createDepartmentMember(userInput.departmentId, createdUser.id);
+
+  const userSessionData = await getUserSessionData(createdUser.email);
+  await setSession(userSessionData);
+
+  redirect("/user/dashboard", "replace");
+}
+
+export async function signUpUserWithExistingAccount(formData) {
+  const userInput = {
+    departmentId: formData.get("departmentId"),
+    email: formData.get("email"),
+    password: formData.get("password")
+  };
+
+  const user = await findUserByEmail(userInput.email);
+  if (user === null) {
+    throw new Error("User not found. Please double-check your email or consider signing up if you're new");
+  }
+
+  await createDepartmentMember(userInput.departmentId, user.id);
+
+  const userSessionData = await getUserSessionData(user.email);
   await setSession(userSessionData);
 
   redirect("/user/dashboard", "replace");
@@ -181,15 +231,12 @@ export async function submitAvailability(formData) {
     endTime: formData.get("endTime") !== "" ? formData.get("endTime") : null,
     note: formData.get("note") !== "" ? formData.get("note") : null
   }
-  console.log('userInput', userInput);
   validateAvailabilityFormInput(userInput);
 
   if (userInput.availabilityOfDayOfWeek === "no-data" || userInput.selectedDayOfWeek === "Other") {
     const availability = await createUserAvailability(userInput);
-    console.log('created', availability);
   } else {
     const availability = await updateUserAvailability(userInput);
-    console.log('updated', availability);
   }
 
   revalidatePath("/user/dashboard/edit-availability");
@@ -198,15 +245,41 @@ export async function submitAvailability(formData) {
 export async function deleteAvailability(formData) {
   if (formData.get("availabilityId") === "no-data") return;
   const availability = await deleteUserAvailability(formData.get("availabilityId"));
-  console.log('deleted', availability);
 
   revalidatePath("/user/dashboard/availability");
 }
 
 export async function submitCreateDepartmentForm(formData) {
-  // const orgId = formData.get("orgId");
-  // const departmentName = formData.get("name");
-  // const createdDepartment = await createDepartment(orgId, departmentName);
+  const orgId = formData.get("orgId");
+  const departmentName = formData.get("name");
+  validateName(departmentName);
 
+  const createdDepartment = await createDepartment(orgId, departmentName);
   revalidatePath("/user/departments");
+}
+
+export async function sendInvitation(formData) {
+  const invitationData = {
+    organizationId: formData.get("organizationId"),
+    organization: formData.get("organization"),
+    departmentId: formData.get("departmentId"),
+    department: formData.get("department"),
+    firstName: formData.get("firstName"),
+    lastName: formData.get("lastName"),
+    email: formData.get("email")
+  }
+  validateInvitationForm(invitationData.firstName, invitationData.lastName, invitationData.email);
+
+  const subject = "Wehabu: Invitation Link"
+  const payload = await encrypt(invitationData);
+  const invitationLink = process.env.URL + `/user-registration?payload=${payload}`;
+  const message =
+    `Hello ${invitationData.firstName} ${invitationData.lastName},\n
+    You've been invited by ${invitationData.organization} to join ${invitationData.department}. Please complete your registration within 24 hours by following the link below to use Wehabu platform. If you already have an account, click "Sign up with an existing account" on the linked page.\n
+    \n
+    ${invitationLink}\n
+    \n
+    Wehabu`;
+
+  sendEmail(invitationData.email, subject, message);
 }
