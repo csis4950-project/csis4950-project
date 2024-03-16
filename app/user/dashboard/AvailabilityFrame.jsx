@@ -35,7 +35,7 @@ export default async function AvailabilityFrame({ availabilities, dayOfWeekTags 
             })
           }
         </ul>
-        <div className="btn btn--edit">
+        <div className="btn btn--show-all">
           <Link className="btn--show-all__text" href="/user/dashboard/availability">EDIT</Link>
         </div>
       </div>
