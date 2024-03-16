@@ -14,48 +14,6 @@
   grid-template-rows: repeat(2, auto);
   grid-template-columns: repeat(12, 1fr);
 
-  .btn {
-    padding: 8px 12px;
-    border: solid $white 1px;
-
-    &__round {
-      border-radius: 50px;
-    }
-
-    &__square {
-      border-radius: 8px;
-    }
-
-    &--no-border {
-      border: none;
-    }
-
-    &--approve {
-      background-color: $green-200;
-      color: $black-950;
-      border-radius: 6px;
-    }
-
-    &--deny {
-      background-color: $red-500;
-      color: $black-950;
-      border-radius: 6px;
-    }
-
-    &--cancel {
-      background-color: $yellow-200;
-      color: $black-950;
-      border-radius: 6px;
-    }
-
-    &--unavailable {
-      font-size: 12px;
-      background-color: $yellow-200;
-      color: $black-950;
-      border-radius: 6px;
-    }
-  }
-
   .top-bar {
     grid-row: 1/2;
     grid-column: 1/13;

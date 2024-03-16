@@ -6,25 +6,11 @@ export default async function Layout({ children }) {
 
   return (
     <section className="user-page-layout">
-      <TopBar organizations={session.organizations} fullName={session.fullName} />
       <SideNav currentOrganization={session.currentOrganization} departments={session.departments} />
       <div className="grid__dashboard-contents">
         {children}
       </div>
     </section>
-  )
-}
-
-export function TopBar({ organizations, fullName }) {
-  return (
-    <div className="top-bar">
-      <div>
-        <button className="btn btn__square">{organizations[0].name}</button>
-      </div>
-      <div>
-        <button className="btn btn__round">{fullName}</button>
-      </div>
-    </div>
   )
 }
 
@@ -40,6 +26,14 @@ export function SideNav({ currentOrganization, departments }) {
   return (
     <aside className="side-nav">
       <nav className="nav">
+        <div className="nav__title">
+          <p className="nav__title__text">Organization</p>
+        </div>
+        <ul className="nav__list">
+          <li className="nav__list__item">
+            <Link className="nav__list__item__text" href="/user/dashboard">{currentOrganization.name}</Link>
+          </li>
+        </ul>
         <div className="nav__title">
           <p className="nav__title__text">DASHBOARD</p>
         </div>

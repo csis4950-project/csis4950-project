@@ -1,0 +1,17 @@
+.position {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.test {
+  background-color: red;
+  width: 500px;
+  height: 100px;
+  transition: 0.3s;
+}
+
+.invisible {
+  display: hidden;
+  width: 0px;
+}

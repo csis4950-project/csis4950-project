@@ -1,0 +1,60 @@
+@use "../utils/colors" as *;
+
+.btn {
+  padding: 8px 12px;
+  border: solid $white 1px;
+
+  &__round {
+    border-radius: 50px;
+  }
+
+  &__square {
+    border-radius: 8px;
+  }
+
+  &--no-border {
+    border: none;
+  }
+
+  &--approve {
+    background-color: $green-200;
+    color: $black-950;
+    border-radius: 6px;
+  }
+
+  &--deny {
+    background-color: $red-500;
+    color: $black-950;
+    border-radius: 6px;
+  }
+
+  &--cancel {
+    background-color: $yellow-200;
+    color: $black-950;
+    border-radius: 6px;
+  }
+
+  &--unavailable {
+    font-size: 12px;
+    background-color: $yellow-200;
+    color: $black-950;
+    border-radius: 6px;
+  }
+
+  &--invitation-link {
+    background-color: transparent;
+    border-radius: 50px;
+  }
+
+  &--show-all {
+    background-color: $white;
+    border-radius: 0 0 8px 8px;
+    text-align: center;
+  }
+
+  &--show-all__text {
+    width: 100%;
+    color: $black-950;
+    cursor: pointer;
+  }
+}

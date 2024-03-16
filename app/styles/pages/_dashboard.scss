@@ -37,31 +37,6 @@
     grid-column: 8/13;
   }
 
-  .btn {
-    width: 100%;
-    background-color: $white;
-    text-align: center;
-
-    &--invitation-link {
-      background-color: transparent;
-      border-radius: 50px;
-    }
-
-    &--show-all {
-      border-radius: 0 0 8px 8px;
-    }
-
-    &--show-all__text {
-      width: 100%;
-      color: $black-950;
-      cursor: pointer;
-    }
-
-    &--edit {
-      border-radius: 0 0 8px 8px;
-    }
-  }
-
   .frame {
     border: solid $white 1px;
     border-radius: 16px;

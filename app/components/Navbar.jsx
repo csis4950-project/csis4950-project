@@ -4,14 +4,17 @@ import { getSession } from "@/utils/session";
 import { logout } from "@/utils/actions";
 import { redirect } from "next/navigation";
 
+const links = ["Home", "Product", "About", "Contact"];
+
 export default async function Navbar() {
-  const session = await getSession();
+  const data = await getSession();
+  const session = data?.payload ?? null;
 
   return (
     <header className="navbar">
-      <nav>
+      <div>
         <Link href="/">
-          <div className="logo">
+          <div className="navbar__logo">
             <Image src="/wehabu.png"
               alt="logo"
               width={80}
@@ -19,36 +22,43 @@ export default async function Navbar() {
               style={{ objectFit: "contain" }}
               priority={true}
             />
-            <span>Wehabu</span>
+            <span className="navbar__logo__text">Wehabu</span>
           </div>
         </Link>
-        <ul>
-          <li>
-            <Link className="" href="">Home</Link>
-          </li>
-          <li>
-            <Link className="" href="/">Product</Link>
-          </li>
-          <li>
-            <Link className="" href="/">About</Link>
-          </li>
-          <li>
-            <Link className="" href="/">Contact</Link>
-          </li>
+      </div>
+      <nav>
+        <ul className="navbar__list">
+          {
+            links.map((link, index) => {
+              return (
+                <li className="navbar__list__item">
+                  <Link className="" href={`/${link.toLowerCase()}`}>{link}</Link>
+                </li>
+              )
+            })
+          }
         </ul>
-        <div className="link">
-
-          {session
-            ? <form action={async () => {
+      </nav>
+      {
+        session
+          ?
+          <div className="navbar__controls">
+            <div>
+              <button className="btn btn__round">{session.fullName}</button>
+            </div>
+            <form action={async () => {
               "use server"
               await logout();
               redirect("/login", "replace");
             }}>
-              <button type="submit">Logout</button>
+              <button className="btn" type="submit">Logout</button>
             </form>
-            : <Link href="/login">Login</Link>}
-        </div>
-      </nav>
+          </div>
+          :
+          <div>
+            <Link className="btn" href="/login">Login</Link>
+          </div>
+      }
     </header>
   )
 }
