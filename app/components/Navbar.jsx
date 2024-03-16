@@ -31,7 +31,7 @@ export default async function Navbar() {
           {
             links.map((link, index) => {
               return (
-                <li className="navbar__list__item">
+                <li key={index} className="navbar__list__item">
                   <Link className="" href={`/${link.toLowerCase()}`}>{link}</Link>
                 </li>
               )
