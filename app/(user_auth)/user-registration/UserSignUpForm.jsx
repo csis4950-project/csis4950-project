@@ -102,7 +102,6 @@ function SignUpForm({ invitationData, setHasAccount }) {
 
 function SignUpWithExistingAccountForm({ invitationData, setHasAccount }) {
   const [error, setError] = useState("");
-  console.log('error', error);
   return (
     <form action={async (formData) => {
       try {

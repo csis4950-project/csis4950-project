@@ -82,7 +82,6 @@ export default function RequestForm({ requests, userId, departments, requestType
               {
                 selectedType && selectedType !== "offer-user"
                 && userShifts.map((shift, index) => {
-                  console.log('shift', shift);
                   if (shift.departmentId !== selectedDepartmentId) return;
                   return shift.shiftTag.name !== "unassigned" && <option key={index} value={shift.id}>{toShiftString(shift)}</option>;
                 })

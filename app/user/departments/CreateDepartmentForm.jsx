@@ -17,7 +17,6 @@ export default function CreateDepartmentFrom({ curOrg }) {
             ref.current?.reset();
             setVisibility(false);
           } catch (e) {
-            console.log('e', e);
             setError(e.message);
           }
         }}>

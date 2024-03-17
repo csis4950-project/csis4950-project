@@ -29,7 +29,6 @@ export default function EditAvailabilityForm({ availabilities, userId, dayOfWeek
         ...dayOfWeekTags[event.target.selectedIndex - 1]
       }
     });
-    console.log('check', dayOfWeek);
   }
   return (
 

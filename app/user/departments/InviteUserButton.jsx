@@ -27,7 +27,6 @@ export default function InviteUserButton({ curOrg, departments }) {
             setVisibility(false);
             setError("");
           } catch (e) {
-            console.log('e', e);
             setError(e.message);
           }
         }}>
