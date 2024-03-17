@@ -5,6 +5,16 @@
   grid-column: 3/13;
   padding: 16px 24px;
 
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &--right {
+      justify-content: right;
+    }
+  }
+
   .select {
     padding: 16px 24px;
     display: flex;
@@ -43,17 +53,33 @@
     }
   }
 
-  .p {
-    &__v12h24 {
-      padding: 12px 24px;
+  .editor {
+    position: relative;
+
+    &__btn-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 999;
     }
 
-    &__v12h0 {
-      padding: 12px 24px;
+    &__container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: max(50%, 300px);
+      height: max(100%, 500px);
+      background-color: $black-950;
+      overflow: hidden;
+      border: double 4px $white;
+      white-space: nowrap;
+      transition: 0.7s;
+      z-index: 99;
     }
 
-    &__v0h24 {
-      padding: 0px 24px;
+    .close {
+      width: 0;
+      border: none;
     }
   }
 }

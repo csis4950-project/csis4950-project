@@ -5,9 +5,10 @@ import {
   createDepartment,
   createDepartmentMember,
   createOrganization,
-  createUser,
   createAnnouncements,
   createRequest,
+  createShiftsFromDraft,
+  createUser,
   createUserAvailability,
   deleteAnnouncementById,
   deleteUnassignedShift,
@@ -24,7 +25,7 @@ import { validateName, validateEmail, validatePassword, validateRequestInput, va
 import { fetchIsValid } from "@/utils/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { send, sendEmail } from "./email";
+import { sendEmail } from "./email";
 
 
 export async function login(formData) {
@@ -282,4 +283,15 @@ export async function sendInvitation(formData) {
     Wehabu`;
 
   sendEmail(invitationData.email, subject, message);
+}
+
+export async function submitScheduleDraft(formDate) {
+  try {
+    const draft = JSON.parse(formDate.get("newShiftData"))
+    const newShifts = await createShiftsFromDraft(draft);
+  } catch (e) {
+    throw new Error("There's something wrong. Please try later.")
+  }
+
+  redirect("/user/calendar");
 }

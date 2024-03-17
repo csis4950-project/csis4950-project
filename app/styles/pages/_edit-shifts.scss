@@ -1,17 +1,122 @@
-.position {
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-}
+@use "../utils/colors" as *;
 
-.test {
-  background-color: red;
-  width: 500px;
-  height: 100px;
-  transition: 0.3s;
-}
+.edit-shifts {
+  grid-row: 2;
+  grid-column: 3/13;
+  padding: 16px 24px;
 
-.invisible {
-  display: hidden;
-  width: 0px;
+  .btns {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .text {
+    &--error {
+      color: $red-500;
+    }
+
+    &--success {
+      color: $green-200;
+    }
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &--right {
+      justify-content: right;
+    }
+  }
+
+  .select {
+    padding: 16px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    gap: 32px;
+
+    &__label {
+      display: grid;
+      place-items: center;
+      padding: 8px 24px;
+      background-color: $white;
+      font-weight: 800;
+    }
+
+    &__label--black {
+      color: $black-950;
+    }
+
+    &__input {
+      padding: 8px 12px;
+      background-color: transparent;
+      color: $white;
+      border: none;
+    }
+
+    &__input--select {
+      border-bottom: solid 1px $white;
+      width: 150px;
+      text-align: center;
+    }
+
+    &__input--submit {
+      width: 120px;
+      border: solid 1px $white;
+    }
+  }
+
+  .editor {
+    position: relative;
+
+    &__btn {
+      &--close {
+        display: flex;
+        justify-content: end;
+        width: 100%;
+        padding: 16px 16px;
+      }
+    }
+
+    &__container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: max(50%, 300px);
+      height: max(100%, 500px);
+      background-color: $black-950;
+      overflow: hidden;
+      border: double 4px $white;
+      white-space: nowrap;
+      transition: 0.7s;
+      z-index: 99;
+    }
+
+    .close {
+      width: 0;
+      opacity: 0;
+    }
+
+    &__form {
+      display: grid;
+      place-items: center;
+      row-gap: 24px;
+      padding: 24px 0;
+    }
+
+    &__input-fields {
+      display: grid;
+      row-gap: 16px;
+      grid-template-columns: 1fr;
+    }
+
+    &__input-field {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      text-align: center;
+    }
+  }
 }

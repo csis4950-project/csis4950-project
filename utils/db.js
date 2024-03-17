@@ -840,3 +840,27 @@ function retrieveIds(array) {
   return array.map(el => el.id)
 
 }
+
+export async function createShiftsFromDraft(draft) {
+  const shiftData = await formatDraftToShiftData(draft);
+
+  return await prismaClient.shift.createMany({ data: shiftData });
+}
+
+async function formatDraftToShiftData(drafts) {
+  const tags = await getTagsByTagType("shift");
+  const shiftData = [];
+  for (const draft of drafts) {
+    const { data } = draft;
+    const [tag] = tags.filter((tag) => tag.name === data.tag)
+    const shift = {
+      userId: data.user.id,
+      departmentId: data.departmentId,
+      tagId: tag.id,
+      startTime: draft.start,
+      endTime: draft.end
+    }
+    shiftData.push(shift);
+  }
+  return shiftData;
+}
