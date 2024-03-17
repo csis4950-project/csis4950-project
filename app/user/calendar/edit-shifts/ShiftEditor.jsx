@@ -100,9 +100,13 @@ export default function ShiftEditor({ session, selectedDepartment, users, shiftT
               </>
             }
           </div>
+          {(error || success) &&
+            <div className="editor__message">
+              {error && <p className="text--error">{error}</p>}
+              {success && <p className="text--success">{success}</p>}
+            </div>
+          }
           <div>
-            {error && <p className="text--error">{error}</p>}
-            {success && <p className="text--success">{success}</p>}
             <button className="btn" type="submit">ADD</button>
           </div>
         </form>

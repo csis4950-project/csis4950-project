@@ -626,6 +626,11 @@ footer {
   grid-template-columns: 1fr 1fr;
   text-align: center;
 }
+.edit-shifts .editor__message {
+  max-width: 250px;
+  text-align: center;
+  white-space: normal;
+}
 
 .login-page {
   display: grid;
