@@ -1,0 +1,65 @@
+@use "../utils/colors" as *;
+
+.about{
+  display: grid;
+  row-gap: 50px;
+
+
+  .profileBanner{
+    margin: 20px 20px;
+  }
+  .second-div{
+      display: flex;
+      justify-content: space-evenly;
+  
+  }
+  .about-article{
+    text-align: justify;
+    line-height: 35px;
+  }
+  
+  .cards{
+  
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid white;
+    color: #333;
+    width: 276px;
+    height: 114px;
+    margin-bottom: 20px;
+  }
+
+  .cardtext
+  {
+      text-align: center;
+      color: $black-950;
+  }
+
+  .third-div{
+    display: grid;
+    place-items: center;
+  }
+  .image-container{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 800px;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .centered-text{
+    text-align: center;
+  }
+  .icon{
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    align-items: center;
+
+  }
+  .icon p{
+    text-align: center;
+
+  }
+}
