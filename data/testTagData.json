@@ -75,6 +75,11 @@
     "description": "the request status of approved"
   },
   {
+    "tagTypeId": "status",
+    "name": "canceled",
+    "description": "the request status of approved"
+  },
+  {
     "tagTypeId": "shift",
     "name": "morning",
     "description": "From 8 am to 4 pm"
@@ -91,7 +96,52 @@
   },
   {
     "tagTypeId": "shift",
+    "name": "unassigned",
+    "description": "shift request pending"
+  },
+  {
+    "tagTypeId": "shift",
     "name": "other",
     "description": "optional tag"
+  },
+  {
+    "tagTypeId": "availability",
+    "name": "monday",
+    "description": "availability of Monday"
+  },
+  {
+    "tagTypeId": "availability",
+    "name": "tuesday",
+    "description": "availability of Tuesday"
+  },
+  {
+    "tagTypeId": "availability",
+    "name": "wednesday",
+    "description": "availability of Wednesday"
+  },
+  {
+    "tagTypeId": "availability",
+    "name": "thursday",
+    "description": "availability of Thursday"
+  },
+  {
+    "tagTypeId": "availability",
+    "name": "friday",
+    "description": "availability of Friday"
+  },
+  {
+    "tagTypeId": "availability",
+    "name": "saturday",
+    "description": "availability of Saturday"
+  },
+  {
+    "tagTypeId": "availability",
+    "name": "sunday",
+    "description": "availability of Sunday"
+  },
+  {
+    "tagTypeId": "availability",
+    "name": "other",
+    "description": "availability of other"
   }
 ]

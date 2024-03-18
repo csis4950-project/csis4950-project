@@ -1,0 +1,9 @@
+[
+  {
+    "userId": "String",
+    "tagId": "String",
+    "startTime": "String",
+    "endTime": "String",
+    "note": "String"
+  }
+]

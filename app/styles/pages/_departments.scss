@@ -1,0 +1,91 @@
+@use "../utils/colors" as *;
+
+.departments {
+  .header {
+    padding: 12px 0;
+
+    &__title {
+      margin-bottom: 16px;
+    }
+  }
+
+  .form-container {
+    display: grid;
+    justify-content: end;
+  }
+
+  .form {
+    display: grid;
+    place-items: center;
+    padding: 48px;
+    background-color: $black-950;
+    border: double 2px $white;
+
+    &__label {
+      margin-right: 16px;
+    }
+
+    &__label--error {
+      color: $red-500;
+    }
+
+    &__btns {
+      margin-top: 24px;
+      display: flex;
+      gap: 24px;
+    }
+  }
+
+  .group {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+
+    &__select {
+      padding: 8px 12px;
+      background-color: transparent;
+      color: $white;
+      border: none;
+      border-bottom: solid 1px $white;
+      width: 150px;
+      text-align: center;
+    }
+  }
+
+  table,
+  th,
+  td {
+    border: solid 1px $white;
+  }
+
+  table {
+    height: auto;
+  }
+
+  .table {
+    width: 100%;
+    padding: 16px 0;
+    border: solid 1px $white;
+    border-collapse: collapse;
+
+    &__row--size-head {
+      height: 50px;
+    }
+
+    &__row--size-body {
+      height: 70px;
+    }
+
+    &__cel {
+      text-align: center;
+    }
+
+    &__cel--small {
+      width: 120px;
+    }
+
+    &__cel--action {
+      width: 130px;
+    }
+  }
+}

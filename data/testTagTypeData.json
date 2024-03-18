@@ -10,5 +10,8 @@
   },
   {
     "name": "shift"
+  },
+  {
+    "name": "availability"
   }
 ]

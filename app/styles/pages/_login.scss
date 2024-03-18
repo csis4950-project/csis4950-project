@@ -81,19 +81,6 @@
     }
   }
 
-  .btn {
-    width: 100%;
-    background-color: $blue-500;
-    padding: 12px 0;
-    border-radius: 8px;
-
-    &--transparent {
-      background-color: transparent;
-      color: $blue-500;
-      border: solid $blue-500 1px;
-    }
-  }
-
   .divider {
     display: flex;
     align-items: center;
@@ -109,5 +96,16 @@
 
   .error-message {
     color: $red-500;
+  }
+
+  @media screen and (max-width: 786px) {
+    .login-img {
+      display: none;
+    }
+
+    section {
+      grid-column: 1/13;
+      max-width: 500px;
+    }
   }
 }

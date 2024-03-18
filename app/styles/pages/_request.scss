@@ -1,7 +1,9 @@
 @use "../utils/colors" as *;
 
 .request {
-  padding: 0 24px;
+  &__container {
+    margin-bottom: 24px;
+  }
 
   &__head {
     padding: 12px 0;
@@ -27,6 +29,10 @@
 
     &__text--success-message {
       color: $green-300;
+    }
+
+    &__text--canceled {
+      color: $yellow-200;
     }
 
     &__group {
@@ -102,6 +108,20 @@
 
     &__cel {
       text-align: center;
+      padding: 0 12px;
     }
+
+    &__cel--date {
+      width: 100px;
+    }
+
+    &__cel--detail {
+      max-width: 300px;
+      width: 100%;
+    }
+  }
+
+  .btn {
+    margin: 8px 0;
   }
 }

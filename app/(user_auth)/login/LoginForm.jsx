@@ -34,7 +34,7 @@ export default function LoginFrom() {
         <Link className="link link__forget-password link--black-500" href="/">Forgot password?</Link>
       </div>
       {error && <span className="error-message">{error}</span>}
-      <button className="btn" type="submit"><span>Login</span></button>
+      <button className="btn--login" type="submit"><span>Login</span></button>
     </form>
   );
 }

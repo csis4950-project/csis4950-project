@@ -38,6 +38,14 @@
     flex-direction: column;
     align-items: center;
 
+    .company-info {
+      display: grid;
+      row-gap: 16px;
+      justify-content: start;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
     .input-field-layout {
       width: 100%;
 
@@ -94,8 +102,18 @@
 
   .btns {
     display: flex;
-    margin: 32px 0;
+    margin-top: 32px 0;
     gap: 32px;
+
+    &--margin-narrow {
+      margin: 16px 0;
+    }
+
+    &--right {
+      width: 100%;
+      justify-content: end;
+    }
+
     .btn {
       border: solid 1px;
       padding: 12px 24px;
@@ -120,5 +138,15 @@
 
   .error-message {
     color: $red-500;
+  }
+
+  @media screen and (max-width: 786px) {
+    section {
+      grid-column: 1/13;
+    }
+
+    .sign-up-img {
+      display: none;
+    }
   }
 }

@@ -8,7 +8,7 @@ const initialState = {
   cause: {}
 }
 
-export default function SignUpForm() {
+export default function OwnerSignUpForm() {
   const [pages, setPages] = useState(0);
   const [error, setError] = useState(initialState);
   const visible = { display: "block" }

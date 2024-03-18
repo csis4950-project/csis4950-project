@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SignUpForm from "./SignUpForm";
+import OwnerSignUpForm from "./OwnerSignUpForm";
 
 export default async function SignUp() {
 
@@ -21,7 +21,7 @@ export default async function SignUp() {
               <span >Sign up into your account</span>
             </div>
           </div>
-          <SignUpForm />
+          <OwnerSignUpForm />
         </div>
       </section>
       <div className="sign-up-img bg-white">

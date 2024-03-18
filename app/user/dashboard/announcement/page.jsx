@@ -1,4 +1,4 @@
-import { getTagsByTagType, getAnnouncementsOfAffiliatedDepartments } from "@/utils/db";
+import { getTagsByTagType, getAnnouncementsOfAffiliatedDepartments, checkIfOwner } from "@/utils/db";
 import { getSession } from "@/utils/session"
 import moment from "moment";
 import AnnouncementForm from "./AnnouncementForm";
@@ -9,7 +9,8 @@ export default async function Announcement() {
   const { userId, currentOrganization, departments } = session;
   const announcementTypes = await getTagsByTagType("announcement");
   const announcements = await getAnnouncementsOfAffiliatedDepartments(currentOrganization, departments);
-  const { isOwner, adminRoleDepartments, adminRoleDepartmentIds } = getAdminRoleDepartments(session.departments);
+  const isOwner = await checkIfOwner(currentOrganization.id, userId);
+  const adminRoleDepartments = getAdminRoleDepartments(departments, isOwner);
 
   return (
     <section className="announcement">
@@ -38,6 +39,7 @@ export default async function Announcement() {
                 const { announcedDepartment, id: announcementId, title, detail, createdAt, announcementType, expirationTime } = announcement;
                 const adjustedExpirationTime = moment(expirationTime).add(8, 'hours');
                 const isExpired = isExpiredAnnouncement(adjustedExpirationTime);
+                const announcedDepartmentIds = getAdminRoleDepartmentIds(adminRoleDepartments);
                 return (
                   <tr key={index} className="table__row table__row--size-body">
                     <td className="table__cel">{index + 1}</td>
@@ -51,7 +53,7 @@ export default async function Announcement() {
                         ? <td className="table__cel">EXPIRED</td>
                         : <td className="table__cel">{adjustedExpirationTime.format("MM/DD")}</td>
                     }
-                    {(isOwner || adminRoleDepartmentIds.includes(announcedDepartment.id))
+                    {(isOwner || announcedDepartmentIds.includes(announcedDepartment.id))
                       && <td className="table__cel">
                         <DeleteButton announcementId={announcementId} />
                       </td>
@@ -67,27 +69,13 @@ export default async function Announcement() {
   )
 }
 
-function getAdminRoleDepartments(departments) {
-  let isOwner = false;
-  const adminRoleDepartments = [];
-  const adminRoleDepartmentIds = [];
-
-  for (const department of departments) {
-    if (department.role === "owner") {
-      isOwner = true;
-    }
-    if (department.role === "admin" || isOwner) {
-      adminRoleDepartments.push(department);
-      adminRoleDepartmentIds.push(department.departmentId);
-    }
-  }
-
-  return {
-    isOwner: isOwner,
-    adminRoleDepartments: adminRoleDepartments,
-    adminRoleDepartmentIds: adminRoleDepartmentIds
-  };
+function getAdminRoleDepartments(departments, isOwner = false) {
+  return departments.filter((department) => isOwner || department.role === "admin");
 }
+
+function getAdminRoleDepartmentIds(departments) {
+  return departments.map(department => department.id);
+};
 
 function isExpiredAnnouncement(expirationTime) {
   const now = moment().startOf('days');

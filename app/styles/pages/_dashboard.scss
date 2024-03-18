@@ -1,9 +1,6 @@
 @use "../utils/colors" as *;
 
 .dashboard {
-  grid-row: 2;
-  grid-column: 3/13;
-
   display: grid;
   grid-template-rows: repeat(3, auto);
   grid-template-columns: repeat(12, 1fr);
@@ -11,67 +8,47 @@
   .header {
     grid-row: 1/2;
     grid-column: 1/13;
-    padding: 12px 24px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     &__title {
       margin-bottom: 16px;
     }
   }
 
-  .announcement {
+  .announcement-frame {
     grid-row: 2/3;
     grid-column: 1/8;
+    padding-right: 24px;
   }
 
-  .request-status {
+  .request-status-frame {
     grid-row: 3/4;
     grid-column: 1/8;
+    padding-right: 24px;
   }
 
-  .availability {
+  .availability-frame {
     grid-row: 2/4;
     grid-column: 8/13;
-  }
-
-  .btn {
-    width: 100%;
-    background-color: $white;
-    text-align: center;
-
-    &--invitation-link {
-      background-color: transparent;
-      border-radius: 50px;
-    }
-
-    &--show-all {
-      border-radius: 0 0 8px 8px;
-    }
-
-    &--show-all__text {
-      width: 100%;
-      color: $black-950;
-      cursor: pointer;
-    }
   }
 
   .frame {
     border: solid $white 1px;
     border-radius: 16px;
     padding: 10px 10px;
-
-    &--vertical {
-      min-height: 100%;
-    }
   }
 
   .list {
     padding: 12px 0 12px 12px;
-    overflow: hidden;
-    white-space: nowrap;
     list-style: square;
+
+    &--no-wrap {
+      overflow: hidden;
+      white-space: nowrap;
+    }
 
     &__item {
       margin-bottom: 8px;
@@ -80,19 +57,5 @@
         color: $white;
       }
     }
-  }
-}
-
-.p {
-  &__v12h24 {
-    padding: 12px 24px;
-  }
-
-  &__v12h0 {
-    padding: 12px 24px;
-  }
-
-  &__v0h24 {
-    padding: 0px 24px;
   }
 }

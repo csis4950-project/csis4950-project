@@ -47,16 +47,17 @@ export async function createPayload(userSessionData) {
   const orgSet = new Set();
   const organizations = [];
   const departments = []
+
   departmentMember.map(({ department, role }) => {
     if (!orgSet.has(department.organization.id)) {
       orgSet.add(department.organization.id);
       organizations.push(department.organization)
     }
     departments.push({
+      id: department.id,
       organizationId: department.organization.id,
-      departmentId: department.id,
-      departmentName: department.name,
-      role: role.name
+      name: department.name,
+      role: role
     });
   })
 

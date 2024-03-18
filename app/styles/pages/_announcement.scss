@@ -1,8 +1,6 @@
 @use "../utils/colors" as *;
 
 .announcement {
-  padding: 0 24px;
-
   &__head {
     padding: 12px 0;
   }
@@ -45,9 +43,6 @@
       min-height: 100px;
     }
 
-    // &__select {
-    // }
-
     &__select--multiple {
       display: flex;
       align-items: center;
@@ -79,9 +74,6 @@
     padding: 16px 0;
     border: solid 1px $white;
     border-collapse: collapse;
-
-    // &__row {
-    // }
 
     &__row--size-head {
       height: 50px;

@@ -1,0 +1,87 @@
+@use "../utils/colors" as *;
+
+.edit-availability {
+  .header {
+    padding: 12px 0;
+
+    &__title {
+      margin-bottom: 16px;
+    }
+  }
+
+  table,
+  th,
+  td {
+    border: solid 1px $white;
+  }
+
+  table {
+    height: auto;
+  }
+
+  .table {
+    width: 100%;
+    padding: 16px 0;
+    border: solid 1px $white;
+    border-collapse: collapse;
+
+    &__row--size-head {
+      height: 50px;
+    }
+
+    &__row--size-body {
+      height: 70px;
+    }
+
+    &__cel {
+      text-align: center;
+    }
+
+    &__cel--small {
+      width: 120px;
+    }
+
+    &__cel--action {
+      width: 130px;
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    gap: 16px;
+
+    &__text--error-message {
+      color: $red-500;
+    }
+
+    &__text--success-message {
+      color: $green-300;
+    }
+
+    &__group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    &__group__date {
+      display: flex;
+      gap: 24px;
+    }
+
+    &__group__note {
+      max-width: 400px;
+      width: 100%;
+      height: 80px;
+    }
+
+    &__btn {
+      padding: 8px 12px;
+      margin: 16px 0 16px auto;
+      border: solid 1px $white;
+    }
+  }
+}
