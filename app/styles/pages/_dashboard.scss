@@ -1,9 +1,6 @@
 @use "../utils/colors" as *;
 
 .dashboard {
-  grid-row: 2;
-  grid-column: 3/13;
-
   display: grid;
   grid-template-rows: repeat(3, auto);
   grid-template-columns: repeat(12, 1fr);
@@ -11,7 +8,6 @@
   .header {
     grid-row: 1/2;
     grid-column: 1/13;
-    padding: 12px 24px;
 
     display: flex;
     align-items: center;
@@ -22,17 +18,19 @@
     }
   }
 
-  .announcement {
+  .announcement-frame {
     grid-row: 2/3;
     grid-column: 1/8;
+    padding-right: 24px;
   }
 
-  .request-status {
+  .request-status-frame {
     grid-row: 3/4;
     grid-column: 1/8;
+    padding-right: 24px;
   }
 
-  .availability {
+  .availability-frame {
     grid-row: 2/4;
     grid-column: 8/13;
   }
@@ -59,19 +57,5 @@
         color: $white;
       }
     }
-  }
-}
-
-.p {
-  &__v12h24 {
-    padding: 12px 24px;
-  }
-
-  &__v12h0 {
-    padding: 12px 24px;
-  }
-
-  &__v0h24 {
-    padding: 0px 24px;
   }
 }

@@ -1,7 +1,9 @@
 @use "../utils/colors" as *;
 
 .request {
-  padding: 0 24px;
+  &__container {
+    margin-bottom: 24px;
+  }
 
   &__head {
     padding: 12px 0;

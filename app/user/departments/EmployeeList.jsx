@@ -1,13 +1,18 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InviteUserButton from "./InviteUserButton";
+import CreateDepartmentFrom from "./CreateDepartmentForm";
 
-export default function EmployeeList({ curOrg, departments, employees }) {
+export default function EmployeeList({ curOrg, departments, employees, isOwner }) {
   const [department, setDepartment] = useState(departments[0]?.name);
-
+  console.log('department', departments);
+  useEffect(() => {
+    setDepartment(departments[0]?.name);
+  }, [departments])
   return (
     <div>
+      {isOwner && <CreateDepartmentFrom curOrg={curOrg} />}
       <div className="group">
         <div>
           <label htmlFor="department">Department: </label>
@@ -21,7 +26,7 @@ export default function EmployeeList({ curOrg, departments, employees }) {
             }
           </select>
         </div>
-        <InviteUserButton curOrg={curOrg} departments={departments} />
+        {department && <InviteUserButton curOrg={curOrg} departments={departments} />}
       </div>
       <table className="table">
         <thead>

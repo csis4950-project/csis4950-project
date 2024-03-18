@@ -3,6 +3,14 @@
   padding: 8px 12px;
   border: solid #f6f6f6 1px;
 }
+.btn:hover {
+  background-color: #b0b0b0;
+  color: #454545;
+}
+.btn:active {
+  background-color: transparent;
+  color: #f6f6f6;
+}
 .btn__round {
   border-radius: 50px;
 }
@@ -11,6 +19,20 @@
 }
 .btn--no-border {
   border: none;
+}
+.btn--login {
+  width: 100%;
+  background-color: #4452fe;
+  padding: 12px 0;
+  border-radius: 8px;
+}
+.btn--sign-up-now {
+  width: 100%;
+  padding: 12px 0;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #4452fe;
+  border: solid #4452fe 1px;
 }
 .btn--approve {
   background-color: #b7fbdf;
@@ -141,7 +163,6 @@ footer {
   display: flex;
   justify-content: center;
   padding: 24px;
-  margin-top: 24px;
   border-top: solid #f6f6f6 1px;
 }
 
@@ -177,9 +198,6 @@ footer {
   align-items: center;
 }
 
-.announcement {
-  padding: 0 24px;
-}
 .announcement__head {
   padding: 12px 0;
 }
@@ -250,9 +268,6 @@ footer {
   text-align: center;
 }
 
-.edit-availability {
-  padding: 0 24px;
-}
 .edit-availability .header {
   padding: 12px 0;
 }
@@ -324,7 +339,6 @@ footer {
 .calendar {
   grid-row: 2;
   grid-column: 3/13;
-  padding: 16px 24px;
 }
 .calendar .container {
   display: flex;
@@ -394,8 +408,6 @@ footer {
 }
 
 .dashboard {
-  grid-row: 2;
-  grid-column: 3/13;
   display: grid;
   grid-template-rows: repeat(3, auto);
   grid-template-columns: repeat(12, 1fr);
@@ -403,7 +415,6 @@ footer {
 .dashboard .header {
   grid-row: 1/2;
   grid-column: 1/13;
-  padding: 12px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -411,15 +422,17 @@ footer {
 .dashboard .header__title {
   margin-bottom: 16px;
 }
-.dashboard .announcement {
+.dashboard .announcement-frame {
   grid-row: 2/3;
   grid-column: 1/8;
+  padding-right: 24px;
 }
-.dashboard .request-status {
+.dashboard .request-status-frame {
   grid-row: 3/4;
   grid-column: 1/8;
+  padding-right: 24px;
 }
-.dashboard .availability {
+.dashboard .availability-frame {
   grid-row: 2/4;
   grid-column: 8/13;
 }
@@ -443,19 +456,6 @@ footer {
   color: #f6f6f6;
 }
 
-.p__v12h24 {
-  padding: 12px 24px;
-}
-.p__v12h0 {
-  padding: 12px 24px;
-}
-.p__v0h24 {
-  padding: 0px 24px;
-}
-
-.departments {
-  padding: 0 24px;
-}
 .departments .header {
   padding: 12px 0;
 }
@@ -529,8 +529,6 @@ footer {
 }
 
 .edit-shifts {
-  grid-row: 2;
-  grid-column: 3/13;
   padding: 16px 24px;
 }
 .edit-shifts .btns {
@@ -693,17 +691,6 @@ footer {
   margin-bottom: 48px;
   border-radius: 8px;
 }
-.login-page .btn {
-  width: 100%;
-  background-color: #4452fe;
-  padding: 12px 0;
-  border-radius: 8px;
-}
-.login-page .btn--transparent {
-  background-color: transparent;
-  color: #4452fe;
-  border: solid #4452fe 1px;
-}
 .login-page .divider {
   display: flex;
   align-items: center;
@@ -717,6 +704,15 @@ footer {
 }
 .login-page .error-message {
   color: #ef4444;
+}
+@media screen and (max-width: 786px) {
+  .login-page .login-img {
+    display: none;
+  }
+  .login-page section {
+    grid-column: 1/13;
+    max-width: 500px;
+  }
 }
 
 .landing .title {
@@ -766,8 +762,8 @@ footer {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.request {
-  padding: 0 24px;
+.request__container {
+  margin-bottom: 24px;
 }
 .request__head {
   padding: 12px 0;
@@ -973,6 +969,14 @@ footer {
 }
 .sign-up-page .error-message {
   color: #ef4444;
+}
+@media screen and (max-width: 786px) {
+  .sign-up-page section {
+    grid-column: 1/13;
+  }
+  .sign-up-page .sign-up-img {
+    display: none;
+  }
 }
 
 .rbc-btn {
@@ -1642,50 +1646,9 @@ button.rbc-input::-moz-focus-inner {
 .grid {
   display: grid;
 }
-.grid__dashboard-contents {
-  grid-row: 2;
-  grid-column: 3/13;
-}
 
-.user-page-layout {
-  display: grid;
-  grid-template-rows: repeat(2, auto);
-  grid-template-columns: repeat(12, 1fr);
-}
-.user-page-layout .top-bar {
-  grid-row: 1/2;
-  grid-column: 1/13;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 48px 12px 48px;
-  border-bottom: solid #f6f6f6 1px;
-}
-.user-page-layout .side-nav {
-  grid-row: 2;
-  grid-column: 1/3;
-  border-right: solid #f6f6f6 1px;
-}
-.user-page-layout .side-nav .nav__title {
-  background-color: #f6f6f6;
-  text-align: center;
-}
-.user-page-layout .side-nav .nav__title__text {
-  padding: 6px 0;
-  font-weight: 800;
-  color: #181818;
-}
-.user-page-layout .side-nav .nav__list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 12px 0;
-}
-.user-page-layout .side-nav .nav__list__item__text {
-  padding-left: 12px;
-}
-.user-page-layout .side-nav .nav__list__item__text:hover {
-  text-decoration: underline;
-  text-decoration-color: #f6f6f6;
+.hidden {
+  display: none;
 }
 
 .fullscreen {
@@ -1696,13 +1659,93 @@ button.rbc-input::-moz-focus-inner {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.9);
-  z-index: 999;
+  z-index: 99;
 }
 .fullscreen--center {
   display: grid;
   place-items: center;
 }
 
-.hidden {
+.user-page-layout {
+  display: flex;
+}
+.user-page-layout__contents {
+  width: 100%;
+  padding: 12px 24px;
+}
+.user-page-layout__side-nav {
+  position: relative;
+}
+
+.side-nav__btn--open {
   display: none;
+}
+.side-nav__btn--close {
+  display: none;
+}
+.side-nav__btn__text {
+  color: #181818;
+}
+.side-nav .nav {
+  width: 200px;
+  border-right: solid #f6f6f6 1px;
+  transition: 0.7s;
+}
+.side-nav .nav__title {
+  background-color: #f6f6f6;
+  text-align: center;
+}
+.side-nav .nav__title__text {
+  padding: 6px 0;
+  font-weight: 800;
+  color: #181818;
+}
+.side-nav .nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 0;
+}
+.side-nav .nav__list__item__text {
+  padding-left: 12px;
+}
+.side-nav .nav__list__item__text:hover {
+  text-decoration: underline;
+  text-decoration-color: #f6f6f6;
+}
+@media screen and (max-width: 768px) {
+  .side-nav__btn--open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    background-color: #888888;
+    z-index: 999;
+  }
+  .side-nav__btn--close {
+    display: block;
+    margin: 24px 0;
+  }
+  .side-nav .nav {
+    width: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .side-nav .nav__list__item {
+    padding: 12px 0;
+  }
+  .side-nav .over-wrap {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: calc(100vw - 48px);
+    height: 100vh;
+    background-color: #181818;
+    text-align: center;
+    border: none;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 99;
+  }
 }/*# sourceMappingURL=styles.css.map */

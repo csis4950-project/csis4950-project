@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default async function AvailabilityFrame({ availabilities, dayOfWeekTags }) {
   return (
-    <div className="availability p__v12h0">
+    <div className="availability-frame">
       <div className="frame">
         <h4>Availability</h4>
         <ul className="list list--no-wrap">

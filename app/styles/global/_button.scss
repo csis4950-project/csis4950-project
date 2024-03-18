@@ -4,6 +4,16 @@
   padding: 8px 12px;
   border: solid $white 1px;
 
+  &:hover {
+    background-color: $black-300;
+    color: $black-800;
+  }
+
+  &:active {
+    background-color: transparent;
+    color: $white;
+  }
+
   &__round {
     border-radius: 50px;
   }
@@ -14,6 +24,22 @@
 
   &--no-border {
     border: none;
+  }
+
+  &--login {
+    width: 100%;
+    background-color: $blue-500;
+    padding: 12px 0;
+    border-radius: 8px;
+  }
+
+  &--sign-up-now {
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 8px;
+    background-color: transparent;
+    color: $blue-500;
+    border: solid $blue-500 1px;
   }
 
   &--approve {

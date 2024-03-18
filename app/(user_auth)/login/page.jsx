@@ -44,7 +44,7 @@ export default async function Login() {
           <span>OR</span>
           <span className="horizontal-line"></span>
         </div>
-        <button className="btn btn--transparent">
+        <button className="btn--sign-up-now">
           <Link className="link link--blue-500" href="/sign-up">Sign up now</Link>
         </button>
       </section>

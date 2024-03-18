@@ -30,8 +30,8 @@ export default async function Request() {
 
 async function PendingRequestList({ requests }) {
   return (
-    <div>
-      <h3>Pending Requests</h3>
+    <div className="request__container">
+      <h4>Pending Requests</h4>
       <table className="table">
         <thead>
           <tr className="table__row table__row--size-head">
@@ -76,7 +76,7 @@ async function PendingRequestList({ requests }) {
 function ProcessedRequestList({ requests }) {
   return (
     <div>
-      <h3>Processed Requests</h3>
+      <h4>Processed Requests</h4>
       <table className="table">
         <thead>
           <tr className="table__row table__row--size-head">

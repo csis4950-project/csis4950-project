@@ -30,9 +30,10 @@ export default async function Navbar() {
         <ul className="navbar__list">
           {
             links.map((link, index) => {
+              const path = link === "Home" ? "/" : `/${link.toLowerCase()}`;
               return (
                 <li key={index} className="navbar__list__item">
-                  <Link className="" href={`/${link.toLowerCase()}`}>{link}</Link>
+                  <Link className="" href={path}>{link}</Link>
                 </li>
               )
             })
@@ -56,7 +57,7 @@ export default async function Navbar() {
           </div>
           :
           <div>
-            <Link className="btn" href="/login">Login</Link>
+            <Link className="btn btn--nav" href="/login">Login</Link>
           </div>
       }
     </header>

@@ -14,9 +14,8 @@ export default async function Departments() {
     <section className="departments">
       <div>
         <h3>Departments</h3>
-        {isOwner && <CreateDepartmentFrom curOrg={currentOrganization} />}
       </div>
-      <EmployeeList curOrg={currentOrganization} departments={departments} employees={employees} />
+      <EmployeeList curOrg={currentOrganization} departments={departments} employees={employees} isOwner={isOwner} />
     </section>
   )
 }

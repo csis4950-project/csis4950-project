@@ -139,4 +139,14 @@
   .error-message {
     color: $red-500;
   }
+
+  @media screen and (max-width: 786px) {
+    section {
+      grid-column: 1/13;
+    }
+
+    .sign-up-img {
+      display: none;
+    }
+  }
 }
