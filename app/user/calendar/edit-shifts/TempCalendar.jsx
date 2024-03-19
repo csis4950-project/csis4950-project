@@ -36,7 +36,7 @@ export default function TempCalendar({ session, existingShifts, users, shiftTags
     const filteredShifts = existingShifts.filter((shift) => shift.departmentId === selectedDepartment.id);
     const eventData = createEventData(filteredShifts, selectedDepartment);
     const filteredEvents = createdEvents.filter((event) => event.departmentId === selectedDepartment.id)
-    setEvents([...eventData, ...filteredEvents]);
+    setEvents([...eventData, ...filteredEvents, ...createdEvents]);
   }, [createdEvents]);
 
   useEffect(() => {

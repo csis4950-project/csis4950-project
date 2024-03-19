@@ -1,5 +1,5 @@
 import prismaClient from "@/utils/globalPrismaClient";
-import { fetchHashPassword, toDate, formatTimeToHHMMAString } from "@/utils/utils";
+import { fetchHashPassword, toDate, formatTimeToHHMMAString, hasAdminPermission } from "@/utils/utils";
 
 export async function findUserByEmail(email) {
   return await prismaClient.user.findUnique({
@@ -272,14 +272,13 @@ export async function getShiftsByUserId(userId) {
 }
 
 
-export async function getRequestsOfAffiliatedDepartments(currentOrg, departments) {
+export async function getRequestsOfAffiliatedDepartments(currentOrg, departments, userId) {
   const { id: currentOrgId } = currentOrg;
   if (checkIfOwnerByDepartments(currentOrgId, departments)) {
     return await findRequestsByOrgId(currentOrgId);;
   }
 
-  // return await findRequestsByDepartments(departments);
-  return [];
+  return await findRequestsByDepartments(departments, userId);
 }
 
 export async function findRequestsByOrgId(orgId) {
@@ -343,8 +342,138 @@ export async function findRequestsByOrgId(orgId) {
   })
 }
 
-export async function findRequestsByDepartments(departments) {
+export async function findRequestsByDepartments(departments, userId) {
+  const requests = [];
+  for (const department of departments) {
+    if (department.role.name === "admin") {
+      const result = await findRequestsByDepartment(department);
+      requests.push(result);
+    } else if (department.role.name === "user") {
+      const result = await findRequestsByUserId(userId);
+      requests.push(result);
+    }
+  }
+  return requests.flat();
+}
 
+export async function findRequestsByDepartment(department) {
+  return await prismaClient.request.findMany({
+    where: {
+      deletedAt: null,
+      requestDepartment: {
+        id: department.id
+      }
+    },
+    select: {
+      id: true,
+      shiftId: true,
+      startTime: true,
+      endTime: true,
+      detail: true,
+      createdAt: true,
+      requestOwner: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        }
+      },
+      requestDepartment: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      shiftRequest: {
+        select: {
+          id: true,
+          userId: true,
+          departmentId: true,
+          tagId: true,
+          startTime: true,
+          endTime: true,
+          shiftTag: true,
+          shiftDepartment: {
+            select: {
+              id: true,
+              name: true
+            }
+          }
+        }
+      },
+      requestType: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      status: {
+        select: {
+          id: true,
+          name: true,
+        }
+      }
+    }
+  })
+}
+
+export async function findRequestsByUserId(userId) {
+  return await prismaClient.request.findMany({
+    where: {
+      deletedAt: null,
+      ownerId: userId
+    },
+    select: {
+      id: true,
+      shiftId: true,
+      startTime: true,
+      endTime: true,
+      detail: true,
+      createdAt: true,
+      requestOwner: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        }
+      },
+      requestDepartment: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      shiftRequest: {
+        select: {
+          id: true,
+          userId: true,
+          departmentId: true,
+          tagId: true,
+          startTime: true,
+          endTime: true,
+          shiftTag: true,
+          shiftDepartment: {
+            select: {
+              id: true,
+              name: true
+            }
+          }
+        }
+      },
+      requestType: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      status: {
+        select: {
+          id: true,
+          name: true,
+        }
+      }
+    }
+  })
 }
 
 export async function createRequest(userInput) {

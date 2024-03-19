@@ -1,4 +1,5 @@
 import { getSession } from "@/utils/session";
+import { hasAdminPermission } from "@/utils/utils";
 import SideNav from "../components/SideNav";
 
 export default async function Layout({ children }) {
@@ -13,13 +14,4 @@ export default async function Layout({ children }) {
       </div>
     </section>
   )
-}
-
-function hasAdminPermission(departments) {
-  for (const department of departments) {
-    if (department.role.name === "owner" || department.role.name === "admin") {
-      return true;
-    }
-  }
-  return false;
 }

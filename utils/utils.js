@@ -110,3 +110,45 @@ export function formatTimeToHHMMAString(timeString) {
       minute: 'numeric'
     }).format(date);
 }
+
+
+
+export function hasOwnerPermission(departments) {
+  for (const department of departments) {
+    if (department.role.name === "owner") {
+      return true;
+    }
+  }
+  return false;
+}
+
+export function hasAdminPermission(departments) {
+  for (const department of departments) {
+    if (department.role.name === "owner" || department.role.name === "admin") {
+      return true;
+    }
+  }
+  return false;
+}
+
+export function hasOnlyUserPermission(departments) {
+  for (const department of departments) {
+    if (department.role.name === "owner" || department.role.name === "admin") {
+      return false;
+    }
+  }
+  return true;
+}
+
+export function getAdminPermissionDepartments(departments) {
+  const adminPermissionDepartments = [];
+  for (const department of departments) {
+    if (department.role.name === "owner") {
+      return departments;
+    }
+    if (department.role.name === "admin") {
+      adminPermissionDepartments.push(department);
+    }
+  }
+  return adminPermissionDepartments;
+}

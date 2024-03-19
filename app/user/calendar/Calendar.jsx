@@ -23,7 +23,7 @@ const handleNavigate = {
   }
 }
 
-export default function Calendar({ session, shifts }) {
+export default function Calendar({ session, shifts, isAdmin }) {
   const [selectedDepartment, setSelectedDepartment] = useState(getInitialDepartment(session.departments));
   const [events, setEvents] = useState(createEventData(shifts, selectedDepartment))
   const [view, setView] = useState("month");
@@ -52,7 +52,7 @@ export default function Calendar({ session, shifts }) {
           </select>
         </div>
         <div>
-          <Link className='btn' href="/user/calendar/edit-shifts">Edit Shifts</Link>
+          {isAdmin && <Link className='btn' href="/user/calendar/edit-shifts">Edit Shifts</Link>}
         </div>
       </div>
       <ReactBigCalendar

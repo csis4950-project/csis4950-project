@@ -23,6 +23,7 @@ export default function ShiftEditor({ session, selectedDepartment, users, shiftT
       setSuccess(null);
       return;
     }
+
     const newEvent = {
       start: start,
       end: end,
@@ -32,6 +33,9 @@ export default function ShiftEditor({ session, selectedDepartment, users, shiftT
         user: user,
         departmentId: selectedDepartment.id,
         departmentName: selectedDepartment.name
+      },
+      style: {
+        border: "solid 1px red",
       }
     }
     setError(null);
@@ -39,14 +43,20 @@ export default function ShiftEditor({ session, selectedDepartment, users, shiftT
     updateEvents(newEvent);
   }
 
+  function handleToggle() {
+    setToggle(!toggle);
+    setError(null);
+    setSuccess(null);
+  }
+
   return (
     <div className="editor">
       <div className="editor__btn--open">
-        <button className='btn' onClick={() => setToggle(true)}>Open Editor</button>
+        <button className='btn' onClick={handleToggle}>Open Editor</button>
       </div>
       <div className={toggle ? "editor__container" : "editor__container close"}>
         <div className="editor__btn--close">
-          <button className="btn" onClick={() => (setToggle(false))}>Close</button>
+          <button className="btn" onClick={handleToggle}>Close</button>
         </div>
         <form className="editor__form" onSubmit={submit}>
           <span>New Shift</span>

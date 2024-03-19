@@ -24,7 +24,8 @@ export default function ReactBigCalendar(props) {
             style: {
               backgroundColor: EVENT_COLOR[event.data.tag],
               color: "#454545",
-              textAlign: "center"
+              textAlign: "center",
+              ...event?.style,
             }
           }
         }}
