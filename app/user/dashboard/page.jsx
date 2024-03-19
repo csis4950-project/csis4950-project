@@ -22,10 +22,6 @@ export default async function Dashboard() {
         <div className="header__title">
           <h3>Dashboard</h3>
         </div>
-        <div className="button-group">
-          {userRoles.includes("admin") && <button className="btn btn--invitation-link">Create Invitation Link</button>}
-          {userRoles.includes("user") && <button className="btn btn--invitation-link">Create Report</button>}
-        </div>
       </div>
       <AnnouncementFrame announcements={announcements} />
       <RequestFrame requests={requests} />

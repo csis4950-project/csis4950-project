@@ -8,7 +8,7 @@ export default async function AvailabilityFrame({ availabilities, dayOfWeekTags 
         <ul className="list list--no-wrap">
           {
             availabilities.map((availability, index) => {
-              const dayOfWeekTag = dayOfWeekTags[index];
+              const dayOfWeekTag = getDayOfWeekTag(dayOfWeekTags, index);
               if (dayOfWeekTag.name === "other") return;
               const dayOfWeek = dayOfWeekTag.name[0].toUpperCase() + dayOfWeekTag.name.slice(1);
               const time = `${availability?.startTime} - ${availability?.endTime}`;
@@ -25,7 +25,7 @@ export default async function AvailabilityFrame({ availabilities, dayOfWeekTags 
         <ul className="list">
           {
             availabilities.map((availability, index) => {
-              const dayOfWeekTag = dayOfWeekTags[index];
+              const dayOfWeekTag = getDayOfWeekTag(dayOfWeekTags, index);
               if (dayOfWeekTag.name !== "other") return;
               return (
                 <li key={index} className="list__item">
@@ -41,4 +41,8 @@ export default async function AvailabilityFrame({ availabilities, dayOfWeekTags 
       </div>
     </div>
   )
+}
+
+function getDayOfWeekTag(dayOfWeekTags, index) {
+  return dayOfWeekTags[index < 7 ? index : 7];
 }

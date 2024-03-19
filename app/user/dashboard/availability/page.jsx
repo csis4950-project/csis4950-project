@@ -48,7 +48,7 @@ export default async function Availability() {
                     <td className="table__cel table__cel--small">{dayOfWeek}</td>
                     <td className="table__cel table__cel--small">{availability?.startTime ?? "-"}</td>
                     <td className="table__cel table__cel--small">{availability?.endTime ?? "-"}</td>
-                    <td className="table__cel">{availability?.note ?? "Unavailable"}</td>
+                    <td className="table__cel">{isNoData && !isOther ? "Unavailable" : availability?.note ?? "-"}</td>
                     <td className="table__cel table__cel--action">
                       {!isNoData && <UnavailableButton availabilityId={availability?.id} />}
                       {isOther && <DeleteAvailabilityButton availabilityId={availability?.id} />}
