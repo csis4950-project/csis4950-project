@@ -6,10 +6,10 @@ import CreateDepartmentFrom from "./CreateDepartmentForm";
 
 export default function EmployeeList({ curOrg, departments, employees, isOwner }) {
   const [department, setDepartment] = useState(departments[0]?.name);
-  console.log('department', departments);
   useEffect(() => {
     setDepartment(departments[0]?.name);
   }, [departments])
+
   return (
     <div>
       {isOwner && <CreateDepartmentFrom curOrg={curOrg} />}
