@@ -220,7 +220,7 @@ footer {
     width: 100vw;
     height: 100vh;
     background-color: #181818;
-    z-index: 99;
+    z-index: 9999;
   }
   .navbar .nav__toggle-menu {
     display: flex;
@@ -677,6 +677,7 @@ footer {
 .login-page {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  margin-bottom: 24px;
 }
 .login-page .login-img {
   grid-column: 1/8;
