@@ -3,11 +3,24 @@
 import Link from "next/link";
 import Image from "next/image";
 import { logout } from "@/utils/actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
+
 export default function Navbar({ session }) {
   const [show, setShow] = useState(false);
   const LogInOutButton = session ? <LogOutButton session={session} /> : <LogInButton />;
+
+  useEffect(() => {
+    const handleNav = () => {
+      setShow(false);
+    };
+
+    window.addEventListener('resize', handleNav);
+
+    return () => {
+      window.removeEventListener('resize', handleNav);
+    };
+  }, []);
 
   return (
     <header className="navbar">

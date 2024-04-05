@@ -1,11 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SideNav({ curOrg, isAdmin }) {
   const [show, setShow] = useState(false);
 
+  useEffect(() => {
+    const handleNav = () => {
+      setShow(false);
+    };
+
+    window.addEventListener('resize', handleNav);
+
+    return () => {
+      window.removeEventListener('resize', handleNav);
+    };
+  }, []);
 
   return (
     <aside className="user-page-layout__side-nav">
