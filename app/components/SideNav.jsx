@@ -72,7 +72,6 @@ export default function SideNav({ curOrg, isAdmin }) {
             <button className="btn" onClick={() => setShow(false)}>CLOSE</button>
           </div>
         </nav>
-
       </div>
     </aside>
   )

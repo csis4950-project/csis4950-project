@@ -1,14 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { getSession } from "@/utils/session";
 import { logout } from "@/utils/actions";
-import { redirect } from "next/navigation";
-
-const links = ["Home", "Product", "About", "Contact"];
-
-export default async function Navbar() {
-  const data = await getSession();
-  const session = data?.payload ?? null;
+import { useState } from "react";
+import { FiMenu } from "react-icons/fi";
+export default function Navbar({ session }) {
+  const [show, setShow] = useState(false);
+  const LogInOutButton = session ? <LogOutButton session={session} /> : <LogInButton />;
 
   return (
     <header className="navbar">
@@ -26,40 +25,69 @@ export default async function Navbar() {
           </div>
         </Link>
       </div>
-      <nav>
-        <ul className="navbar__list">
-          {
-            links.map((link, index) => {
-              const path = link === "Home" ? "/" : `/${link.toLowerCase()}`;
-              return (
-                <li key={index} className="navbar__list__item">
-                  <Link className="" href={path}>{link}</Link>
-                </li>
-              )
-            })
-          }
+      <nav className="nav__list-container">
+        <ul className="nav__list">
+          <NavLinks />
         </ul>
       </nav>
       {
-        session
-          ?
-          <div className="navbar__controls">
-            <div>
-              <button className="btn btn__round">{session.fullName}</button>
-            </div>
-            <form action={async () => {
-              "use server"
-              await logout();
-              redirect("/login", "replace");
-            }}>
-              <button className="btn" type="submit">Logout</button>
-            </form>
-          </div>
-          :
-          <div>
-            <Link className="btn btn--nav" href="/login">Login</Link>
-          </div>
+        session &&
+        <div className={show ? "open" : "hidden"}>
+          <button className="btn btn__round">{session.fullName}</button>
+        </div>
       }
+      {LogInOutButton}
+      <div className="btn--toggle">
+        <button type="button" onClick={() => setShow(true)} >
+          <FiMenu size={32} />
+        </button>
+      </div>
+      <div className={show ? "nav__toggle-container open" : "nav__toggle-container"} onClick={() => setShow(false)}>
+        <div className="nav__toggle-menu">
+          <ul className="nav__list--toggle">
+            <NavLinks />
+            <li>
+              {session ? <LogOutButton show={show} /> : <LogInButton show={show} />}
+            </li>
+            <li className="nav__list__item">
+              <button type="button" onClick={() => setShow(false)}>CLOSE</button>
+            </li>
+          </ul>
+        </div>
+      </div>
     </header>
+  )
+}
+
+function NavLinks() {
+  const linkItems = ["Home", "Product", "About", "Contact"];
+  const links = linkItems.map((link, index) => {
+    const path = link === "Home" ? "/" : `/${link.toLowerCase()}`;
+    return (
+      <li key={index} className="nav__list__item">
+        <Link className="" href={path}>{link}</Link>
+      </li>
+    )
+  })
+  return links;
+}
+
+function LogInButton({ show }) {
+  return (
+    <div className={show ? "nav__controls open" : "nav__controls"}>
+      <Link className="btn btn--nav" href="/login">Login</Link>
+    </div>
+  )
+}
+
+function LogOutButton({ show }) {
+  return (
+    <div className={show ? "nav__controls open" : "nav__controls"}>
+      <form action={async () => {
+        await logout();
+      }}>
+        <button className="btn" type="submit">Logout</button>
+      </form>
+    </div>
   )
 }

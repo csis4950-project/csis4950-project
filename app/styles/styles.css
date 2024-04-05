@@ -168,10 +168,9 @@ footer {
 
 .navbar {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding-bottom: 16px;
   border-bottom: solid 1px #f6f6f6;
 }
 .navbar__logo {
@@ -184,18 +183,63 @@ footer {
 .navbar__logo__text {
   font-size: 24px;
 }
-.navbar__list {
+.navbar .nav__list {
   display: flex;
   gap: 24px;
 }
-.navbar__list__item:hover {
+.navbar .nav__list__item:hover {
   -webkit-text-decoration: underline #f6f6f6;
           text-decoration: underline #f6f6f6;
 }
-.navbar__controls {
+.navbar .nav__controls {
   display: flex;
   gap: 16px;
   align-items: center;
+}
+.navbar .nav__toggle-container {
+  display: none;
+}
+.navbar .btn--toggle {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .navbar .nav__list-container {
+    display: none;
+  }
+  .navbar .btn--toggle {
+    display: block;
+  }
+  .navbar .nav__controls {
+    display: none;
+  }
+  .navbar .nav__toggle-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #181818;
+    z-index: 99;
+  }
+  .navbar .nav__toggle-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+  }
+  .navbar .nav__list--toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .navbar .open {
+    display: block;
+  }
+  .navbar .hidden {
+    display: none;
+  }
 }
 
 .announcement__head {

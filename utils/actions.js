@@ -46,6 +46,7 @@ export async function login(formData) {
 
 export async function logout() {
   await deleteSession();
+  redirect("/login", "replace");
 }
 
 export async function signUpOwner(formData) {
