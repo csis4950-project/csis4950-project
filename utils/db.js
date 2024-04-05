@@ -271,6 +271,42 @@ export async function getShiftsByUserId(userId) {
   return shifts;
 }
 
+export async function getWorkedShiftsByUserId(userId) {
+  const shifts = await prismaClient.shift.findMany({
+    where: {
+      userId: userId,
+      deletedAt: null,
+      startTime: {
+        lte: new Date()
+      },
+    },
+    select: {
+      id: true,
+      userId: true,
+      departmentId: true,
+      tagId: true,
+      startTime: true,
+      endTime: true,
+      shiftDepartment: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      shiftTag: {
+        select: {
+          id: true,
+          name: true
+        }
+      }
+    },
+    orderBy: {
+      startTime: "asc"
+    }
+  })
+
+  return shifts;
+}
 
 export async function getRequestsOfAffiliatedDepartments(currentOrg, departments, userId) {
   const { id: currentOrgId } = currentOrg;
@@ -993,3 +1029,38 @@ async function formatDraftToShiftData(drafts) {
   }
   return shiftData;
 }
+
+export async function getWorkTimeByUserId(userId) {
+  return await prismaClient.workTime.findMany({
+    where: {
+      userId: userId,
+      endTime: {
+        not: null
+      },
+      deletedAt: null,
+      workerDepartment: {
+        name: {
+          not: "__Owner"
+        }
+      }
+    },
+    include: {
+      workerDepartment: true
+    },
+    orderBy: {
+      startTime: "asc"
+    }
+  })
+}
+
+export async function getUserWagesByUserId(userId) {
+  return await prismaClient.userWage.findMany({
+    where: {
+      userId: userId
+    },
+    include: {
+      userWageDepartment: true,
+      wage: true
+    }
+  });
+};

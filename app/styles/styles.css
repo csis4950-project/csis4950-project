@@ -979,6 +979,59 @@ footer {
   }
 }
 
+.summary .header__title {
+  margin-bottom: 16px;
+}
+.summary .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.summary .card {
+  display: grid;
+  place-items: center;
+  row-gap: 8px;
+  width: 300px;
+  border: solid 1px white;
+  padding: 12px 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.summary .card__text--title {
+  font-size: 1rem;
+  font-size: clamp(1rem, 0.9166666667rem + 0.4166666667vw, 1.25rem);
+}
+.summary table,
+.summary th,
+.summary td {
+  border: solid 1px #f6f6f6;
+}
+.summary table {
+  height: auto;
+}
+.summary .table {
+  width: 100%;
+  padding: 16px 0;
+  border: solid 1px #f6f6f6;
+  border-collapse: collapse;
+}
+.summary .table__row--size-head {
+  height: 40px;
+  border-bottom: solid #f6f6f6 2px;
+}
+.summary .table__row--size-body {
+  height: 50px;
+}
+.summary .table__cell {
+  text-align: center;
+}
+.summary .table__cell--small {
+  width: 120px;
+}
+.summary .table__cell--action {
+  width: 130px;
+}
+
 .about {
   display: grid;
   row-gap: 50px;
