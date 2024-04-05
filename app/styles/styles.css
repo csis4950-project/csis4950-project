@@ -719,10 +719,8 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  margin: auto;
+  margin: 24px auto;
   text-align: center;
-}
-.landing .title__max-length {
   max-width: 70%;
 }
 .landing .buttons {
@@ -745,6 +743,7 @@ footer {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(12, 1fr);
+  margin-bottom: 12px;
 }
 .landing .features .feature-image {
   grid-column: 1/9;
@@ -759,7 +758,28 @@ footer {
 }
 .landing .features .text-cards .card {
   max-width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.landing .features .text-cards .card--title {
+  margin-bottom: 12px;
+}
+@media screen and (max-width: 786px) {
+  .landing .features .content {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: repeat(12, 1fr);
+    row-gap: 12px;
+  }
+  .landing .features .feature-image {
+    grid-column: 1/13;
+    grid-row: 1/2;
+  }
+  .landing .features .text-cards {
+    grid-column: 1/13;
+    grid-row: 2/3;
+  }
+  .landing .features .text-cards .card {
+    max-width: 100%;
+  }
 }
 
 .request__container {

@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="landing">
       <section>
-        <div className="title title__max-length">
+        <div className="title">
           <div>
             <h1>Work at the speed of thought</h1>
           </div>
@@ -54,15 +54,15 @@ export default function Home() {
           </div>
           <div className="text-cards">
             <div className="card">
-              <h4>A single source of truth</h4>
+              <h4 className="card--title">A single source of truth</h4>
               <p>When you add work to your Slate calendar we automatically calculate useful insights </p>
             </div>
             <div className="card">
-              <h4>Intuitive interface</h4>
+              <h4 className="card--title">Intuitive interface</h4>
               <p>When you add work to your Slate calendar we automatically calculate useful insights </p>
             </div>
             <div className="card">
-              <h4>Or with rules</h4>
+              <h4 className="card--title">Or with rules</h4>
               <p>When you add work to your Slate calendar we automatically calculate useful insights </p>
             </div>
           </div>
