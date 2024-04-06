@@ -152,3 +152,11 @@ export function getAdminPermissionDepartments(departments) {
   }
   return adminPermissionDepartments;
 }
+
+export function toHHMMFormat(date) {
+  const hours = date.getHours() % 12 || 12;
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const amOrPm = date.getHours() >= 12 ? 'PM' : 'AM';
+
+  return `${hours}:${minutes} ${amOrPm}`
+}

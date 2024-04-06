@@ -9,7 +9,6 @@ export default async function ProcessedRequestList({ requests }) {
         <table className="table">
           <thead>
             <tr className="table__row table__row--size-head">
-              <th>No.</th>
               <th>Requested Date</th>
               <th>Type</th>
               <th>From</th>
@@ -25,7 +24,6 @@ export default async function ProcessedRequestList({ requests }) {
                 if (!requestDepartment.name.startsWith("__") && status.name !== "pending") {
                   return (
                     <tr key={index} className="table__row table__row--size-body">
-                      <td className="table__cel">{index}</td>
                       <td className="table__cel table__cel--small">{moment(createdAt).format("MM/DD")}</td>
                       <td className="table__cel table__cel--small">
                         <div className="icon">

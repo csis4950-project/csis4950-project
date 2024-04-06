@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react"
 import { submitRequest } from "@/utils/actions";
+import { toHHMMFormat } from "@/utils/utils";
 
 export default function RequestForm({ requests, userId, departments, requestTypes, userShifts }) {
   const ref = useRef();
@@ -139,11 +140,9 @@ export default function RequestForm({ requests, userId, departments, requestType
 }
 
 function toShiftString(shift) {
-  const { id, startTime, endTime, shiftTag } = shift;
-  const startDateString = new Date(startTime).toLocaleDateString();
-  const startTimeString = new Date(startTime).toLocaleTimeString();
-  const endTimeString = new Date(endTime).toLocaleTimeString();
-  const shiftString = `${startDateString}: ${shiftTag.name} <${startTimeString} - ${endTimeString}> | shift ID: ${id}`;
+  const { startTime, endTime, shiftTag } = shift;
+  const startDateString = startTime.toLocaleDateString();
+  const shiftString = `${startDateString}: ${shiftTag.name} <${toHHMMFormat(startTime)} - ${toHHMMFormat(endTime)}>`;
   return shiftString;
 }
 

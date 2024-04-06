@@ -9,6 +9,10 @@
     }
   }
 
+  .overflow-y {
+    overflow-y: scroll;
+  }
+
   table,
   th,
   td {
@@ -38,7 +42,15 @@
     }
 
     &__cel--small {
-      width: 120px;
+      min-width: 80px;
+    }
+
+    &__cel--medium {
+      min-width: 120px;
+    }
+
+    &__cel--large {
+      min-width: 260px;
     }
 
     &__cel--action {

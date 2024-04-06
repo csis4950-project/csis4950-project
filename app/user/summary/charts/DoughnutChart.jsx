@@ -26,7 +26,6 @@ const conf_tooltip = {
   callbacks: {
     label: function (context) {
       let label = "";
-      console.log('context.parsed.y', context);
       if (context.parsed !== null) {
         label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'CAD' }).format(context.parsed);
       }

@@ -337,6 +337,9 @@ footer {
 .edit-availability .header__title {
   margin-bottom: 16px;
 }
+.edit-availability .overflow-y {
+  overflow-y: scroll;
+}
 .edit-availability table,
 .edit-availability th,
 .edit-availability td {
@@ -361,7 +364,13 @@ footer {
   text-align: center;
 }
 .edit-availability .table__cel--small {
-  width: 120px;
+  min-width: 80px;
+}
+.edit-availability .table__cel--medium {
+  min-width: 120px;
+}
+.edit-availability .table__cel--large {
+  min-width: 260px;
 }
 .edit-availability .table__cel--action {
   width: 130px;
