@@ -60,9 +60,6 @@ export default function SideNav({ curOrg, isAdmin }) {
             <li className="nav__list__item">
               <Link className="nav__list__item__text" href="/user/summary">Summary</Link>
             </li>
-            <li className="nav__list__item">
-              <Link className="nav__list__item__text" href="/user/work">Work</Link>
-            </li>
           </ul>
           {isAdmin &&
             <>
@@ -72,9 +69,6 @@ export default function SideNav({ curOrg, isAdmin }) {
               <ul className="nav__list">
                 <li className="nav__list__item">
                   <Link className="nav__list__item__text" href="/user/departments">Departments</Link>
-                </li>
-                <li className="nav__list__item">
-                  <Link className="nav__list__item__text" href="/user/permissions">Permissions</Link>
                 </li>
               </ul>
             </>
