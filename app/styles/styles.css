@@ -248,6 +248,12 @@ footer {
 .announcement__title {
   color: #f6f6f6;
 }
+.announcement .btn {
+  border: none;
+}
+.announcement .text--expired {
+  color: #888888;
+}
 .announcement .form {
   display: flex;
   flex-direction: column;
@@ -293,6 +299,10 @@ footer {
 .announcement td {
   border: solid 1px #f6f6f6;
 }
+.announcement .overflow-y {
+  width: 100%;
+  overflow-y: scroll;
+}
 .announcement table {
   height: auto;
 }
@@ -310,6 +320,15 @@ footer {
 }
 .announcement .table__cel {
   text-align: center;
+}
+.announcement .table__cel--small {
+  min-width: 60px;
+}
+.announcement .table__cel--medium {
+  min-width: 120px;
+}
+.announcement .table__cel--large {
+  min-width: 260px;
 }
 
 .edit-availability .header {
@@ -470,11 +489,13 @@ footer {
   grid-row: 2/3;
   grid-column: 1/8;
   padding-right: 24px;
+  margin-bottom: 24px;
 }
 .dashboard .request-status-frame {
   grid-row: 3/4;
   grid-column: 1/8;
   padding-right: 24px;
+  margin-bottom: 24px;
 }
 .dashboard .availability-frame {
   grid-row: 2/4;
@@ -498,6 +519,27 @@ footer {
 }
 .dashboard .list__item::marker {
   color: #f6f6f6;
+}
+@media screen and (max-width: 768px) {
+  .dashboard {
+    grid-template-rows: repeat(4, auto);
+  }
+  .dashboard .announcement-frame {
+    grid-row: 2/3;
+    grid-column: 1/13;
+    padding-right: 24px;
+    margin-bottom: 24px;
+  }
+  .dashboard .request-status-frame {
+    grid-row: 3/4;
+    grid-column: 1/13;
+    padding-right: 24px;
+    margin-bottom: 24px;
+  }
+  .dashboard .availability-frame {
+    grid-row: 4/5;
+    grid-column: 1/13;
+  }
 }
 
 .departments .header {

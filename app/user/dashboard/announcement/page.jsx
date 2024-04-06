@@ -3,6 +3,7 @@ import { getSession } from "@/utils/session"
 import moment from "moment";
 import AnnouncementForm from "./AnnouncementForm";
 import DeleteButton from "./DeleteButton";
+import { icons } from "@/utils/icons";
 
 export default async function Announcement() {
   const { payload: session } = await getSession();
@@ -19,13 +20,15 @@ export default async function Announcement() {
       </div>
       {
         adminRoleDepartments.length
-        && <AnnouncementForm userId={userId} departments={adminRoleDepartments} announcementTypes={announcementTypes} />}
-      <div>
+        && <AnnouncementForm userId={userId} departments={adminRoleDepartments} announcementTypes={announcementTypes} />
+      }
+      <h4>Announcements</h4>
+      <div className="overflow-y">
         <table className="table">
           <thead>
             <tr className="table__row table__row--size-head">
               <th>No.</th>
-              <th>Published Date</th>
+              <th>Published<br /> Date</th>
               <th>Department</th>
               <th>Type</th>
               <th>Title</th>
@@ -37,29 +40,82 @@ export default async function Announcement() {
             {
               announcements.map((announcement, index) => {
                 const { announcedDepartment, id: announcementId, title, detail, createdAt, announcementType, expirationTime } = announcement;
+                console.log('expirationTime', expirationTime);
                 const adjustedExpirationTime = moment(expirationTime).add(8, 'hours');
                 const isExpired = isExpiredAnnouncement(adjustedExpirationTime);
                 const announcedDepartmentIds = getAdminRoleDepartmentIds(adminRoleDepartments);
-                return (
-                  <tr key={index} className="table__row table__row--size-body">
-                    <td className="table__cel">{index + 1}</td>
-                    <td className="table__cel">{moment(createdAt).format("MM/DD")}</td>
-                    <td className="table__cel">{announcedDepartment.name}</td>
-                    <td className="table__cel">{announcementType.name}</td>
-                    <td className="table__cel">{title}</td>
-                    <td className="table__cel">{detail}</td>
-                    {
-                      isExpired
-                        ? <td className="table__cel">EXPIRED</td>
-                        : <td className="table__cel">{adjustedExpirationTime.format("MM/DD")}</td>
-                    }
-                    {(isOwner || announcedDepartmentIds.includes(announcedDepartment.id))
-                      && <td className="table__cel">
-                        <DeleteButton announcementId={announcementId} />
+                if (!isExpired) {
+
+                  return (
+                    <tr key={index} className="table__row table__row--size-body">
+                      <td className="table__cel">{index + 1}</td>
+                      <td className="table__cel table__cel--small">{moment(createdAt).format("MM/DD")}</td>
+                      <td className="table__cel table__cel--medium">{announcedDepartment.name}</td>
+                      <td className="table__cel table__cel--small">
+                        <div>
+                          <div>{icons[announcementType.name]}</div><div>{announcementType.name}</div>
+                        </div>
                       </td>
-                    }
-                  </tr>
-                )
+                      <td className="table__cel table__cel--medium">{title}</td>
+                      <td className="table__cel table__cel--large">{detail}</td>
+                      <td className="table__cel table__cel--small">{adjustedExpirationTime.format("MM/DD")}</td>
+                      {(isOwner || announcedDepartmentIds.includes(announcedDepartment.id))
+                        && <td className="table__cel">
+                          <DeleteButton announcementId={announcementId} />
+                        </td>
+                      }
+                    </tr>
+                  )
+                }
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+      <h4>Expired Announcements</h4>
+      <div className="overflow-y">
+        <table className="table">
+          <thead>
+            <tr className="table__row table__row--size-head">
+              <th>No.</th>
+              <th>Published<br /> Date</th>
+              <th>Department</th>
+              <th>Type</th>
+              <th>Title</th>
+              <th>Detail</th>
+              <th>Expire At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              announcements.map((announcement, index) => {
+                const { announcedDepartment, id: announcementId, title, detail, createdAt, announcementType, expirationTime } = announcement;
+                console.log('expirationTime', expirationTime);
+                const adjustedExpirationTime = moment(expirationTime).add(8, 'hours');
+                const isExpired = isExpiredAnnouncement(adjustedExpirationTime);
+                const announcedDepartmentIds = getAdminRoleDepartmentIds(adminRoleDepartments);
+                if (isExpired) {
+                  return (
+                    <tr key={index} className="table__row table__row--size-body">
+                      <td className="table__cel">{index + 1}</td>
+                      <td className="table__cel table__cel--small">{moment(createdAt).format("MM/DD")}</td>
+                      <td className="table__cel table__cel--medium">{announcedDepartment.name}</td>
+                      <td className="table__cel table__cel--small">
+                        <div>
+                          <div>{icons[announcementType.name]}</div><div>{announcementType.name}</div>
+                        </div>
+                      </td>
+                      <td className="table__cel table__cel--medium">{title}</td>
+                      <td className="table__cel table__cel--large">{detail}</td>
+                      <td className="table__cel table__cel--small">{adjustedExpirationTime.format("MM/DD")}</td>
+                      {(isOwner || announcedDepartmentIds.includes(announcedDepartment.id))
+                        && <td className="table__cel">
+                          <DeleteButton announcementId={announcementId} />
+                        </td>
+                      }
+                    </tr>
+                  )
+                }
               })
             }
           </tbody>
