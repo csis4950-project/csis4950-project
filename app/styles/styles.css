@@ -952,15 +952,20 @@ footer {
   text-align: center;
   padding: 0 12px;
 }
-.request .table__cel--date {
-  width: 100px;
+.request .table__cel--small {
+  min-width: 60px;
 }
-.request .table__cel--detail {
-  max-width: 300px;
-  width: 100%;
+.request .table__cel--medium {
+  min-width: 120px;
+}
+.request .table__cel--large {
+  min-width: 300px;
 }
 .request .btn {
   margin: 8px 0;
+}
+.request .overflow-y {
+  overflow-y: scroll;
 }
 
 .sign-up-page {
