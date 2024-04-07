@@ -285,7 +285,21 @@ export async function sendInvitation(formData) {
     \n
     Wehabu`;
 
-  sendEmail(invitationData.email, subject, message);
+  const response = await fetch(process.env.AWS_LAMBDA_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body:
+      JSON.stringify({
+        email: invitationData.email,
+        subject: subject,
+        message: message
+      })
+  });
+  const data = await response.json();
+
+  if (data.status === "error") throw new Error("Please try later");
 }
 
 export async function submitScheduleDraft(formDate) {
