@@ -60,26 +60,6 @@ export default async function Summary() {
   )
 }
 
-function calculateWorkTime(workTimeData) {
-  let total = 0;
-  let months = new Map();
-
-  for (const workTime of workTimeData) {
-    total += workTime.endTime.getTime() - workTime.startTime.getTime();
-  }
-
-  return toHoursAndMinutes(total);
-}
-
-function calculateTotalWorkTime(workTimeData) {
-  let total = 0;
-
-  for (const workTime of workTimeData) {
-    total += getTimeDiff(workTime);
-  }
-
-  return toHoursAndMinutes(total);
-}
 
 function calculateMonthWorkTime(workTimeData) {
   let map = new Map();
