@@ -43,7 +43,7 @@ export default function Calendar({ session, shifts, isAdmin }) {
         events={events}
         onNavigate={(newDate, view, action) => { setDate(moment(newDate)) }}
         onView={(selectedView) => setView(selectedView)}
-        onSelectEvent={(event) => { console.log(event); }}
+      // onSelectEvent={(event) => { console.log(event); }}
       // onShowMore={(e, d, c) => { console.log(e, "Show more: " + d, c); }}
       // onSelectSlot={(e, d) => { console.log(e, "Slot: " + d); }}
       // onDrillDown={(e, d, c) => { console.log(e, "drill: " + d, c); }}

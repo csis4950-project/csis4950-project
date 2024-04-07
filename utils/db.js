@@ -119,7 +119,7 @@ export async function getAnnouncementsOfAffiliatedDepartments(currentOrg, depart
     return announcements;
   }
 
-  return filterAnnouncementsByAffiliatedDepartments(announcements, departments);
+  return filterAnnouncementsByDepartments(announcements, departments);
 }
 
 function checkIfOwnerByDepartments(currentOrgId, departments) {
@@ -150,15 +150,15 @@ export async function findAnnouncementsByOrgId(orgId) {
   })
 }
 
-function filterAnnouncementsByAffiliatedDepartments(announcements, departments) {
-  const affiliatedDepartments = new Set();
+function filterAnnouncementsByDepartments(announcements, departments) {
+  const departmentIds = new Set();
   departments.forEach((department) => {
-    affiliatedDepartments.add(department.id);
+    departmentIds.add(department.id);
   })
 
   const filteredAnnouncements = [];
   announcements.forEach((announcement) => {
-    if (affiliatedDepartments.has(announcement.departmentId)) {
+    if (departmentIds.has(announcement.departmentId)) {
       filteredAnnouncements.push(announcement);
     }
   })

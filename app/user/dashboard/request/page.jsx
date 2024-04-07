@@ -13,7 +13,6 @@ export default async function Request() {
   const requests = await getRequestsOfAffiliatedDepartments(currentOrganization, departments, userId);
   const manageableDepartments = getManageableDepartments(session.departments);
 
-  requests.forEach(a => console.log('a', a.requestDepartment.name))
   return (
     <section className="request">
       <div className="request__head">

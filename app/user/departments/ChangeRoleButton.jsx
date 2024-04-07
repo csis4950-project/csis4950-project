@@ -18,7 +18,6 @@ export default function ChangeRoleButton({ departmentMemberId, roles }) {
             setVisibility(false);
             setError("");
           } catch (e) {
-            console.log('', e);
             setError("ServerError: Please try later");
           }
         }}>
