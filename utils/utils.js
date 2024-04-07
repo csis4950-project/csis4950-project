@@ -2,7 +2,7 @@ const IS_VALID = "isValid";
 const HASH = "hash";
 
 export async function fetchIsValid(password, encryptedPassword) {
-  const res = await fetch(process.env.API_URL + "/api/api_utils/bcrypt", {
+  const res = await fetch(process.env.URL + "/api/api_utils/bcrypt", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export async function fetchIsValid(password, encryptedPassword) {
 }
 
 export async function fetchHashPassword(password) {
-  const res = await fetch(process.env.API_URL + "/api/api_utils/bcrypt", {
+  const res = await fetch(process.env.URL + "/api/api_utils/bcrypt", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
