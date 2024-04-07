@@ -40,4 +40,5 @@ api
 
 *.txt
 
-AWS
+AWS/node_modules
+*.zip
