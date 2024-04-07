@@ -1,27 +1,9 @@
 "use client"
+
 import { useState, useEffect } from 'react';
 import ReactBigCalendar from "./ReactBigCalendar";
 import moment from 'moment';
 import Link from "next/link";
-
-const handleNavigate = {
-  "NEXT": (e) => {
-    console.log('next');
-    console.log(e);
-  },
-  "PREV": (e) => {
-    console.log('back');
-    console.log(e);
-  },
-  "DATE": (e) => {
-    console.log('date');
-    console.log(e);
-  },
-  "TODAY": (e) => {
-    console.log('today');
-    console.log(e);
-  }
-}
 
 export default function Calendar({ session, shifts, isAdmin }) {
   const [selectedDepartment, setSelectedDepartment] = useState(getInitialDepartment(session.departments));
@@ -82,7 +64,7 @@ function createEventData(shifts, selectedDepartment) {
   const events = [];
   for (const shift of shifts) {
     if (shift.departmentId === selectedDepartment.id) {
-      const event = selectedEvent(shift)
+      const event = formatEventData(shift)
       events.push(event);
     }
   }
@@ -90,14 +72,16 @@ function createEventData(shifts, selectedDepartment) {
   return events;
 }
 
-function selectedEvent(shift) {
+function formatEventData(shift) {
   const { assignedUser, shiftDepartment, shiftTag } = shift;
-  assignedUser["fullName"] = `${assignedUser.firstName} ${assignedUser.lastName}`;
-
+  const fullName = `${assignedUser.firstName} ${assignedUser.lastName}`;
+  if (shiftTag.name === "unassigned") {
+    console.log('assignedUser', shift);
+  }
   const event = {
     start: moment(shift.startTime).toDate(),
     end: adjustEndTimeIfEvening(shift.endTime, shiftTag.name),
-    title: shiftTag.name,
+    title: shiftTag.name !== "unassigned" ? fullName : shiftTag.name,
     data: {
       tag: shiftTag.name,
       user: assignedUser,

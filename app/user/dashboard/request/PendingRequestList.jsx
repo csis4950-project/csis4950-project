@@ -24,27 +24,25 @@ export default async function PendingRequestList({ requests }) {
             {
               requests.map((request, index) => {
                 const { id, detail, createdAt, requestType, requestOwner, requestDepartment, shiftRequest, status } = request;
-                if (!requestDepartment.name.startsWith("__") && status.name === "pending") {
-                  const fullName = `${requestOwner.firstName} ${requestOwner.lastName}`;
-                  return (
-                    <tr key={index} className="table__row table__row--size-body">
-                      <td className="table__cel table__cel--small">{moment(createdAt).format("MM/DD")}</td>
-                      <td className="table__cel table__cel--small">
-                        <div className="icon">
-                          <div>{icons[requestType.name]}</div><div>{requestType.name}</div>
-                        </div>
-                      </td>
-                      <td className="table__cel table__cel--medium">{`${requestOwner.firstName} ${requestOwner.lastName}`}</td>
-                      <td className="table__cel table__cel--medium">{requestDepartment.name}</td>
-                      <td className="table__cel table__cel--large">{detail}</td>
-                      <td className="table__cel">
-                        {requestType.name === "offer-admin" && <CancelButton requestId={id} />}
-                        {requestType.name !== "offer-admin" && <ApproveButton requestId={id} />}
-                        {requestType.name !== "offer-admin" && <DenyButton requestId={id} />}
-                      </td>
-                    </tr>
-                  )
-                }
+                const fullName = `${requestOwner.firstName} ${requestOwner.lastName}`;
+                return status.name === "pending" && (
+                  <tr key={index} className="table__row table__row--size-body">
+                    <td className="table__cel table__cel--small">{moment(createdAt).format("MM/DD")}</td>
+                    <td className="table__cel table__cel--small">
+                      <div className="icon">
+                        <div>{icons[requestType.name]}</div><div>{requestType.name}</div>
+                      </div>
+                    </td>
+                    <td className="table__cel table__cel--medium">{`${fullName}`}</td>
+                    <td className="table__cel table__cel--medium">{requestDepartment.name}</td>
+                    <td className="table__cel table__cel--large">{detail}</td>
+                    <td className="table__cel">
+                      {requestType.name === "offer-admin" && <CancelButton requestId={id} />}
+                      {requestType.name !== "offer-admin" && <ApproveButton requestId={id} />}
+                      {requestType.name !== "offer-admin" && <DenyButton requestId={id} />}
+                    </td>
+                  </tr>
+                )
               })
             }
           </tbody>

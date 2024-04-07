@@ -12,6 +12,10 @@
   .form-container {
     display: grid;
     justify-content: end;
+
+    &--center {
+      justify-content: center;
+    }
   }
 
   .form {
@@ -78,6 +82,10 @@
 
     &__cel {
       text-align: center;
+
+      .btn {
+        margin: 6px 0;
+      }
     }
 
     &__cel--small {

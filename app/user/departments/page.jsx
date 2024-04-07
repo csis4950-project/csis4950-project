@@ -1,21 +1,24 @@
-import { checkIfOwner, getDepartmentsByOrgId, getDepartmentsByUserId, getDepartmentMemberByDepartments } from "@/utils/db";
+import { getDepartmentsByOrgId, getDepartmentsByUserId, getDepartmentMemberByDepartments, getRoles } from "@/utils/db";
 import { getSession } from "@/utils/session"
-import CreateDepartmentFrom from "./CreateDepartmentForm";
 import EmployeeList from "./EmployeeList";
+import { getManageableDepartments, hasOwnerPermission } from "@/utils/utils";
 
 export default async function Departments() {
   const { payload: session } = await getSession();
-  const { currentOrganization, userId } = session;
-  const isOwner = await checkIfOwner(currentOrganization.id, userId);
-  const departments = isOwner ? await getDepartmentsByOrgId(currentOrganization.id) : await getDepartmentsByUserId(userId);
+  const { currentOrganization } = session;
+  const isOwner = hasOwnerPermission(session.departments);
+  const departments = isOwner
+    ? await getDepartmentsByOrgId(currentOrganization.id)
+    : getManageableDepartments(session.departments);
   const employees = await getDepartmentMemberByDepartments(departments);
+  const roles = await getRoles();
 
   return (
     <section className="departments">
       <div>
         <h3>Departments</h3>
       </div>
-      <EmployeeList curOrg={currentOrganization} departments={departments} employees={employees} isOwner={isOwner} />
+      <EmployeeList curOrg={currentOrganization} departments={departments} employees={employees} isOwner={isOwner} roles={roles} />
     </section>
   )
 }

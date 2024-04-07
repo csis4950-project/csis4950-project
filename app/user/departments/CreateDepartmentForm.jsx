@@ -3,7 +3,7 @@
 import { submitCreateDepartmentForm } from "@/utils/actions";
 import { useState, useRef } from "react";
 
-export default function CreateDepartmentFrom({ curOrg }) {
+export default function CreateDepartmentFrom({ curOrg, handleRef }) {
   const [visibility, setVisibility] = useState(false);
   const [error, setError] = useState("");
   const ref = useRef();
@@ -15,6 +15,7 @@ export default function CreateDepartmentFrom({ curOrg }) {
           try {
             await submitCreateDepartmentForm(formData);
             ref.current?.reset();
+            handleRef(formData.get("name"));
             setVisibility(false);
           } catch (e) {
             setError(e.message);

@@ -1,3 +1,5 @@
+"use client"
+
 import { sendInvitation } from "@/utils/actions";
 import { useState, useRef, useEffect } from "react";
 

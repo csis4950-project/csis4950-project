@@ -1,16 +1,17 @@
-import { getTagsByTagType, getAnnouncementsOfAffiliatedDepartments, checkIfOwner } from "@/utils/db";
+import { getTagsByTagType, getAnnouncementsOfAffiliatedDepartments } from "@/utils/db";
 import { getSession } from "@/utils/session"
 import moment from "moment";
 import AnnouncementForm from "./AnnouncementForm";
 import DeleteButton from "./DeleteButton";
 import { icons } from "@/utils/icons";
+import { hasOwnerPermission } from "@/utils/utils";
 
 export default async function Announcement() {
   const { payload: session } = await getSession();
   const { userId, currentOrganization, departments } = session;
   const announcementTypes = await getTagsByTagType("announcement");
   const announcements = await getAnnouncementsOfAffiliatedDepartments(currentOrganization, departments);
-  const isOwner = await checkIfOwner(currentOrganization.id, userId);
+  const isOwner = hasOwnerPermission(departments);
   const adminRoleDepartments = getAdminRoleDepartments(departments, isOwner);
 
   return (

@@ -561,6 +561,9 @@ footer {
   display: grid;
   justify-content: end;
 }
+.departments .form-container--center {
+  justify-content: center;
+}
 .departments .form {
   display: grid;
   place-items: center;
@@ -615,6 +618,9 @@ footer {
 }
 .departments .table__cel {
   text-align: center;
+}
+.departments .table__cel .btn {
+  margin: 6px 0;
 }
 .departments .table__cel--small {
   width: 120px;

@@ -19,7 +19,9 @@ import {
   updateRequestWithApproveTag,
   updateRequestWithCancelTag,
   updateUserOfferRequestsWithDenyTag,
-  updateUserAvailability
+  updateUserAvailability,
+  deleteDepartmentMemberById,
+  updateUserRoleById
 } from "@/utils/db";
 import { validateName, validateEmail, validatePassword, validateRequestInput, validateAvailabilityFormInput, validateInvitationForm, verifyName, verifyEmail, verifyPassword } from "@/utils/validation";
 import { fetchIsValid } from "@/utils/utils";
@@ -296,3 +298,15 @@ export async function submitScheduleDraft(formDate) {
 
   redirect("/user/calendar");
 }
+
+export async function deleteDepartmentMember(formData) {
+  await deleteDepartmentMemberById(formData.get("departmentMemberId"));
+  revalidatePath("/user/departments");
+}
+
+export async function updateUserRole(formData) {
+  const departmentMemberId = formData.get("departmentMemberId");
+  const roleId = formData.get("roleId");
+  await updateUserRoleById(departmentMemberId, roleId);
+  revalidatePath("/user/departments");
+};

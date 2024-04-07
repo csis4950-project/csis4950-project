@@ -111,8 +111,6 @@ export function formatTimeToHHMMAString(timeString) {
     }).format(date);
 }
 
-
-
 export function hasOwnerPermission(departments) {
   for (const department of departments) {
     if (department.role.name === "owner") {
@@ -159,4 +157,14 @@ export function toHHMMFormat(date) {
   const amOrPm = date.getHours() >= 12 ? 'PM' : 'AM';
 
   return `${hours}:${minutes} ${amOrPm}`
+}
+
+export function getManageableDepartments(departments) {
+  const manageableDepartments = [];
+  for (const department of departments) {
+    if (department.role.name !== "user" && department.name !== "__Owner") {
+      manageableDepartments.push(department);
+    }
+  }
+  return manageableDepartments
 }

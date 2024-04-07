@@ -1,22 +1,28 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import InviteUserButton from "./InviteUserButton";
 import CreateDepartmentFrom from "./CreateDepartmentForm";
+import DeleteUserButton from "./DeleteUserButton";
+import ChangeRoleButton from "./ChangeRoleButton";
 
-export default function EmployeeList({ curOrg, departments, employees, isOwner }) {
+export default function EmployeeList({ curOrg, departments, employees, isOwner, roles }) {
   const [department, setDepartment] = useState(departments[0]?.name);
-  useEffect(() => {
-    setDepartment(departments[0]?.name);
-  }, [departments])
+  const ref = useRef();
+
+  function handleRef(newDepartmentName) {
+    if (department > newDepartmentName) {
+      ref.current.selectedIndex += 1;
+    }
+  }
 
   return (
     <div>
-      {isOwner && <CreateDepartmentFrom curOrg={curOrg} />}
+      {isOwner && <CreateDepartmentFrom curOrg={curOrg} handleRef={handleRef} />}
       <div className="group">
         <div>
           <label htmlFor="department">Department: </label>
-          <select id="department" className="group__select" onChange={(e) => setDepartment(e.target.value)}>
+          <select ref={ref} id="department" className="group__select" onChange={(e) => { setDepartment(e.target.value) }}>
             {
               departments.length !== 0
                 ? departments.map((department, index) => {
@@ -26,12 +32,11 @@ export default function EmployeeList({ curOrg, departments, employees, isOwner }
             }
           </select>
         </div>
-        {department && <InviteUserButton curOrg={curOrg} departments={departments} />}
+        <InviteUserButton curOrg={curOrg} departments={departments} />
       </div>
       <table className="table">
         <thead>
           <tr className="table__row--size-head">
-            <th>No.</th>
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
@@ -45,19 +50,18 @@ export default function EmployeeList({ curOrg, departments, employees, isOwner }
                 const fullName = `${employee.member.firstName} ${employee.member.lastName}`;
                 return (
                   <tr key={index} className="table__row--size-body">
-                    <td className="table__cel">{index}</td>
                     <td className="table__cel">{fullName}</td>
                     <td className="table__cel">{employee.member.email}</td>
                     <td className="table__cel">{employee.role.name.toUpperCase()}</td>
-                    <td className="table__cel">
-                      <div>
+                    <td className="table__cel table__cel--btns">
+                      {/* <div>
                         <button>MOVE</button>
+                      </div> */}
+                      <div>
+                        <ChangeRoleButton departmentMemberId={employee.id} roles={roles} />
                       </div>
                       <div>
-                        <button>CHANGE ROLE</button>
-                      </div>
-                      <div>
-                        <button>DELETE</button>
+                        <DeleteUserButton departmentMemberId={employee.id} />
                       </div>
                     </td>
                   </tr>
