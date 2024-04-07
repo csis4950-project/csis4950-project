@@ -2,6 +2,8 @@
 
 Wehabu is a comprehensive time management solution built with Next.js. It empowers individuals and teams to stay organized and productive through its integrated features. Wehabu offers a user-friendly interface for creating, managing, and sharing schedules, along with a robust clock in/out system for accurate time tracking. This combined functionality helps users streamline their workflow, improve collaboration, and gain valuable insights into work patterns.
 
+Site Link: Wehabu Platform - https://wehabu-platform.vercel.app/
+
 ## 1 Technologies
 
 - Next.js (14.1.0)
