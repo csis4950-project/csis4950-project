@@ -1213,6 +1213,29 @@ footer {
   text-align: center;
 }
 
+.product-page {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 24px 0px;
+}
+.product-page .container {
+  display: flex;
+  justify-content: space-around;
+}
+.product-page .container__text {
+  height: auto; /* Adjust height as needed */
+  width: 100%; /* Adjust width as needed */
+  max-width: 500px; /* Set a maximum width if desired */
+  margin-right: 20px;
+}
+.product-page .call_container {
+  margin-left: 80px;
+}
+.product-page .contact_number {
+  display: flex;
+}
+
 .rbc-btn {
   color: inherit;
   font: inherit;
