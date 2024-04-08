@@ -18,7 +18,7 @@ export default function ReactBigCalendar(props) {
         defaultDate={moment().toDate()}
         defaultView='month'
         views={["month", "week", "day"]}
-        style={{ height: "100vh" }}
+        style={{ minHeight: "800px" }}
         eventPropGetter={(event) => {
           return {
             style: {

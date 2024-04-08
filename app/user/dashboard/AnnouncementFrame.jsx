@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { icons } from "@/utils/icons";
 
 export default async function AnnouncementFrame({ announcements }) {
   return (
@@ -14,9 +15,10 @@ export default async function AnnouncementFrame({ announcements }) {
               </li>
               :
               announcements.slice(0, 4).map(({ title, detail, createdAt, announcementType }, index) => {
+                const date = `${createdAt.getMonth() + 1}/${createdAt.getDate()}`;
                 return (
                   <li key={index} className="list__item">
-                    <p>{announcementType.name}: {new Date(createdAt).toLocaleDateString()}...{title} : {detail}</p>
+                    <p>{icons[announcementType.name]}: {date}...{title}: {detail}</p>
                   </li>
                 )
               })

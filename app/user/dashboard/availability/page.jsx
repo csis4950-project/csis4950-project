@@ -24,7 +24,7 @@ export default async function Availability() {
       <div>
         <EditAvailabilityForm availabilities={availabilities} userId={session.userId} dayOfWeekTags={dayOfWeekTags} />
       </div>
-      <div>
+      <div className="overflow-y">
         <table className="table">
           <thead>
             <tr className="table__row table__row--size-head">
@@ -45,11 +45,11 @@ export default async function Availability() {
 
                 return (
                   <tr key={index} className="table__row table__row--size-body">
-                    <td className="table__cel table__cel--small">{dayOfWeek}</td>
+                    <td className="table__cel table__cel--medium">{dayOfWeek}</td>
                     <td className="table__cel table__cel--small">{availability?.startTime ?? "-"}</td>
                     <td className="table__cel table__cel--small">{availability?.endTime ?? "-"}</td>
-                    <td className="table__cel">{isNoData && !isOther ? "Unavailable" : availability?.note ?? "-"}</td>
-                    <td className="table__cel table__cel--action">
+                    <td className="table__cel table__cel--large">{isNoData && !isOther ? "Unavailable" : availability?.note ?? "-"}</td>
+                    <td className="table__cel table__cel--medium">
                       {!isNoData && <UnavailableButton availabilityId={availability?.id} />}
                       {isOther && <DeleteAvailabilityButton availabilityId={availability?.id} />}
                     </td>

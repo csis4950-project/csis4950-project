@@ -6,12 +6,9 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    margin: auto;
+    margin: 24px auto;
     text-align: center;
-
-    &__max-length {
-      max-width: 70%;
-    }
+    max-width: 70%;
   }
 
   .buttons {
@@ -33,11 +30,13 @@
       }
     }
   }
+
   .features {
     .content {
       display: grid;
       grid-template-rows: 1fr;
       grid-template-columns: repeat(12, 1fr);
+      margin-bottom: 12px;
     }
 
     .feature-image {
@@ -55,7 +54,34 @@
 
       .card {
         max-width: 300px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .card--title {
+        margin-bottom: 12px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 786px) {
+    .features {
+      .content {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: repeat(12, 1fr);
+        row-gap: 12px;
+      }
+
+      .feature-image {
+        grid-column: 1/13;
+        grid-row: 1/2;
+      }
+
+      .text-cards {
+        grid-column: 1/13;
+        grid-row: 2/3;
+        .card {
+          max-width: 100%;
+        }
       }
     }
   }

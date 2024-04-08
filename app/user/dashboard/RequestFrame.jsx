@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { icons } from "@/utils/icons";
 
 export default async function RequestFrame({ requests }) {
   return (
@@ -15,9 +16,10 @@ export default async function RequestFrame({ requests }) {
               </li>
               :
               requests.slice(0, 4).map(({ detail, createdAt, requestType, status }, index) => {
+                const date = `${createdAt.getMonth() + 1}/${createdAt.getDate()}`;
                 return (
                   <li key={index} className="list__item">
-                    <p>{requestType.name}: {new Date(createdAt).toLocaleDateString()}: {detail} | {status.name}</p>
+                    <p>{icons[requestType.name]}: {date}: {detail} | {status.name}</p>
                   </li>
                 )
               })

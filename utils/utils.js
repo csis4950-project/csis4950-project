@@ -2,7 +2,7 @@ const IS_VALID = "isValid";
 const HASH = "hash";
 
 export async function fetchIsValid(password, encryptedPassword) {
-  const res = await fetch(process.env.API_URL + "/api/api_utils/bcrypt", {
+  const res = await fetch(process.env.URL + "/api/api_utils/bcrypt", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export async function fetchIsValid(password, encryptedPassword) {
 }
 
 export async function fetchHashPassword(password) {
-  const res = await fetch(process.env.API_URL + "/api/api_utils/bcrypt", {
+  const res = await fetch(process.env.URL + "/api/api_utils/bcrypt", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -111,8 +111,6 @@ export function formatTimeToHHMMAString(timeString) {
     }).format(date);
 }
 
-
-
 export function hasOwnerPermission(departments) {
   for (const department of departments) {
     if (department.role.name === "owner") {
@@ -151,4 +149,22 @@ export function getAdminPermissionDepartments(departments) {
     }
   }
   return adminPermissionDepartments;
+}
+
+export function toHHMMFormat(date) {
+  const hours = date.getHours() % 12 || 12;
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const amOrPm = date.getHours() >= 12 ? 'PM' : 'AM';
+
+  return `${hours}:${minutes} ${amOrPm}`
+}
+
+export function getManageableDepartments(departments) {
+  const manageableDepartments = [];
+  for (const department of departments) {
+    if (department.role.name !== "user" && department.name !== "__Owner") {
+      manageableDepartments.push(department);
+    }
+  }
+  return manageableDepartments
 }

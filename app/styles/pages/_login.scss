@@ -3,6 +3,7 @@
 .login-page {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  margin-bottom: 24px;
 
   .login-img {
     grid-column: 1/8;

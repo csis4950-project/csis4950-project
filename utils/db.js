@@ -1,5 +1,6 @@
 import prismaClient from "@/utils/globalPrismaClient";
 import { fetchHashPassword, toDate, formatTimeToHHMMAString, hasAdminPermission } from "@/utils/utils";
+import { elements } from "chart.js";
 
 export async function findUserByEmail(email) {
   return await prismaClient.user.findUnique({
@@ -118,7 +119,7 @@ export async function getAnnouncementsOfAffiliatedDepartments(currentOrg, depart
     return announcements;
   }
 
-  return filterAnnouncementsByAffiliatedDepartments(announcements, departments);
+  return filterAnnouncementsByDepartments(announcements, departments);
 }
 
 function checkIfOwnerByDepartments(currentOrgId, departments) {
@@ -149,15 +150,15 @@ export async function findAnnouncementsByOrgId(orgId) {
   })
 }
 
-function filterAnnouncementsByAffiliatedDepartments(announcements, departments) {
-  const affiliatedDepartments = new Set();
+function filterAnnouncementsByDepartments(announcements, departments) {
+  const departmentIds = new Set();
   departments.forEach((department) => {
-    affiliatedDepartments.add(department.id);
+    departmentIds.add(department.id);
   })
 
   const filteredAnnouncements = [];
   announcements.forEach((announcement) => {
-    if (affiliatedDepartments.has(announcement.departmentId)) {
+    if (departmentIds.has(announcement.departmentId)) {
       filteredAnnouncements.push(announcement);
     }
   })
@@ -271,6 +272,42 @@ export async function getShiftsByUserId(userId) {
   return shifts;
 }
 
+export async function getWorkedShiftsByUserId(userId) {
+  const shifts = await prismaClient.shift.findMany({
+    where: {
+      userId: userId,
+      deletedAt: null,
+      startTime: {
+        lte: new Date()
+      },
+    },
+    select: {
+      id: true,
+      userId: true,
+      departmentId: true,
+      tagId: true,
+      startTime: true,
+      endTime: true,
+      shiftDepartment: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      shiftTag: {
+        select: {
+          id: true,
+          name: true
+        }
+      }
+    },
+    orderBy: {
+      startTime: "asc"
+    }
+  })
+
+  return shifts;
+}
 
 export async function getRequestsOfAffiliatedDepartments(currentOrg, departments, userId) {
   const { id: currentOrgId } = currentOrg;
@@ -286,7 +323,10 @@ export async function findRequestsByOrgId(orgId) {
     where: {
       deletedAt: null,
       requestDepartment: {
-        organizationId: orgId
+        organizationId: orgId,
+        name: {
+          not: "__Owner"
+        }
       }
     },
     select: {
@@ -863,10 +903,10 @@ export async function updateUserAvailability(userInput) {
   })
 };
 
-export async function deleteUserAvailability(availabilityId) {
+export async function deleteUserAvailability(id) {
   return await prismaClient.availability.delete({
     where: {
-      id: availabilityId
+      id: id
     }
   });
 }
@@ -902,11 +942,13 @@ export async function getDepartmentsByOrgId(orgId) {
 }
 
 export async function getDepartmentsByUserId(userId) {
-  return await prismaClient.departmentMember.findMany({
+  const departments = await prismaClient.departmentMember.findMany({
     where: {
       memberId: userId,
-      name: {
-        not: "__Owner"
+      department: {
+        name: {
+          not: "__Owner"
+        }
       },
       deletedAt: null
     },
@@ -920,9 +962,11 @@ export async function getDepartmentsByUserId(userId) {
       }
     },
     orderBy: [
-      { name: "asc" }
+      { department: { name: "asc" } }
     ]
   });
+
+  return departments.map(element => element.department);
 }
 
 export async function getDepartmentMemberByDepartments(departments) {
@@ -966,8 +1010,7 @@ export async function getDepartmentMemberByDepartments(departments) {
 }
 
 function retrieveIds(array) {
-  return array.map(el => el.id)
-
+  return array.map(el => el.id);
 }
 
 export async function createShiftsFromDraft(draft) {
@@ -993,3 +1036,67 @@ async function formatDraftToShiftData(drafts) {
   }
   return shiftData;
 }
+
+export async function getWorkTimeByUserId(userId) {
+  return await prismaClient.workTime.findMany({
+    where: {
+      userId: userId,
+      endTime: {
+        not: null
+      },
+      deletedAt: null,
+      workerDepartment: {
+        name: {
+          not: "__Owner"
+        }
+      }
+    },
+    include: {
+      workerDepartment: true
+    },
+    orderBy: {
+      startTime: "asc"
+    }
+  })
+}
+
+export async function getUserWagesByUserId(userId) {
+  return await prismaClient.userWage.findMany({
+    where: {
+      userId: userId
+    },
+    include: {
+      userWageDepartment: true,
+      wage: true
+    }
+  });
+};
+
+export async function deleteDepartmentMemberById(id) {
+  return await prismaClient.departmentMember.delete({
+    where: {
+      id: id
+    }
+  })
+}
+
+export async function getRoles() {
+  return await prismaClient.role.findMany({
+    where: {
+      name: {
+        not: "owner"
+      }
+    }
+  });
+}
+
+export async function updateUserRoleById(departmentMemberId, roleId) {
+  return prismaClient.departmentMember.update({
+    where: {
+      id: departmentMemberId
+    },
+    data: {
+      roleId: roleId
+    }
+  })
+};

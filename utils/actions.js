@@ -19,7 +19,9 @@ import {
   updateRequestWithApproveTag,
   updateRequestWithCancelTag,
   updateUserOfferRequestsWithDenyTag,
-  updateUserAvailability
+  updateUserAvailability,
+  deleteDepartmentMemberById,
+  updateUserRoleById
 } from "@/utils/db";
 import { validateName, validateEmail, validatePassword, validateRequestInput, validateAvailabilityFormInput, validateInvitationForm, verifyName, verifyEmail, verifyPassword } from "@/utils/validation";
 import { fetchIsValid } from "@/utils/utils";
@@ -46,6 +48,7 @@ export async function login(formData) {
 
 export async function logout() {
   await deleteSession();
+  redirect("/login", "replace");
 }
 
 export async function signUpOwner(formData) {
@@ -282,7 +285,21 @@ export async function sendInvitation(formData) {
     \n
     Wehabu`;
 
-  sendEmail(invitationData.email, subject, message);
+  const response = await fetch(process.env.AWS_LAMBDA_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body:
+      JSON.stringify({
+        email: invitationData.email,
+        subject: subject,
+        message: message
+      })
+  });
+  const data = await response.json();
+
+  if (data.status === "error") throw new Error("Please try later");
 }
 
 export async function submitScheduleDraft(formDate) {
@@ -295,3 +312,15 @@ export async function submitScheduleDraft(formDate) {
 
   redirect("/user/calendar");
 }
+
+export async function deleteDepartmentMember(formData) {
+  await deleteDepartmentMemberById(formData.get("departmentMemberId"));
+  revalidatePath("/user/departments");
+}
+
+export async function updateUserRole(formData) {
+  const departmentMemberId = formData.get("departmentMemberId");
+  const roleId = formData.get("roleId");
+  await updateUserRoleById(departmentMemberId, roleId);
+  revalidatePath("/user/departments");
+};

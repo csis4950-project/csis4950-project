@@ -1,0 +1,77 @@
+@use "../utils//colors" as *;
+
+.summary {
+  .header {
+    &__title {
+      margin-bottom: 16px;
+    }
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .card {
+    display: grid;
+    place-items: center;
+    row-gap: 8px;
+    width: 300px;
+    border: solid 1px white;
+    padding: 12px 24px;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .card__text {
+    &--title {
+      font-size: 1rem;
+      font-size: clamp(
+        1rem,
+        0.9166666666666666rem + 0.4166666666666667vw,
+        1.25rem
+      );
+    }
+
+    &--body {
+    }
+  }
+
+  table,
+  th,
+  td {
+    border: solid 1px $white;
+  }
+
+  table {
+    height: auto;
+  }
+
+  .table {
+    width: 100%;
+    padding: 16px 0;
+    border: solid 1px $white;
+    border-collapse: collapse;
+
+    &__row--size-head {
+      height: 40px;
+      border-bottom: solid $white 2px;
+    }
+
+    &__row--size-body {
+      height: 50px;
+    }
+
+    &__cell {
+      text-align: center;
+    }
+
+    &__cell--small {
+      width: 120px;
+    }
+
+    &__cell--action {
+      width: 130px;
+    }
+  }
+}

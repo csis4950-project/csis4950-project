@@ -5,25 +5,6 @@ import moment from 'moment';
 import ShiftEditor from './ShiftEditor';
 import { submitScheduleDraft } from '@/utils/actions';
 
-const handleNavigate = {
-  "NEXT": (e) => {
-    console.log('next');
-    console.log(e);
-  },
-  "PREV": (e) => {
-    console.log('back');
-    console.log(e);
-  },
-  "DATE": (e) => {
-    console.log('date');
-    console.log(e);
-  },
-  "TODAY": (e) => {
-    console.log('today');
-    console.log(e);
-  }
-}
-
 export default function TempCalendar({ session, existingShifts, users, shiftTags }) {
   const [error, setError] = useState(null);
   const [selectedDepartment, setSelectedDepartment] = useState(getInitialDepartment(session.departments));
@@ -48,7 +29,6 @@ export default function TempCalendar({ session, existingShifts, users, shiftTags
     setCreatedEvents((prev) => {
       return [...prev, newEvent];
     })
-    console.log('createdEvents', createdEvents);
   }
   return (
     <div>
@@ -88,7 +68,7 @@ export default function TempCalendar({ session, existingShifts, users, shiftTags
         events={events}
         onNavigate={(newDate, view, action) => { setDate(moment(newDate)) }}
         onView={(selectedView) => setView(selectedView)}
-        onSelectEvent={(event) => { console.log(event); }}
+      // onSelectEvent={(event) => { console.log(event); }}
       // onShowMore={(e, d, c) => { console.log(e, "Show more: " + d, c); }}
       // onSelectSlot={(e, d) => { console.log(e, "Slot: " + d); }}
       // onDrillDown={(e, d, c) => { console.log(e, "drill: " + d, c); }}

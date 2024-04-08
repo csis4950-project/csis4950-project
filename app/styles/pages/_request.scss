@@ -111,17 +111,24 @@
       padding: 0 12px;
     }
 
-    &__cel--date {
-      width: 100px;
+    &__cel--small {
+      min-width: 60px;
     }
 
-    &__cel--detail {
-      max-width: 300px;
-      width: 100%;
+    &__cel--medium {
+      min-width: 120px;
+    }
+
+    &__cel--large {
+      min-width: 300px;
     }
   }
 
   .btn {
     margin: 8px 0;
+  }
+
+  .overflow-y {
+    overflow-y: scroll;
   }
 }

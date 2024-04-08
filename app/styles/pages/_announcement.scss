@@ -9,6 +9,16 @@
     color: $white;
   }
 
+  .btn {
+    border: none;
+  }
+
+  .text {
+    &--expired {
+      color: $black-400;
+    }
+  }
+
   .form {
     display: flex;
     flex-direction: column;
@@ -64,6 +74,10 @@
   td {
     border: solid 1px $white;
   }
+  .overflow-y {
+    width: 100%;
+    overflow-y: scroll;
+  }
 
   table {
     height: auto;
@@ -85,6 +99,18 @@
 
     &__cel {
       text-align: center;
+    }
+
+    &__cel--small {
+      min-width: 60px;
+    }
+
+    &__cel--medium {
+      min-width: 120px;
+    }
+
+    &__cel--large {
+      min-width: 260px;
     }
   }
 }

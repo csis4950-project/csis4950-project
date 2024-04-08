@@ -2,8 +2,9 @@
 
 import { useState, useRef } from "react"
 import { submitRequest } from "@/utils/actions";
+import { toHHMMFormat } from "@/utils/utils";
 
-export default function RequestForm({ requests, userId, departments, requestTypes, userShifts }) {
+export default function RequestForm({ requests, userId, departments, manageableDepartments, requestTypes, userShifts }) {
   const ref = useRef();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -58,9 +59,17 @@ export default function RequestForm({ requests, userId, departments, requestType
             <option value="">Select a request type</option>
             {
               requestTypes.map(({ id, name }, index) => {
-                return (
-                  <option key={index} value={id}>{name}</option>
-                )
+                if (name !== "offer-admin") {
+                  return (
+                    <option key={index} value={id}>{name}</option>
+                  )
+                }
+
+                if (name === "offer-admin" && isManageableDepartment(selectedDepartmentId, manageableDepartments)) {
+                  return (
+                    <option key={index} value={id}>{name}</option>
+                  )
+                }
               })
             }
           </select>
@@ -139,11 +148,9 @@ export default function RequestForm({ requests, userId, departments, requestType
 }
 
 function toShiftString(shift) {
-  const { id, startTime, endTime, shiftTag } = shift;
-  const startDateString = new Date(startTime).toLocaleDateString();
-  const startTimeString = new Date(startTime).toLocaleTimeString();
-  const endTimeString = new Date(endTime).toLocaleTimeString();
-  const shiftString = `${startDateString}: ${shiftTag.name} <${startTimeString} - ${endTimeString}> | shift ID: ${id}`;
+  const { startTime, endTime, shiftTag } = shift;
+  const startDateString = startTime.toLocaleDateString();
+  const shiftString = `${startDateString}: ${shiftTag.name} <${toHHMMFormat(startTime)} - ${toHHMMFormat(endTime)}>`;
   return shiftString;
 }
 
@@ -156,4 +163,11 @@ function findOfferAdminRequests(requests) {
     }
   })
   return offeredRequests;
+}
+
+function isManageableDepartment(id, manageableDepartments) {
+  for (const department of manageableDepartments) {
+    if (department.id === id) return true;
+  }
+  return false;
 }

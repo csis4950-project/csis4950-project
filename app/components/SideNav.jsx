@@ -1,11 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SideNav({ curOrg, isAdmin }) {
   const [show, setShow] = useState(false);
 
+  useEffect(() => {
+    const handleNav = () => {
+      setShow(false);
+    };
+
+    window.addEventListener('resize', handleNav);
+
+    return () => {
+      window.removeEventListener('resize', handleNav);
+    };
+  }, []);
 
   return (
     <aside className="user-page-layout__side-nav">
@@ -49,9 +60,6 @@ export default function SideNav({ curOrg, isAdmin }) {
             <li className="nav__list__item">
               <Link className="nav__list__item__text" href="/user/summary">Summary</Link>
             </li>
-            <li className="nav__list__item">
-              <Link className="nav__list__item__text" href="/user/work">Work</Link>
-            </li>
           </ul>
           {isAdmin &&
             <>
@@ -62,9 +70,6 @@ export default function SideNav({ curOrg, isAdmin }) {
                 <li className="nav__list__item">
                   <Link className="nav__list__item__text" href="/user/departments">Departments</Link>
                 </li>
-                <li className="nav__list__item">
-                  <Link className="nav__list__item__text" href="/user/permissions">Permissions</Link>
-                </li>
               </ul>
             </>
           }
@@ -72,7 +77,6 @@ export default function SideNav({ curOrg, isAdmin }) {
             <button className="btn" onClick={() => setShow(false)}>CLOSE</button>
           </div>
         </nav>
-
       </div>
     </aside>
   )

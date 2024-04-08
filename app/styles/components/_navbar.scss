@@ -2,10 +2,9 @@
 
 .navbar {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding-bottom: 16px;
   border-bottom: solid 1px $white;
 
   &__logo {
@@ -20,20 +19,78 @@
     font-size: 24px;
   }
 
-  &__list {
+  .nav__list-container {
+  }
+
+  .nav__list {
     display: flex;
     gap: 24px;
   }
 
-  &__list__item {
+  .nav__list__item {
     &:hover {
       text-decoration: underline $white;
     }
   }
 
-  &__controls {
+  .nav__controls {
     display: flex;
     gap: 16px;
     align-items: center;
+  }
+
+  .nav__toggle-container {
+    display: none;
+  }
+
+  .btn--toggle {
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    .nav__list-container {
+      display: none;
+    }
+
+    .btn--toggle {
+      display: block;
+    }
+
+    .nav__controls {
+      display: none;
+    }
+
+    .nav__toggle-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: $black-950;
+      z-index: 9999;
+    }
+
+    .nav__toggle-menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100vh;
+    }
+
+    .nav__list--toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .open {
+      display: block;
+    }
+
+    .hidden {
+      display: none;
+    }
   }
 }
