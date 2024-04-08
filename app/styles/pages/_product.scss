@@ -1,0 +1,29 @@
+@use "../utils/colors" as *;
+
+.product-page {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 24px 0px;
+  .container {
+    display: flex;
+    justify-content: space-around;
+
+  }
+
+  .container__text {
+    height: auto; /* Adjust height as needed */
+    width: 100%; /* Adjust width as needed */
+    max-width: 500px; /* Set a maximum width if desired */
+    margin-right: 20px;
+  }
+  
+  .call_container{
+    margin-left: 80px;
+  }
+
+  .contact_number{
+    display: flex;
+  }
+}
+
